@@ -61,9 +61,15 @@ jobs:
         fi
 
     - name: Build APK
+      env:
+        ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+        ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
       run: flutter build apk --release --no-tree-shake-icons
 
     - name: Build AAB
+      env:
+        ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+        ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
       run: flutter build appbundle --release
 
     - name: Upload APK to Artifacts

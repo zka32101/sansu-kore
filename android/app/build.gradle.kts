@@ -22,10 +22,13 @@ android {
 
     signingConfigs {
         create("release") {
-            storeFile = file("key.jks")
-            storePassword = "petitworks2026!"
+            val storePasswordEnv = System.getenv("ANDROID_KEYSTORE_PASSWORD") ?: "petitworks2026!"
+            val keyPasswordEnv = System.getenv("ANDROID_KEY_PASSWORD") ?: "petitworks2026!"
+
+            storeFile = file("${project.projectDir}/key.jks")
+            storePassword = storePasswordEnv
             keyAlias = "key"
-            keyPassword = "petitworks2026!"
+            keyPassword = keyPasswordEnv
         }
     }
 
