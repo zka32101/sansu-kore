@@ -22,13 +22,15 @@ android {
 
     signingConfigs {
         create("release") {
-            val storePasswordEnv = System.getenv("ANDROID_KEYSTORE_PASSWORD") ?: "petitworks2026!"
-            val keyPasswordEnv = System.getenv("ANDROID_KEY_PASSWORD") ?: "petitworks2026!"
+            val storePasswordEnv = System.getenv("ANDROID_KEYSTORE_PASSWORD")
+            val keyPasswordEnv = System.getenv("ANDROID_KEY_PASSWORD")
+            val keyFile = file("${project.projectDir}/key.jks")
 
-            storeFile = file("${project.projectDir}/key.jks")
-            storePassword = storePasswordEnv
+            // Use actual values if provided, otherwise use dummy values for unsigned builds
+            storeFile = keyFile
+            storePassword = storePasswordEnv ?: "unsigned"
             keyAlias = "key"
-            keyPassword = keyPasswordEnv
+            keyPassword = keyPasswordEnv ?: "unsigned"
         }
     }
 
@@ -53,7 +55,13 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            signingConfig = signingConfigs.getByName("release")
+            // Only apply signing config if secrets are available
+            val hasSigningSecrets = !System.getenv("ANDROID_KEYSTORE_PASSWORD").isNullOrEmpty() &&
+                    !System.getenv("ANDROID_KEY_PASSWORD").isNullOrEmpty() &&
+                    file("${project.projectDir}/key.jks").exists()
+            if (hasSigningSecrets) {
+                signingConfig = signingConfigs.getByName("release")
+            }
         }
     }
 }
