@@ -20,7 +20,8 @@
       "mcp__Claude_Code_Remote__subscribe_pr_activity",
       "mcp__Claude_Code_Remote__unarchive_session",
       "mcp__Claude_Code_Remote__unsubscribe_pr_activity",
-      "mcp__Claude_Code_Remote__update_trigger"
+      "mcp__Claude_Code_Remote__update_trigger",
+      "mcp__github__enable_pr_auto_merge"
     ]
   }
 }
