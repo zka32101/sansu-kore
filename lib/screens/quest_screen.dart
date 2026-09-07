@@ -430,7 +430,7 @@ class _QuestScreenState extends ConsumerState<QuestScreen>
                     ),
                     child: Column(
                       children: [
-                        Text(
+                        FuriganaText(
                           _applyPlaceholders(_current.question),
                           style: const TextStyle(
                             fontSize: 26,
@@ -561,7 +561,7 @@ class _QuestScreenState extends ConsumerState<QuestScreen>
                                       ),
                                     ],
                                   ),
-                                  child: Text(
+                                  child: FuriganaText(
                                     _current.choices[i],
                                     style: TextStyle(
                                       fontSize: 20,
