@@ -111,6 +111,53 @@ class ProfileNotifier extends Notifier<ProfileState> {
     await prefs.setString(_currentProfileKey, profileId);
     state = ProfileState(profiles: state.profiles, currentProfileId: profileId);
   }
+
+  /// プロフィール切り替え時のクリーンアップ: ユーザー固有データをすべてクリア
+  /// ユーザープロフィール一覧は保持する
+  Future<void> clearUserData() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    // 削除対象キーのプレフィックス（ユーザー固有データ）
+    const prefixesToRemove = [
+      'stage_cleared_',      // 進捗
+      'badge_earned_',       // バッジ
+      'character_',          // キャラクター
+      'growth_',             // 成長データ
+      'avatar_',             // アバター
+      'inventory_',          // インベントリ
+      'learning_timer_',     // タイマー
+      'daily_bonus_',        // デイリーボーナス
+      'streak_count',        // ストリーク
+      'last_study_date',     // 最後の学習日
+      'total_correct',       // 正解数
+      'total_primary_correct',
+      'total_secondary_correct',
+      'max_stage_cleared',
+      'perfect_stage_count',
+      'total_coins',         // コイン
+      'sansu_my_referral_codes',    // 紹介コード関連
+      'sansu_redeemed_referral_codes',
+    ];
+
+    final allKeys = prefs.getKeys();
+    for (final key in allKeys) {
+      // プロフィール情報は保持
+      if (key == _profilesKey || key == _currentProfileKey) continue;
+
+      // 対象プレフィックスを持つキーを削除
+      bool shouldRemove = false;
+      for (final prefix in prefixesToRemove) {
+        if (key.startsWith(prefix)) {
+          shouldRemove = true;
+          break;
+        }
+      }
+
+      if (shouldRemove) {
+        await prefs.remove(key);
+      }
+    }
+  }
 }
 
 final profileProvider =

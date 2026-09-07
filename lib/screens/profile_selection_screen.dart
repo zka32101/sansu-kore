@@ -198,6 +198,8 @@ class _ProfileSelectionScreenState extends ConsumerState<ProfileSelectionScreen>
                             padding: const EdgeInsets.only(bottom: 12),
                             child: GestureDetector(
                               onTap: () async {
+                                // 前のユーザーのデータをクリア
+                                await ref.read(profileProvider.notifier).clearUserData();
                                 await ref.read(profileProvider.notifier).setCurrentProfile(profile.id);
                                 await ref.read(gradeProvider.notifier).setGrade(profile.grade);
                                 if (mounted) {
