@@ -98,7 +98,7 @@ jobs:
 
   upload-to-google-drive:
     name: Upload to Google Drive
-    uses: ./.github/workflows/google-drive-upload.yml@main
+    uses: ./.github/workflows/google-drive-upload.yml
     needs: build-android
     if: success() && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
     secrets: inherit
