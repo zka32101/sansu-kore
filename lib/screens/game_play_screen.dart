@@ -110,7 +110,7 @@ class _GamePlayScreenState extends ConsumerState<GamePlayScreen> {
       final config = GameModeConfig.getConfig(widget.gameMode);
       if (config?.timeLimit != null && _questionStartTime >= config!.timeLimit!) {
         if (!_hasAnswered) {
-          _recordAnswer(-1, false); // タイムアップ = 不正解
+          _recordAnswer('timeout', -1, false); // タイムアップ = 不正解
         }
       }
     });
