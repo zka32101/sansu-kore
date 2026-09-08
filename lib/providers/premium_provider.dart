@@ -7,8 +7,11 @@ const _premiumKey = 'is_premium';
 const _trialStartKey = 'trial_start_date';
 const _trialDays = 14;
 
-const kProductIdMonthly = 'sansu_kore_monthly_300';
-const kProductIdYearly = 'sansu_kore_yearly_2400';
+// Google Play Console に登録された実際の製品IDと一致させる必要がある。
+// 以前のID（sansu_kore_monthly_300 等）はストア側に存在せず、
+// 「商品情報を取得できませんでした」エラーの原因だった。
+const kProductIdMonthly = 'sansu-premium-monthly';
+const kProductIdYearly = 'sansu-premium-annual';
 const kFreeStageLimit = 5;
 
 class PremiumState {
