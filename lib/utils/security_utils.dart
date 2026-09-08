@@ -2,6 +2,12 @@
 /// Prevents injection attacks and ensures data integrity
 
 class SecurityUtils {
+  /// Application data bounds (based on actual data in stage_data.dart)
+  static const int maxStageId = 110; // App has ~109 stages
+  static const int maxQuestionsPerStage = 20; // Typical stage has ~5-10 questions
+  static const int maxCompletedCount = 10; // Max correct answers per stage
+  static const int maxCoinAmount = 999999;
+
   /// Allowed profile fields that can be updated via API
   static const Set<String> allowedProfileFields = {
     'name',
@@ -61,10 +67,11 @@ class SecurityUtils {
 
         case 'bio':
           if (value is! String) throw ArgumentError('bio must be String');
-          if ((value as String).length > 500) {
-            throw ArgumentError('bio too long');
+          final trimmed = (value as String).trim();
+          if (trimmed.length > 500) {
+            throw ArgumentError('bio too long (max: 500)');
           }
-          sanitized[key] = (value as String).trim();
+          sanitized[key] = trimmed;
           break;
 
         case 'theme':
@@ -110,7 +117,15 @@ class SecurityUtils {
 
         case 'preferences':
           if (value is! Map) throw ArgumentError('preferences must be Map');
-          sanitized[key] = Map<String, dynamic>.from(value as Map);
+          // Validate that preferences only contains known keys with valid types
+          final prefs = Map<String, dynamic>.from(value as Map);
+          final allowedPrefKeys = {'language', 'theme', 'notifications', 'soundEnabled'};
+          for (final key in prefs.keys) {
+            if (!allowedPrefKeys.contains(key)) {
+              throw SecurityException('Unknown preference key: $key');
+            }
+          }
+          sanitized[key] = prefs;
           break;
 
         case 'lastLoginAt':
