@@ -257,6 +257,23 @@ class SettingsScreen extends ConsumerWidget {
 
             const SizedBox(height: 16),
 
+            // ランキング・分析
+            _SectionHeader('🏆 ランキング・分析'),
+            _SettingCard(
+              emoji: '🏆',
+              title: 'ランキング',
+              subtitle: 'みんなの順位を見る',
+              onTap: () => Navigator.of(context).pushNamed('/ranking'),
+            ),
+            const SizedBox(height: 8),
+            _SettingCard(
+              emoji: '📊',
+              title: '誤答分析',
+              subtitle: '苦手な分野を確認する',
+              onTap: () => Navigator.of(context).pushNamed('/analysis'),
+            ),
+            const SizedBox(height: 16),
+
             // ランキング プライバシー設定
             _SectionHeader('🏆 ランキング設定'),
             Consumer(
