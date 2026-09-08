@@ -169,22 +169,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     builder: (_) => const DailyBonusScreen(),
                   ),
                 ),
-              PopupMenuButton(
-                itemBuilder: (context) => [
-                  PopupMenuItem(
-                    child: const Text('🏆 ランキング'),
-                    onTap: () => Navigator.pushNamed(context, '/ranking'),
-                  ),
-                  PopupMenuItem(
-                    child: const Text('📊 誤答分析'),
-                    onTap: () => Navigator.pushNamed(context, '/analysis'),
-                  ),
-                  PopupMenuItem(
-                    child: const Text('プロフィール変更'),
-                    onTap: () => Navigator.pushReplacementNamed(context, '/profile-selection'),
-                  ),
-                ],
-              ),
+              // ランキング・誤答分析・プロフィール変更は「せってい」タブに移動済み
             ],
           ),
 
