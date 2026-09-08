@@ -49,7 +49,7 @@ class _ParticleEffectWidgetState extends State<ParticleEffectWidget>
           (random.nextDouble() - 0.5) * widget.config.speed * 2,
           -widget.config.speed + (random.nextDouble() * widget.config.speed),
         ),
-        color: widget.config.colors[index % widget.config.colors.length],
+        color: Color(widget.config.colors[index % widget.config.colors.length]),
         size: 8.0 + random.nextDouble() * 4.0,
       );
     });

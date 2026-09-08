@@ -1,6 +1,7 @@
 // Visual Effects Provider - Manages animations and particle effects
 // Features: VFX playback state, particle effects, animation triggers
 
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sansu_kore/models/vfx_model.dart';
 
