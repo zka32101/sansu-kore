@@ -279,13 +279,7 @@ class SettingsScreen extends ConsumerWidget {
               subtitle: '最初の記録と今を比べよう',
               onTap: () => Navigator.of(context).pushNamed('/growth'),
             ),
-            const SizedBox(height: 8),
-            _SettingCard(
-              emoji: '👫',
-              title: 'ともコレ！友達招待',
-              subtitle: 'お友達を招待して30コインゲット',
-              onTap: () => Navigator.of(context).pushNamed('/invite'),
-            ),
+            // ともコレ！友達招待: コード生成機能が動作しないため一時的に無効化（要修正）
             const SizedBox(height: 8),
             _SettingCard(
               emoji: '📄',
@@ -316,7 +310,7 @@ class SettingsScreen extends ConsumerWidget {
             const SizedBox(height: 24),
             const Center(
               child: Text(
-                '算数コレ！ v2.0.0',
+                '小学コレ！算数 v2.0.0',
                 style: TextStyle(color: kTextMuted, fontSize: 12),
               ),
             ),

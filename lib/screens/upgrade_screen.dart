@@ -59,7 +59,7 @@ class _UpgradeScreenState extends ConsumerState<UpgradeScreen> {
                   const Text('⭐', style: TextStyle(fontSize: 56)),
                   const SizedBox(height: 12),
                   const Text(
-                    '算数コレ！プレミアム',
+                    '小学コレ！算数プレミアム',
                     style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
@@ -81,7 +81,7 @@ class _UpgradeScreenState extends ConsumerState<UpgradeScreen> {
             _PlanCard(
               title: '月額プラン',
               price: '¥300/月',
-              description: '算数コレ！全ステージ解放',
+              description: '小学コレ！算数全ステージ解放',
               badge: null,
               onTap: _purchasing ? null : () => _purchase(context, ref, monthly: true),
             ),
@@ -89,7 +89,7 @@ class _UpgradeScreenState extends ConsumerState<UpgradeScreen> {
             _PlanCard(
               title: '年額プラン',
               price: '¥2,400/年',
-              description: '算数コレ！全ステージ解放（月あたり¥200）',
+              description: '小学コレ！算数全ステージ解放（月あたり¥200）',
               badge: '4ヶ月分おトク',
               onTap: _purchasing ? null : () => _purchase(context, ref, monthly: false),
             ),

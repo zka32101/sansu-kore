@@ -135,7 +135,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
           const Text('🔴', style: TextStyle(fontSize: 72)),
           const SizedBox(height: 16),
           const Text(
-            'ようこそ！算数コレ！へ',
+            'ようこそ！小学コレ！算数へ',
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: kTextDark),
             textAlign: TextAlign.center,
           ),
@@ -511,7 +511,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
               minimumSize: const Size(240, 56),
               backgroundColor: kAccentGreen,
             ),
-            child: const Text('算数コレ！スタート 🚀', style: TextStyle(fontSize: 16)),
+            child: const Text('小学コレ！算数スタート 🚀', style: TextStyle(fontSize: 16)),
           ),
         ],
       ),

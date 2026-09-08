@@ -4,7 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_core/shared_core.dart' show buildAppTheme;
 
-// 算数コレ！メインカラー（レッド）
+// 小学コレ！算数メインカラー（レッド）
 // 既存の多数の画面がこれらの定数を直接参照しているため、
 // 新しい AppColors/AppTheme を追加する際も残しておく必要がある。
 const kPrimaryColor = Color(0xFFE74C3C);

@@ -104,6 +104,9 @@ class ProgressNotifier extends Notifier<LearningProgress> {
     required bool isPrimary, // true=content1(漢字/計算等), false=content2(読解/文章題等)
     required bool isPerfect,
   }) async {
+    // 正解率6割未満はクリア扱いにしない（全問不正解でもクリアになるバグの修正）
+    final isPassed = total > 0 && correct / total >= 0.6;
+
     final prefs = await SharedPreferences.getInstance();
     final stageId = 'g${grade}_s$stageNumber';
     final now = DateTime.now();
@@ -123,14 +126,20 @@ class ProgressNotifier extends Notifier<LearningProgress> {
       }
     }
 
-    final newCleared = {...state.clearedStageIds, stageId};
+    final newCleared = isPassed
+        ? {...state.clearedStageIds, stageId}
+        : state.clearedStageIds;
     final newTotal = state.totalCorrect + correct;
     final newPrimary = state.totalPrimaryCorrect + (isPrimary ? correct : 0);
     final newSecondary = state.totalSecondaryCorrect + (isPrimary ? 0 : correct);
-    final newMax = stageNumber > state.maxStageCleared ? stageNumber : state.maxStageCleared;
-    final newPerfect = isPerfect ? state.perfectStageCount + 1 : state.perfectStageCount;
+    final newMax = isPassed && stageNumber > state.maxStageCleared
+        ? stageNumber
+        : state.maxStageCleared;
+    final newPerfect = isPassed && isPerfect ? state.perfectStageCount + 1 : state.perfectStageCount;
 
-    await prefs.setBool('$_clearedPrefix$stageId', true);
+    if (isPassed) {
+      await prefs.setBool('$_clearedPrefix$stageId', true);
+    }
     await prefs.setInt(_streakKey, streak);
     await prefs.setString(_lastStudyKey, today.toIso8601String());
     await prefs.setInt(_totalCorrectKey, newTotal);

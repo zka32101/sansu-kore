@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_core/shared_core.dart' show characterStateProvider;
+import '../data/stage_data.dart';
 import '../models/quest_model.dart';
 import '../models/ranking_model.dart';
 import 'package:shared_core/models/badge_model.dart';
@@ -96,9 +97,21 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
     final charactersAtMaxLevel =
         characterStates.where((c) => c.isMaxLevel).length;
 
+    // 学年別クリア済み・全ステージ数（grade_complete_N バッジの誤判定防止）
+    final clearedStagesPerGrade = <int, int>{};
+    final totalStagesPerGrade = <int, int>{};
+    for (var g = 1; g <= 6; g++) {
+      totalStagesPerGrade[g] = getStagesForGrade(g).length;
+      clearedStagesPerGrade[g] = progress.clearedStageIds
+          .where((id) => id.startsWith('g${g}_s'))
+          .length;
+    }
+
     // バッジチェック
     final newBadges = await ref.read(badgeProvider.notifier).checkAndAward(
       BadgeCheckParams(
+        clearedStagesPerGrade: clearedStagesPerGrade,
+        totalStagesPerGrade: totalStagesPerGrade,
         streakDays: progress.streakDays,
         totalPrimaryCorrect: progress.totalPrimaryCorrect,
         totalSecondaryCorrect: progress.totalSecondaryCorrect,
@@ -508,7 +521,7 @@ class _ShareAchievementButton extends ConsumerWidget {
     final name = profile?.name ?? '小学生';
     final grade = profile?.grade ?? 1;
     final emoji = result.isPerfect ? '🏆' : result.score >= 80 ? '⭐' : '✅';
-    final text = '$emoji $name（小${grade}年生）が算数コレ！で\n'
+    final text = '$emoji $name（小${grade}年生）が小学コレ！算数で\n'
         '「${stage.title}」をクリア！\n'
         '${result.correctCount}/${result.totalCount}問正解 (${result.score}点)\n\n'
         '#算数コレ #小学算数 #算数好きな子と繋がりたい';

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sansu_kore/utils/security_utils.dart';
 
 final firestoreProvider = Provider((ref) => FirebaseFirestore.instance);
 final authProvider = Provider((ref) => FirebaseAuth.instance);
@@ -38,10 +39,15 @@ class UserProfileSync {
     }, SetOptions(merge: true));
   }
 
+  /// Update user profile with validated data only
+  /// Prevents unauthorized field modifications via input validation
   static Future<void> updateProfile(String userId, Map<String, dynamic> updates) async {
     final firestore = FirebaseFirestore.instance;
     try {
-      final updateData = {...updates, 'updatedAt': FieldValue.serverTimestamp()};
+      // Validate and sanitize input data
+      final validatedData = SecurityUtils.validateProfileUpdate(updates);
+
+      final updateData = {...validatedData, 'updatedAt': FieldValue.serverTimestamp()};
       await firestore.collection('users').doc(userId).update({
         'profile': updateData,
       });
@@ -59,6 +65,14 @@ class ProgressSync {
     required bool completed,
     required int completedCount,
   }) async {
+    // Validate input
+    if (stageId < 0 || stageId > 1000) {
+      throw ArgumentError('Invalid stageId');
+    }
+    if (completedCount < 0 || completedCount > 100) {
+      throw ArgumentError('Invalid completedCount');
+    }
+
     final firestore = FirebaseFirestore.instance;
     await firestore
         .collection('users')
@@ -164,6 +178,23 @@ class AnalyticsSync {
     required String correctAnswer,
     required String topic,
   }) async {
+    // Validate input
+    if (stageId < 0 || stageId > 1000) {
+      throw ArgumentError('Invalid stageId');
+    }
+    if (questionIndex < 0 || questionIndex > 100) {
+      throw ArgumentError('Invalid questionIndex');
+    }
+    if (selectedAnswer.isEmpty || selectedAnswer.length > 500) {
+      throw ArgumentError('Invalid selectedAnswer');
+    }
+    if (correctAnswer.isEmpty || correctAnswer.length > 500) {
+      throw ArgumentError('Invalid correctAnswer');
+    }
+    if (topic.isEmpty || topic.length > 100) {
+      throw ArgumentError('Invalid topic');
+    }
+
     final firestore = FirebaseFirestore.instance;
     await firestore
         .collection('users')
