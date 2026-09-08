@@ -16,6 +16,11 @@ class BadgeCheckParams {
   // 未指定のアプリ（キャラ育成機能がない）は既定値0のままでよい。
   final int maxCharacterLevel;   // 全キャラ中の最高レベル
   final int charactersAtMaxLevel; // MAXレベルに到達したキャラ数
+  // 学年別クリア済みステージ数と、学年別の全ステージ数。
+  // 'grade_complete_N' バッジ判定に使用（学年をまたいだ誤判定を防ぐ）。
+  // 未指定のアプリ（学年概念がない）は既定値の空Mapのままでよい。
+  final Map<int, int> clearedStagesPerGrade;
+  final Map<int, int> totalStagesPerGrade;
 
   const BadgeCheckParams({
     required this.streakDays,
@@ -26,6 +31,8 @@ class BadgeCheckParams {
     required this.justPerfect,
     this.maxCharacterLevel = 0,
     this.charactersAtMaxLevel = 0,
+    this.clearedStagesPerGrade = const {},
+    this.totalStagesPerGrade = const {},
   });
 }
 
@@ -82,11 +89,20 @@ class BadgeNotifier extends Notifier<BadgeState> {
     for (final badge in _appBadges) {
       if (alreadyEarned.contains(badge.id)) continue;
 
+      // grade_complete_N は学年ごとの全ステージクリアで判定（学年をまたいだ誤判定防止）
+      final gradeCompleteMatch = RegExp(r'^grade_complete_(\d+)$').firstMatch(badge.id);
+
       final earned = switch (badge.category) {
         BadgeCategory.streak   => p.streakDays >= badge.requiredCount,
         BadgeCategory.score    => p.justPerfect && badge.requiredCount <= 1,
         BadgeCategory.content1 => p.totalPrimaryCorrect >= badge.requiredCount,
         BadgeCategory.content2 => p.totalSecondaryCorrect >= badge.requiredCount,
+        BadgeCategory.special when gradeCompleteMatch != null => (() {
+            final grade = int.parse(gradeCompleteMatch.group(1)!);
+            final total = p.totalStagesPerGrade[grade] ?? 0;
+            final cleared = p.clearedStagesPerGrade[grade] ?? 0;
+            return total > 0 && cleared >= total;
+          })(),
         BadgeCategory.special  => p.maxStageCleared >= badge.requiredCount,
         // 国語コレ専用カテゴリ
         BadgeCategory.kanji    => p.totalPrimaryCorrect >= badge.requiredCount,

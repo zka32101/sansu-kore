@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_core/shared_core.dart' show buildAppTheme;
 
-// 算数コレ！メインカラー（レッド）
+// 小学コレ！算数メインカラー（レッド）
 const kPrimaryColor = Color(0xFFE74C3C);
 const kPrimaryDark = Color(0xFFC0392B);
 const kPrimaryDeep = Color(0xFF922B21);

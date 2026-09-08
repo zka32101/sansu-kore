@@ -149,7 +149,7 @@ class _ProfileSelectionScreenState extends ConsumerState<ProfileSelectionScreen>
               const Text('🔴', style: TextStyle(fontSize: 64)),
               const SizedBox(height: 12),
               const Text(
-                '算数コレ！',
+                '小学コレ！算数',
                 style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: kPrimaryColor),
               ),
               const SizedBox(height: 8),

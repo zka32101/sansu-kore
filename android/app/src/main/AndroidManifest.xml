@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
-        android:label="算数コレ！"
+        android:label="小学コレ！算数"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:allowBackup="false"
