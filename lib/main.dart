@@ -70,7 +70,7 @@ class SansuKoreApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return GradeUpgradeChecker(
       child: MaterialApp(
-        title: '算数コレ！',
+        title: '小学コレ！算数',
         theme: buildSansuTheme(),
         debugShowCheckedModeBanner: false,
         initialRoute: '/',

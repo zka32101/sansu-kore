@@ -116,7 +116,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                     ),
                     const SizedBox(height: 24),
                     const Text(
-                      '算数コレ！',
+                      '小学コレ！算数',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 36,
