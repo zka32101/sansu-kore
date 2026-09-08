@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -47,6 +48,13 @@ Future<void> main() async {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
+    // 匿名認証: ランキング・誤答分析・進捗クラウド同期など、多くの機能が
+    // FirebaseAuth.instance.currentUser (uid) をキーに Firestore へ読み書きする。
+    // サインインしていないと currentUser は常に null で、それらの機能は
+    // 静かに no-op していた（ランキングが機能しない、誤答分析が保存されない等）。
+    if (FirebaseAuth.instance.currentUser == null) {
+      await FirebaseAuth.instance.signInAnonymously();
+    }
     await CrossPromoService.init();
   } catch (e) {
     if (kDebugMode) {
