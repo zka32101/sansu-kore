@@ -15,8 +15,9 @@ import '../providers/adaptive_provider.dart';
 import '../providers/ghost_provider.dart';
 import '../providers/ranking_provider.dart';
 import '../providers/retention_notifications_provider.dart';
-// import '../providers/ads_provider.dart';  // TODO: Re-enable with google_mobile_ads
-// import '../providers/premium_provider.dart';  // TODO: Re-enable with ads
+// Disabled features (see lib/utils/constants.dart DisabledFeatures):
+// - Ads: Requires google_mobile_ads integration
+// - Premium: Awaiting monetization strategy
 import '../services/notification_service.dart';
 import '../theme/app_theme.dart';
 
