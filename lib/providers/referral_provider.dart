@@ -99,8 +99,9 @@ class ReferralNotifier extends Notifier<ReferralState> {
         'creatorId': userId,
         'creatorCoins': 0,
         'usedCount': 0,
-        'maxUses': ReferralCode.maxUsesDefault,
+        'maxUses': ReferralRewards.maxUsesPerCode,
         'createdAt': FieldValue.serverTimestamp(),
+        'expiresAt': FieldValue.serverTimestamp() + (86400000 * ReferralRewards.expirationDays),
       });
 
       myCodes[newCode] = 0; // このコードで受取済みのコイン量（初期0）
@@ -156,17 +157,17 @@ class ReferralNotifier extends Notifier<ReferralState> {
           error = '自分のコードは使用できません';
           return;
         }
-        if (referral.isExpired) {
-          error = 'このコードの有効期限が切れています';
-          return;
-        }
-        if (referral.isExhausted) {
-          error = 'このコードは利用回数の上限に達しています';
+        if (!referral.isUsable) {
+          if (referral.isExpired) {
+            error = 'このコードの有効期限が切れています';
+          } else {
+            error = 'このコードは利用回数の上限に達しています';
+          }
           return;
         }
         tx.update(docRef, {
           'usedCount': FieldValue.increment(1),
-          'creatorCoins': FieldValue.increment(ReferralCode.creatorRewardCoins),
+          'creatorCoins': FieldValue.increment(ReferralRewards.coinsForReferrer),
         });
       });
 
@@ -176,7 +177,7 @@ class ReferralNotifier extends Notifier<ReferralState> {
       }
 
       // 自分（招待された側）に即時付与
-      await ref.read(coinProvider.notifier).addCoins(ReferralCode.inviteeRewardCoins);
+      await ref.read(coinProvider.notifier).addCoins(ReferralRewards.coinsForReferee);
 
       redeemed.add(code);
       await prefs.setStringList(_redeemedCodesKey, redeemed);
