@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shared_core/shared_core.dart' show CrossPromoSection;
+import 'package:shared_core/shared_core.dart' show CrossPromoSection, FeedbackFormPage;
 import '../providers/profile_provider.dart';
 import '../providers/progress_provider.dart';
 import '../providers/premium_provider.dart';
@@ -303,6 +303,20 @@ class SettingsScreen extends ConsumerWidget {
               title: 'プライバシーポリシー',
               subtitle: null,
               onTap: () => Navigator.of(context).pushNamed('/privacy'),
+            ),
+            const SizedBox(height: 8),
+            _SettingCard(
+              emoji: '📮',
+              title: 'バグ報告・ご意見',
+              subtitle: '不具合の報告や改善要望を送る',
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => const FeedbackFormPage(
+                    appName: 'sansu-kore',
+                    appVersion: '3.2.0+18',
+                  ),
+                ),
+              ),
             ),
             const SizedBox(height: 8),
             _SettingCard(

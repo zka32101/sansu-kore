@@ -7,6 +7,7 @@ export 'models/badge_model.dart';
 export 'models/avatar_model.dart';
 export 'models/character_data.dart'; // BaseCharacter, CharacterState, AppShopItem, kLevelUpCost
 export 'models/lesson_content_model.dart'; // LessonContent, LessonSection（解説メニュー）
+export 'models/feedback_model.dart'; // FeedbackType, FeedbackReport（バグ報告・改善要望）
 
 // Providers
 export 'providers/progress_provider.dart';
@@ -21,6 +22,7 @@ export 'providers/learning_timer_provider.dart';
 export 'providers/character_state_provider.dart'; // BaseCharacterNotifier, characterStateProvider
 export 'providers/inventory_provider.dart';        // InventoryNotifier, inventoryProvider
 export 'providers/lesson_provider.dart';           // LessonNotifier, lessonProvider（解説メニュー）
+export 'providers/feedback_provider.dart';         // FeedbackNotifier, feedbackProvider（バグ報告・改善要望）
 
 // Widgets
 export 'widgets/generic_quiz_widget.dart';
@@ -33,6 +35,7 @@ export 'widgets/character_collection_page.dart';   // CharacterCollectionPage
 export 'widgets/coin_shop_page.dart';              // CoinShopPage, ShopItemTile
 export 'widgets/furigana_text.dart';               // FuriganaText（{漢字|かんじ}形式のルビ表示、全アプリ共通化）
 export 'widgets/lesson_menu_page.dart';            // LessonMenuPage, LessonDetailPage（解説メニュー）
+export 'widgets/feedback_form_page.dart';          // FeedbackFormPage（バグ報告・改善要望）
 
 // Services
 export 'services/firebase_service.dart';
