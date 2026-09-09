@@ -22,7 +22,7 @@ import '../providers/weekly_challenge_provider.dart';
 import '../providers/retention_notifications_provider.dart';
 import '../providers/daily_challenge_provider.dart';
 import '../providers/ranking_provider.dart';
-import '../providers/ads_provider.dart';
+// import '../providers/ads_provider.dart';  // TODO: Re-enable once google_mobile_ads conflict is resolved
 import '../models/quest_model.dart';
 import '../models/math_guide_model.dart';
 import '../screens/daily_bonus_screen.dart';
@@ -348,7 +348,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             ),
           ),
           // バナー広告（下部）
-          _BannerAdWidget(),
+          // _BannerAdWidget(),  // TODO: Re-enable once google_mobile_ads conflict is resolved
         ],
         ),
       ),
@@ -1296,6 +1296,8 @@ class _DailyMissionCardWrapper extends ConsumerWidget {
 }
 
 /// バナー広告ウィジェット
+// TODO: Re-enable once google_mobile_ads conflict is resolved
+/*
 class _BannerAdWidget extends ConsumerWidget {
   const _BannerAdWidget();
 
@@ -1335,3 +1337,4 @@ class _BannerAdWidget extends ConsumerWidget {
     );
   }
 }
+*/
