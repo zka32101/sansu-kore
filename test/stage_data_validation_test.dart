@@ -8,7 +8,7 @@ void main() {
     test('Total stage count should be 108', () {
       int totalStages = 0;
       for (int grade = 1; grade <= 6; grade++) {
-        final grades = getStagesByGrade(grade);
+        final grades = getStagesForGrade(grade);
         totalStages += grades.length;
       }
       expect(totalStages, 108, reason: 'Should have 108 total stages (18 per grade)');
@@ -16,14 +16,14 @@ void main() {
 
     test('Each grade should have exactly 18 stages', () {
       for (int grade = 1; grade <= 6; grade++) {
-        final grades = getStagesByGrade(grade);
+        final grades = getStagesForGrade(grade);
         expect(grades.length, 18, reason: 'Grade $grade should have 18 stages');
       }
     });
 
     test('All stage numbers should be sequential', () {
       for (int grade = 1; grade <= 6; grade++) {
-        final stages = getStagesByGrade(grade);
+        final stages = getStagesForGrade(grade);
         for (int i = 0; i < stages.length; i++) {
           expect(stages[i].stageNumber, i + 1,
             reason: 'Grade $grade stage $i should have number ${i + 1}');
@@ -34,7 +34,7 @@ void main() {
     test('All question IDs should follow pattern g{grade}s{stage}q{question}', () {
       final idPattern = RegExp(r'^g\d+s\d+q\d+$');
       for (int grade = 1; grade <= 6; grade++) {
-        final stages = getStagesByGrade(grade);
+        final stages = getStagesForGrade(grade);
         for (final stage in stages) {
           for (final question in stage.questions) {
             expect(idPattern.hasMatch(question.id), true,
@@ -46,7 +46,7 @@ void main() {
 
     test('All questions should have unique IDs within grade', () {
       for (int grade = 1; grade <= 6; grade++) {
-        final stages = getStagesByGrade(grade);
+        final stages = getStagesForGrade(grade);
         final questionIds = <String>{};
         for (final stage in stages) {
           for (final question in stage.questions) {
@@ -60,7 +60,7 @@ void main() {
 
     test('Each question should have exactly 4 choices', () {
       for (int grade = 1; grade <= 6; grade++) {
-        final stages = getStagesByGrade(grade);
+        final stages = getStagesForGrade(grade);
         for (final stage in stages) {
           for (final question in stage.questions) {
             expect(question.choices.length, 4,
@@ -72,7 +72,7 @@ void main() {
 
     test('Correct answer index should be valid (0-3)', () {
       for (int grade = 1; grade <= 6; grade++) {
-        final stages = getStagesByGrade(grade);
+        final stages = getStagesForGrade(grade);
         for (final stage in stages) {
           for (final question in stage.questions) {
             expect(question.correctIndex >= 0 && question.correctIndex < 4, true,
@@ -84,7 +84,7 @@ void main() {
 
     test('All questions should have non-empty question text', () {
       for (int grade = 1; grade <= 6; grade++) {
-        final stages = getStagesByGrade(grade);
+        final stages = getStagesForGrade(grade);
         for (final stage in stages) {
           for (final question in stage.questions) {
             expect(question.question.isNotEmpty, true,
@@ -96,7 +96,7 @@ void main() {
 
     test('All questions should have explanation', () {
       for (int grade = 1; grade <= 6; grade++) {
-        final stages = getStagesByGrade(grade);
+        final stages = getStagesForGrade(grade);
         for (final stage in stages) {
           for (final question in stage.questions) {
             expect(question.explanation.isNotEmpty, true,
@@ -110,7 +110,7 @@ void main() {
       final validTypes = ['addition', 'subtraction', 'multiplication', 'division',
                          'fraction', 'decimal', 'geometry', 'word', 'time', 'measurement'];
       for (int grade = 1; grade <= 6; grade++) {
-        final stages = getStagesByGrade(grade);
+        final stages = getStagesForGrade(grade);
         for (final stage in stages) {
           for (final question in stage.questions) {
             expect(validTypes.contains(question.type), true,
@@ -122,7 +122,7 @@ void main() {
 
     test('New stages (16-18) should have appropriate difficulty', () {
       for (int grade = 1; grade <= 6; grade++) {
-        final stages = getStagesByGrade(grade);
+        final stages = getStagesForGrade(grade);
 
         // Check that new stages exist
         final newStages = stages.where((s) => s.stageNumber >= 16).toList();
@@ -141,23 +141,23 @@ void main() {
 
     test('Stage count per grade should match expected distribution', () {
       // Grade 1: 18 stages (added 16, 17, 18)
-      expect(getStagesByGrade(1).length, 18);
+      expect(getStagesForGrade(1).length, 18);
       // Grade 2: 18 stages (added 17, 18)
-      expect(getStagesByGrade(2).length, 18);
+      expect(getStagesForGrade(2).length, 18);
       // Grade 3: 18 stages (added 17, 18)
-      expect(getStagesByGrade(3).length, 18);
+      expect(getStagesForGrade(3).length, 18);
       // Grade 4: 18 stages (added 16, 17, 18)
-      expect(getStagesByGrade(4).length, 18);
+      expect(getStagesForGrade(4).length, 18);
       // Grade 5: 18 stages (added 16, 17, 18)
-      expect(getStagesByGrade(5).length, 18);
+      expect(getStagesForGrade(5).length, 18);
       // Grade 6: 18 stages (added 16, 17, 18)
-      expect(getStagesByGrade(6).length, 18);
+      expect(getStagesForGrade(6).length, 18);
     });
 
     test('Total question count should be 600+', () {
       int totalQuestions = 0;
       for (int grade = 1; grade <= 6; grade++) {
-        final stages = getStagesByGrade(grade);
+        final stages = getStagesForGrade(grade);
         for (final stage in stages) {
           totalQuestions += stage.questions.length;
         }
@@ -168,7 +168,7 @@ void main() {
 
     test('All choice options should be non-empty strings', () {
       for (int grade = 1; grade <= 6; grade++) {
-        final stages = getStagesByGrade(grade);
+        final stages = getStagesForGrade(grade);
         for (final stage in stages) {
           for (final question in stage.questions) {
             for (int i = 0; i < question.choices.length; i++) {
@@ -183,7 +183,7 @@ void main() {
     test('No duplicate questions across grades', () {
       final allQuestionIds = <String>{};
       for (int grade = 1; grade <= 6; grade++) {
-        final stages = getStagesByGrade(grade);
+        final stages = getStagesForGrade(grade);
         for (final stage in stages) {
           for (final question in stage.questions) {
             expect(allQuestionIds.contains(question.id), false,
@@ -200,7 +200,7 @@ void main() {
 
     test('Stage titles should be unique within grade', () {
       for (int grade = 1; grade <= 6; grade++) {
-        final stages = getStagesByGrade(grade);
+        final stages = getStagesForGrade(grade);
         final titles = <String>{};
         for (final stage in stages) {
           expect(titles.contains(stage.title), false,
@@ -212,7 +212,7 @@ void main() {
 
     test('Each grade should have variety of topic types', () {
       for (int grade = 1; grade <= 6; grade++) {
-        final stages = getStagesByGrade(grade);
+        final stages = getStagesForGrade(grade);
         final topicTypes = <String>{};
         for (final stage in stages) {
           topicTypes.add(stage.topicType);
@@ -225,7 +225,7 @@ void main() {
     test('Difficulty should generally increase with stage number', () {
       // This is a softer test - just verify new stages exist and have content
       for (int grade = 1; grade <= 6; grade++) {
-        final stages = getStagesByGrade(grade);
+        final stages = getStagesForGrade(grade);
         final lastStages = stages.where((s) => s.stageNumber >= 16).toList();
 
         expect(lastStages.isNotEmpty, true,
@@ -246,7 +246,7 @@ void main() {
 }
 
 // Helper function to get stages by grade
-List<Stage> getStagesByGrade(int grade) {
+List<Stage> getStagesForGrade(int grade) {
   switch (grade) {
     case 1:
       return allStages.where((s) => s.grade == 1).toList();
