@@ -22,8 +22,8 @@ class BaseCharacter {
   final String subject; // e.g. '漢字', '計算'
   final String backstory; // revealed at Lv.4
   final List<String> stampPhrases; // 8 phrases for LINE stamp
-  final String? imageAsset; // optional character illustration
-  final Map<int, String>? levelImages; // level-up visual progression
+  final String? imageAsset; // optional character illustration (Lv.1 default)
+  final Map<int, String>? levelImages; // optional Lv別画像 (2, 3, 4, 5=MAX)
 
   const BaseCharacter({
     required this.id,
@@ -37,6 +37,19 @@ class BaseCharacter {
     this.imageAsset,
     this.levelImages,
   });
+
+  /// 指定レベルに応じた画像を返す。
+  /// そのレベル専用の画像がなければ、それ以下で最も近いレベルの画像に
+  /// フォールバックし、何もなければ [imageAsset]（Lv.1 デフォルト）を返す。
+  String? imageAssetForLevel(int level) {
+    if (levelImages != null) {
+      for (var l = level; l >= 2; l--) {
+        final asset = levelImages![l];
+        if (asset != null) return asset;
+      }
+    }
+    return imageAsset;
+  }
 }
 
 // ─── CharacterState ────────────────────────────────────────────────────────
