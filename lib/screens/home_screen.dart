@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../data/stage_data.dart';
 import '../data/math_tips_data.dart';
 import '../providers/progress_provider.dart';
@@ -12,6 +13,7 @@ import '../providers/weekly_challenge_provider.dart';
 import '../providers/retention_notifications_provider.dart';
 import '../providers/daily_challenge_provider.dart';
 import '../providers/ranking_provider.dart';
+import '../providers/ads_provider.dart';
 import '../models/quest_model.dart';
 import '../models/math_guide_model.dart';
 import '../screens/daily_bonus_screen.dart';
@@ -105,8 +107,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     ref.watch(weeklyChallengeProvider); // ウィークリーチャレンジ初期化
 
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
+      body: Column(
+        children: [
+          Expanded(
+            child: CustomScrollView(
+              slivers: [
           SliverAppBar(
             expandedHeight: 120,
             pinned: true,
@@ -271,6 +276,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             ),
 
           const SliverToBoxAdapter(child: SizedBox(height: 40)),
+              ],
+            ),
+          ),
+          // バナー広告（下部）
+          _BannerAdWidget(),
         ],
       ),
     );
@@ -952,6 +962,35 @@ class _RankingPreviewSection extends ConsumerWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+/// バナー広告ウィジェット
+class _BannerAdWidget extends ConsumerWidget {
+  const _BannerAdWidget();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final adsState = ref.watch(adsProvider);
+    final adsNotifier = ref.read(adsProvider.notifier);
+
+    // 広告が有効でない場合は表示しない
+    if (!adsState.isInitialized) {
+      return const SizedBox.shrink();
+    }
+
+    final bannerAd = adsNotifier.getBannerAd();
+
+    if (bannerAd == null) {
+      return const SizedBox.shrink();
+    }
+
+    return Container(
+      alignment: Alignment.center,
+      width: bannerAd.size.width.toDouble(),
+      height: bannerAd.size.height.toDouble(),
+      child: AdWidget(ad: bannerAd),
     );
   }
 }
