@@ -1,12 +1,14 @@
 /// Centralized theme and color palette for the application
 /// Ensures consistency across all screens and widgets
+///
+/// UI デザイン統一 Phase 2: shared_core v3.0.0 AppColors/AppTypography 統合
 
 import 'package:flutter/material.dart';
-import 'package:shared_core/shared_core.dart' show buildAppTheme;
+import 'package:shared_core/shared_core.dart' show buildAppTheme, AppTypography, AppButton, AppCard, AppDialog, AppAppBar, AppSnackBar;
 
-// 小学コレ！算数メインカラー（レッド）
-// 既存の多数の画面がこれらの定数を直接参照しているため、
-// 新しい AppColors/AppTheme を追加する際も残しておく必要がある。
+// 小学コレ！算数メインカラー（赤系 #E74C3C）
+// 既存の多数の画面がこれらの定数を直接参照しているため、残す必要がある。
+// v3.0.0: shared_core の SubjectColors.math（#1E40AF）との差分は意図的に保持
 const kPrimaryColor = Color(0xFFE74C3C);
 const kPrimaryDark = Color(0xFFC0392B);
 const kPrimaryDeep = Color(0xFF922B21);
@@ -21,6 +23,29 @@ ThemeData buildSansuTheme() => buildAppTheme(
   primaryColor: kPrimaryColor,
   secondaryColor: kAccentGreen,
   bgColor: kBgLight,
+);
+
+// v3.0.0: 将来の Material Design 3 統一テーマ
+// AppColors / AppTypography を使用する拡張テーマ関数
+// 現在は既存の AppTheme と共存：段階的移行予定
+ThemeData buildSansuThemeV3() => ThemeData(
+  useMaterial3: true,
+  colorScheme: ColorScheme.fromSeed(
+    seedColor: kPrimaryColor,
+    primary: kPrimaryColor,
+    secondary: kAccentGreen,
+    surface: Colors.white,
+    brightness: Brightness.light,
+  ),
+  scaffoldBackgroundColor: kBgLight,
+  textTheme: AppTypography.buildTextTheme(),
+  appBarTheme: AppBarTheme(
+    backgroundColor: kPrimaryColor,
+    foregroundColor: Colors.white,
+    elevation: 0,
+    centerTitle: true,
+    titleTextStyle: AppTypography.headingSmall(color: Colors.white),
+  ),
 );
 
 enum GradeGroup { low, mid, high }
