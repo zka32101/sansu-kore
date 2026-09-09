@@ -22,12 +22,9 @@ dependencies:
   in_app_purchase: ^3.3.0
   google_fonts: ^6.2.1
   uuid: ^4.0.0
-  # google_mobile_ads: ^5.2.0  # TODO: Re-enable once SPM/CocoaPods conflict is resolved
+  google_mobile_ads: ^5.2.0
   share_plus: ^11.0.0
   flutter_tts: ^4.2.5
-  # Note: google_mobile_ads dependency removed (2026-08-29)
-  # Reason: iOS SPM/CocoaPods conflict with webview_flutter_wkwebview
-  # Will be re-enabled once dependency ecosystem resolves the conflict
 
 dev_dependencies:
   flutter_test:
