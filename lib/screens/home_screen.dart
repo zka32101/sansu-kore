@@ -23,6 +23,7 @@ import '../screens/math_guide_screen.dart';
 import '../screens/math_guide_detail_screen.dart';
 import '../screens/ranking_filter_screen.dart';
 import '../screens/lesson_screen.dart';
+import '../screens/multiplayer/multiplayer_home_screen.dart';
 import '../theme/app_theme.dart';
 import '../widgets/daily_challenge_widgets.dart';
 import '../widgets/math_guide_widgets.dart';
@@ -274,6 +275,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             child: _LessonMenuCard(),
           ),
 
+          // マルチプレイ対戦への導線
+          const SliverToBoxAdapter(
+            child: _MultiplayerCard(),
+          ),
+
           // スペシャルモード（無限とっくん・ゴーストバトル）
           SliverToBoxAdapter(
             child: _SpecialModeSection(
@@ -488,6 +494,62 @@ class _LessonMenuCard extends StatelessWidget {
                           fontWeight: FontWeight.w500)),
                   SizedBox(height: 4),
                   Text('計算・図形・割合などのしくみを読んでふくしゅう',
+                      style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold)),
+                ],
+              ),
+            ),
+            Icon(Icons.chevron_right, color: Colors.white),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _MultiplayerCard extends StatelessWidget {
+  const _MultiplayerCard();
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => Navigator.of(context).push(
+        MaterialPageRoute(builder: (_) => const MultiplayerHomeScreen()),
+      ),
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            colors: [kPrimaryColor, kPrimaryDeep],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+                color: kPrimaryColor.withValues(alpha: 0.3),
+                blurRadius: 8,
+                offset: const Offset(0, 3))
+          ],
+        ),
+        child: const Row(
+          children: [
+            Text('⚔️', style: TextStyle(fontSize: 32)),
+            SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('みんなと対戦',
+                      style: TextStyle(
+                          fontSize: 13,
+                          color: Colors.white70,
+                          fontWeight: FontWeight.w500)),
+                  SizedBox(height: 4),
+                  Text('レートマッチングで算数バトル！',
                       style: TextStyle(
                           fontSize: 15,
                           color: Colors.white,

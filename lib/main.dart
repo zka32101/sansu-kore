@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
@@ -7,12 +8,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_core/shared_core.dart'
-    show characterStateProvider, coinProvider, CrossPromoService, feedbackProvider, equippedItemsProvider;
+    show
+        characterStateProvider,
+        coinProvider,
+        CrossPromoService,
+        feedbackProvider,
+        equippedItemsProvider,
+        matchmakingHandlersProvider,
+        matchHandlersProvider;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 import 'models/quest_model.dart';
 import 'providers/character_provider.dart';
 import 'providers/firestore_provider.dart';
+import 'providers/multiplayer_provider.dart';
 import 'services/profile_migration_service.dart';
 import 'screens/character_screen.dart';
 import 'screens/badge_collection_screen.dart';
@@ -40,6 +49,8 @@ import 'screens/grade_upgrade_screen.dart';
 import 'screens/friends_list_screen.dart';
 import 'screens/add_friend_screen.dart';
 import 'screens/friend_requests_screen.dart';
+import 'screens/multiplayer/multiplayer_home_screen.dart';
+import 'screens/multiplayer/leaderboard_screen.dart';
 import 'theme/app_theme.dart';
 
 Future<void> main() async {
@@ -83,6 +94,15 @@ Future<void> main() async {
       characterStateProvider.overrideWith(CharacterNotifier.new),
       // 算数コレのショップアイテム装着状態ノティファイアを注入
       equippedItemsProvider.overrideWith(EquippedItemsNotifier.new),
+      // マルチプレイ対戦（レートマッチング）: Firestore実装をコレクション名
+      // 'sansu_' プレフィックス付きで注入。対戦はプロフィール分離の対象外
+      // （PR #54/#56 とは独立、userId=Firebase Auth uid 単位でグローバルに管理）。
+      matchmakingHandlersProvider.overrideWithValue(
+        buildSansuMatchmakingHandlers(FirebaseFirestore.instance),
+      ),
+      matchHandlersProvider.overrideWithValue(
+        buildSansuMatchHandlers(FirebaseFirestore.instance),
+      ),
     ],
   );
 
@@ -131,6 +151,8 @@ class SansuKoreApp extends ConsumerWidget {
           '/friends-list': (context) => const FriendsListScreen(),
           '/add-friend': (context) => const AddFriendScreen(),
           '/friend-requests': (context) => const FriendRequestsScreen(),
+          '/multiplayer': (context) => const MultiplayerHomeScreen(),
+          '/multiplayer-leaderboard': (context) => const LeaderboardScreen(),
         },
         onGenerateRoute: (settings) {
           if (settings.name == '/quest') {

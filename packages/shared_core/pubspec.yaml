@@ -12,6 +12,7 @@ dependencies:
   flutter_riverpod: ^2.6.1
   shared_preferences: ^2.3.0
   firebase_auth: ^5.5.4
+  cloud_firestore: ^5.4.2
   uuid: ^4.0.0
   google_fonts: ^6.2.1
   flutter_svg: ^2.0.10+1
