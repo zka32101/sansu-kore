@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_core/shared_core.dart' show requireParentalGate;
 import '../data/stage_data.dart';
 import '../models/quest_model.dart';
 import '../providers/premium_provider.dart';
@@ -18,8 +19,10 @@ class _StageSelectScreenState extends ConsumerState<StageSelectScreen> {
 
   List<Stage> _stagesForGrade(int grade) => getStagesForGrade(grade);
 
-  void _onTapStage(BuildContext context, Stage stage, bool isPremiumLocked, bool isLocked) {
+  Future<void> _onTapStage(BuildContext context, Stage stage, bool isPremiumLocked, bool isLocked) async {
     if (isPremiumLocked) {
+      final passedGate = await requireParentalGate(context);
+      if (!passedGate || !context.mounted) return;
       Navigator.of(context).pushNamed('/upgrade');
     } else if (!isLocked) {
       Navigator.of(context).pushNamed('/quest', arguments: stage);
@@ -38,7 +41,11 @@ class _StageSelectScreenState extends ConsumerState<StageSelectScreen> {
         actions: [
           if (!premium.isPremium)
             TextButton.icon(
-              onPressed: () => Navigator.of(context).pushNamed('/upgrade'),
+              onPressed: () async {
+                final passedGate = await requireParentalGate(context);
+                if (!passedGate || !context.mounted) return;
+                Navigator.of(context).pushNamed('/upgrade');
+              },
               icon: const Icon(Icons.star, color: Colors.white, size: 16),
               label: premium.isTrialActive
                   ? Text('トライアル${premium.trialDaysLeft}日',
