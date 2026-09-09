@@ -1,5 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'profile_provider.dart';
+import 'profile_data_migration.dart';
 
 const _clearedPrefix = 'stage_cleared_';
 const _streakKey = 'streak_count';
@@ -73,12 +75,31 @@ class ProgressNotifier extends Notifier<LearningProgress> {
   @override
   LearningProgress build() => LearningProgress.empty;
 
+  String _getProfileKey(String profileId, String baseKey) {
+    return ProfileDataMigration.profileScopedKey(profileId, baseKey);
+  }
+
   Future<void> load() async {
     final prefs = await SharedPreferences.getInstance();
-    final keys = prefs.getKeys().where((k) => k.startsWith(_clearedPrefix)).toSet();
-    final cleared = keys.map((k) => k.replaceFirst(_clearedPrefix, '')).toSet();
+    final profileState = ref.watch(profileProvider);
+    final profileId = profileState.currentProfileId;
 
-    final lastStudyStr = prefs.getString(_lastStudyKey);
+    if (profileId == null) {
+      state = LearningProgress.empty;
+      return;
+    }
+
+    // プレフィックス付きキー（stage_cleared_*）を読み込み
+    final clearedPrefix = _getProfileKey(profileId, _clearedPrefix);
+    final keys = prefs.getKeys()
+        .where((k) => k.startsWith(clearedPrefix))
+        .toSet();
+    final cleared = keys
+        .map((k) => k.replaceFirst(clearedPrefix, ''))
+        .toSet();
+
+    final lastStudyKey = _getProfileKey(profileId, _lastStudyKey);
+    final lastStudyStr = prefs.getString(lastStudyKey);
     DateTime? lastStudy;
     if (lastStudyStr != null) {
       lastStudy = DateTime.tryParse(lastStudyStr);
@@ -86,13 +107,13 @@ class ProgressNotifier extends Notifier<LearningProgress> {
 
     state = LearningProgress(
       clearedStageIds: cleared,
-      streakDays: prefs.getInt(_streakKey) ?? 0,
+      streakDays: prefs.getInt(_getProfileKey(profileId, _streakKey)) ?? 0,
       lastStudyDate: lastStudy,
-      totalCorrect: prefs.getInt(_totalCorrectKey) ?? 0,
-      totalPrimaryCorrect: prefs.getInt(_totalPrimaryKey) ?? 0,
-      totalSecondaryCorrect: prefs.getInt(_totalSecondaryKey) ?? 0,
-      maxStageCleared: prefs.getInt(_maxClearedKey) ?? 0,
-      perfectStageCount: prefs.getInt(_perfectStageKey) ?? 0,
+      totalCorrect: prefs.getInt(_getProfileKey(profileId, _totalCorrectKey)) ?? 0,
+      totalPrimaryCorrect: prefs.getInt(_getProfileKey(profileId, _totalPrimaryKey)) ?? 0,
+      totalSecondaryCorrect: prefs.getInt(_getProfileKey(profileId, _totalSecondaryKey)) ?? 0,
+      maxStageCleared: prefs.getInt(_getProfileKey(profileId, _maxClearedKey)) ?? 0,
+      perfectStageCount: prefs.getInt(_getProfileKey(profileId, _perfectStageKey)) ?? 0,
     );
   }
 
@@ -108,6 +129,11 @@ class ProgressNotifier extends Notifier<LearningProgress> {
     final isPassed = total > 0 && correct / total >= 0.6;
 
     final prefs = await SharedPreferences.getInstance();
+    final profileState = ref.watch(profileProvider);
+    final profileId = profileState.currentProfileId;
+
+    if (profileId == null) return;
+
     final stageId = 'g${grade}_s$stageNumber';
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
@@ -138,15 +164,16 @@ class ProgressNotifier extends Notifier<LearningProgress> {
     final newPerfect = isPassed && isPerfect ? state.perfectStageCount + 1 : state.perfectStageCount;
 
     if (isPassed) {
-      await prefs.setBool('$_clearedPrefix$stageId', true);
+      final clearedPrefix = _getProfileKey(profileId, _clearedPrefix);
+      await prefs.setBool('$clearedPrefix$stageId', true);
     }
-    await prefs.setInt(_streakKey, streak);
-    await prefs.setString(_lastStudyKey, today.toIso8601String());
-    await prefs.setInt(_totalCorrectKey, newTotal);
-    await prefs.setInt(_totalPrimaryKey, newPrimary);
-    await prefs.setInt(_totalSecondaryKey, newSecondary);
-    await prefs.setInt(_maxClearedKey, newMax);
-    await prefs.setInt(_perfectStageKey, newPerfect);
+    await prefs.setInt(_getProfileKey(profileId, _streakKey), streak);
+    await prefs.setString(_getProfileKey(profileId, _lastStudyKey), today.toIso8601String());
+    await prefs.setInt(_getProfileKey(profileId, _totalCorrectKey), newTotal);
+    await prefs.setInt(_getProfileKey(profileId, _totalPrimaryKey), newPrimary);
+    await prefs.setInt(_getProfileKey(profileId, _totalSecondaryKey), newSecondary);
+    await prefs.setInt(_getProfileKey(profileId, _maxClearedKey), newMax);
+    await prefs.setInt(_getProfileKey(profileId, _perfectStageKey), newPerfect);
 
     state = state.copyWith(
       clearedStageIds: newCleared,
@@ -162,16 +189,22 @@ class ProgressNotifier extends Notifier<LearningProgress> {
 
   Future<void> reset() async {
     final prefs = await SharedPreferences.getInstance();
+    final profileState = ref.watch(profileProvider);
+    final profileId = profileState.currentProfileId;
+
+    if (profileId == null) return;
+
+    final clearedPrefix = _getProfileKey(profileId, _clearedPrefix);
     final keysToRemove = prefs.getKeys()
         .where((k) =>
-            k.startsWith(_clearedPrefix) ||
-            k == _streakKey ||
-            k == _lastStudyKey ||
-            k == _totalCorrectKey ||
-            k == _totalPrimaryKey ||
-            k == _totalSecondaryKey ||
-            k == _maxClearedKey ||
-            k == _perfectStageKey)
+            k.startsWith(clearedPrefix) ||
+            k == _getProfileKey(profileId, _streakKey) ||
+            k == _getProfileKey(profileId, _lastStudyKey) ||
+            k == _getProfileKey(profileId, _totalCorrectKey) ||
+            k == _getProfileKey(profileId, _totalPrimaryKey) ||
+            k == _getProfileKey(profileId, _totalSecondaryKey) ||
+            k == _getProfileKey(profileId, _maxClearedKey) ||
+            k == _getProfileKey(profileId, _perfectStageKey))
         .toList();
     for (final k in keysToRemove) {
       await prefs.remove(k);

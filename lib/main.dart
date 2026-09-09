@@ -6,9 +6,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_core/shared_core.dart'
     show characterStateProvider, coinProvider, CrossPromoService;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 import 'models/quest_model.dart';
 import 'providers/character_provider.dart';
+import 'services/profile_migration_service.dart';
 import 'screens/character_screen.dart';
 import 'screens/badge_collection_screen.dart';
 import 'screens/ranking_filter_screen.dart';
@@ -55,6 +57,13 @@ Future<void> main() async {
     if (FirebaseAuth.instance.currentUser == null) {
       await FirebaseAuth.instance.signInAnonymously();
     }
+
+    // プロフィール対応のマイグレーション処理
+    // アクティブなプロフィールIDが設定されていない場合はダミーIDを使用
+    final prefs = await SharedPreferences.getInstance();
+    final currentProfileId = prefs.getString('current_profile_id') ?? 'default_profile_id';
+    await ProfileMigrationService.migrate(currentProfileId);
+
     await CrossPromoService.init();
   } catch (e) {
     if (kDebugMode) {

@@ -1,9 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
+import 'package:shared_core/shared_core.dart' show profileProvider, ProfileDataMigration;
 
 // 成長タイムカプセル — 最初の記録 vs 現在の記録
-const _growthKey = 'growth_record';
+const _growthBaseKey = 'growth_record';
 
 class GrowthRecord {
   final DateTime recordedAt;
@@ -63,12 +64,25 @@ class GrowthState {
 }
 
 class GrowthNotifier extends Notifier<GrowthState> {
+  String _getGrowthKey(String profileId) {
+    return ProfileDataMigration.profileScopedKey(profileId, _growthBaseKey);
+  }
+
   @override
   GrowthState build() => const GrowthState();
 
   Future<void> load() async {
     final prefs = await SharedPreferences.getInstance();
-    final json = prefs.getString(_growthKey);
+    final profileState = ref.watch(profileProvider);
+    final profileId = profileState.currentProfileId;
+
+    if (profileId == null) {
+      state = const GrowthState();
+      return;
+    }
+
+    final growthKey = _getGrowthKey(profileId);
+    final json = prefs.getString(growthKey);
     if (json == null) {
       state = const GrowthState();
       return;
@@ -116,8 +130,14 @@ class GrowthNotifier extends Notifier<GrowthState> {
     state = newState;
 
     final prefs = await SharedPreferences.getInstance();
+    final profileState = ref.watch(profileProvider);
+    final profileId = profileState.currentProfileId;
+
+    if (profileId == null) return;
+
+    final growthKey = _getGrowthKey(profileId);
     await prefs.setString(
-      _growthKey,
+      growthKey,
       jsonEncode({
         'history': trimmed.map((r) => r.toJson()).toList(),
       }),

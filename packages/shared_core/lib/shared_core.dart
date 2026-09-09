@@ -15,6 +15,7 @@ export 'providers/coin_provider.dart';
 export 'providers/badge_provider.dart';
 export 'providers/avatar_provider.dart';
 export 'providers/profile_provider.dart';
+export 'providers/profile_data_migration.dart'; // ProfileDataMigration
 export 'providers/learning_timer_provider.dart';
 export 'providers/character_state_provider.dart'; // BaseCharacterNotifier, characterStateProvider
 export 'providers/inventory_provider.dart';        // InventoryNotifier, inventoryProvider
