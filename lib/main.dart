@@ -11,12 +11,13 @@ import 'package:shared_core/shared_core.dart'
     show
         characterStateProvider,
         coinProvider,
-        CrossPromoService,
         feedbackProvider,
         equippedItemsProvider,
         matchmakingHandlersProvider,
         matchHandlersProvider,
         screenTimeProvider;
+import 'package:cross_promo_kit/cross_promo_kit.dart'
+    show CrossPromoService;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 import 'models/quest_model.dart';

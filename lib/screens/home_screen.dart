@@ -10,6 +10,8 @@ import 'package:shared_core/shared_core.dart'
         ScreenTimeLimitReachedWidget,
         missionProvider,
         DailyMissionCard;
+import 'package:cross_promo_kit/cross_promo_kit.dart'
+    show CrossPromoSection;
 import '../data/stage_data.dart';
 import '../data/math_tips_data.dart';
 import '../providers/progress_provider.dart';
@@ -342,6 +344,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             SliverToBoxAdapter(
               child: _RecentBadgesSection(badges: badges),
             ),
+
+          // クロスプロモーション（他アプリ紹介）
+          SliverToBoxAdapter(
+            child: CrossPromoSection(
+              currentAppId: 'com.example.sansu_kore',
+              currentCategory: '小学コレ',
+            ),
+          ),
 
           const SliverToBoxAdapter(child: SizedBox(height: 40)),
               ],
