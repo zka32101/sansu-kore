@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../data/stage_data.dart';
 import '../data/math_tips_data.dart';
 import '../providers/progress_provider.dart';
@@ -986,11 +985,23 @@ class _BannerAdWidget extends ConsumerWidget {
       return const SizedBox.shrink();
     }
 
+    // AdWidget は google_mobile_ads パッケージが有効になるまでコメント化
+    // TODO: google_mobile_ads 依存が有効化されたら AdWidget(ad: bannerAd) に変更
     return Container(
       alignment: Alignment.center,
       width: bannerAd.size.width.toDouble(),
       height: bannerAd.size.height.toDouble(),
-      child: AdWidget(ad: bannerAd),
+      color: Colors.grey.shade200,
+      child: const Center(
+        child: Text(
+          '【広告】',
+          style: TextStyle(
+            fontSize: 14,
+            color: Colors.grey,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
     );
   }
 }
