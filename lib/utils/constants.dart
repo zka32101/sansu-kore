@@ -28,16 +28,16 @@ class AppConfig {
 /// Feature flags for enabling/disabling features
 class FeatureFlags {
   /// Google Mobile Ads integration
-  /// Disabled: Requires google_mobile_ads package and Google Ad Manager setup
-  static const bool adsEnabled = false;
+  /// Enabled: Optimized ad placements for monetization
+  static const bool adsEnabled = true;
 
   /// Premium features (ad-free, advanced analytics, etc.)
   /// Disabled: Awaiting monetization strategy decision
   static const bool premiumEnabled = false;
 
   /// Friend ranking features
-  /// Disabled: Awaiting friends system implementation
-  static const bool friendsEnabled = false;
+  /// Enabled: Friends system implementation complete
+  static const bool friendsEnabled = true;
 
   /// Social sharing features
   /// Enabled: Share Plus package available
