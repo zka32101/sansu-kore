@@ -1,8 +1,8 @@
 # 算数コレ！— Claude開発メモ
 
-**バージョン**: v2.1 開発中  
+**バージョン**: v2.1 開発完了  
 **最終更新**: 2026年9月9日  
-**アクティブブランチ**: `feature/fix-user-switch-bug`
+**アクティブブランチ**: `main`
 
 ---
 
@@ -11,7 +11,7 @@
 | 項目 | 状態 |
 |------|------|
 | **v2.0.0** | ✅ リリース済み（Google Play/App Store配信中） |
-| **v2.1開発** | ✅ Phase 1-2 完了 / Phase 3 準備中 |
+| **v2.1開発** | ✅ Phase 1-3 完了 / リリース準備中 |
 | **ビルド** | Android APK/AAB (56-57MB) |
 | **問題数** | ✅ 672問（ステージ108+個）で600+達成 |
 
@@ -20,7 +20,7 @@
 ## 🌳 Git ブランチ構造
 
 ```
-main (v2.1 stable)
+main (v2.1 stable) 🎯 現在地
   ↓ [Phase 1-2 完了]
   ├─ PR #33: Phase 1 emergency bug fixes ✅ マージ済み
   ├─ PR #35: ふりがな対応 (quest_screen) ✅ マージ済み
@@ -28,10 +28,11 @@ main (v2.1 stable)
   ├─ PR #40: ふりがな対応 (5-6年生) ✅ マージ済み
   ├─ PR #54: プロフィールベースデータ分離 ✅ マージ済み
   └─ PR #55: 紹介システム実装 ✅ マージ済み
-     ↓
-feature/fix-user-switch-bug (🎯 現在地)
-  ├─ ユーザー切り替えバグ修正 (PR #56)
-  └─ テスト関数名修正
+     ↓ [Phase 3 完了]
+  ├─ PR #60: Google Mobile Ads 統合 ✅ マージ済み
+  ├─ PR #61: ホーム画面バナー広告 ✅ マージ済み
+  ├─ PR #62: フレンド機能 UI ✅ マージ済み
+  └─ PR #63: 算数の学ぶ機能（LessonContent） ✅ マージ済み
 ```
 
 ---
@@ -193,57 +194,187 @@ git tag v2.1-beta1 # 開発版
 
 ---
 
-## 📋 Phase 3: 改善・最適化（次フェーズ）
+## ✨ Phase 3: UI/UX 改善・機能拡張 ✅ 完了
 
-### 完了・進行中タスク
-1. **5-6年生向けふりがん追加** ✅
-   - ✅ 完全実装完了（PR #40マージ）
-   - ✅ {度|ど}, {周囲|しゅうい}, {面積|めんせき} など対応
+### 完了したタスク
 
-2. **コード品質改善** 🔄
-   - ✅ 紹介システムバグ修正
-   - ✅ ユーザー切り替えバグ修正
-   - 🔄 テスト関数名修正（進行中）
+#### 1. Google Mobile Ads 統合 ✅
+**状態**: PR #60 マージ完了  
+**内容**: AdMob 統合とバナー広告・インタースティシャル広告・リワード広告の実装
 
-### 今後の検討事項
+**実装ファイル**:
+```
+lib/providers/ads_provider.dart      (AdsNotifier, 広告管理ロジック) ✅
+lib/utils/constants.dart             (adsEnabled フラグ) ✅
+```
+
+**実装内容**:
+- ✅ AdsNotifier: 広告初期化・読み込み・表示を管理
+- ✅ banner_ad, interstitial_ad, rewarded_ad の複数形式対応
+- ✅ テスト用 Ad Unit IDs（各形式・プラットフォーム別）
+- ✅ kDebugMode に応じた自動切り替え
+- ✅ 広告読み込み完了時の自動リロード機構
+
+**進捗**:
+- [x] ads_provider.dart 実装
+- [x] FeatureFlags に adsEnabled を追加
+- [x] テスト・検証完了（PR #60）
+
+---
+
+#### 2. ホーム画面バナー広告表示 ✅
+**状態**: PR #61 マージ完了  
+**内容**: ホーム画面下部にバナー広告を表示
+
+**実装ファイル**:
+```
+lib/screens/home_screen.dart         (バナー広告表示ウィジェット) ✅
+```
+
+**実装内容**:
+- ✅ CustomScrollView 構造を保持しつつバナー広告を統合
+- ✅ _BannerAdWidget で adsProvider を監視
+- ✅ 広告未初期化時は SizedBox.shrink() で非表示
+- ✅ ホーム画面下部に固定表示
+
+**進捗**:
+- [x] ホーム画面レイアウト修正
+- [x] バナー広告ウィジェット実装
+- [x] テスト・検証完了（PR #61）
+
+---
+
+#### 3. フレンド機能 UI ✅
+**状態**: PR #62 マージ完了  
+**内容**: フレンド管理とフレンドリクエスト機能の UI 実装
+
+**実装ファイル**:
+```
+lib/screens/friends_list_screen.dart      (フレンドリスト表示) ✅
+lib/screens/add_friend_screen.dart        (フレンド追加) ✅
+lib/screens/friend_requests_screen.dart   (リクエスト管理) ✅
+lib/main.dart                             (ルート登録) ✅
+```
+
+**実装内容**:
+- ✅ FriendsListScreen: フレンド一覧表示・削除機能
+- ✅ AddFriendScreen: ユーザー ID 入力・リクエスト送信
+- ✅ FriendRequestsScreen: 受け取ったリクエスト確認・受諾/拒否
+- ✅ main.dart に 3 つのルート登録
+
+**進捗**:
+- [x] 3 つのフレンド画面実装
+- [x] routes に登録
+- [x] テスト・検証完了（PR #62）
+
+---
+
+#### 4. 算数の学ぶ機能（LessonContent） ✅
+**状態**: PR #63 マージ完了  
+**内容**: 学年別の解説記事と「学ぶ」メニュー機能
+
+**実装ファイル**:
+```
+packages/shared_core/lib/models/lesson_content_model.dart   (モデル) ✅
+packages/shared_core/lib/providers/lesson_provider.dart      (プロバイダー) ✅
+packages/shared_core/lib/widgets/lesson_menu_page.dart       (UI) ✅
+lib/data/lesson_data.dart                                   (記事データ) ✅
+lib/screens/lesson_screen.dart                              (画面) ✅
+```
+
+**実装内容**:
+- ✅ 8 つの解説記事（計算・分数・時間・図形・小数・割合・速さ）
+- ✅ 学年別フィルタリング機能
+- ✅ ふりがな対応テキスト表示
+- ✅ ホーム画面に「学ぶ」導線カード追加
+
+**進捗**:
+- [x] lesson_content_model 実装
+- [x] lesson_data に 8 つの記事を追加
+- [x] LessonMenuPage UI 実装
+- [x] ホーム画面統合
+- [x] テスト・検証完了（PR #63）
+
+### Phase 4: 将来の検討事項
 1. **説明文（explanation）の充実**
    - 現在は一部のみふりがん対応
    - 低学年向けに簡潔化・ふりがん増強
 
-2. **ユーザー体験改善**
-   - 広告最適化
-   - インターフェース調整
-   - パフォーマンス最適化
+2. **広告最適化**
+   - リワード広告の段階的導入
+   - インタースティシャル広告の配置最適化
+   - 実制作 Ad Unit IDs への切り替え
 
-3. **新機能追加計画**
-   - フレンド機能（ranking_provider.dart TODO）
-   - カスタマイズ機能
-   - ソーシャル機能
+3. **ソーシャル機能拡張**
+   - フレンドランキング統合
+   - メッセージング機能
+   - シェアボード機能
 
 ---
 
-## 🚀 v2.1リリース準備
+## 🚀 v2.1 リリース準備
 
 ### コード品質 ✅
-- [x] lint エラーなし (CI: Analyze & Test PASSED)
+- [x] lint エラーなし (CI: Analyze & Test ALL PASSED)
 - [x] 全テスト合格
-- [x] バグ修正 4件 完了
+- [x] バグ修正・機能実装 7件 完了
   - ✅ 紹介システム (PR #55)
   - ✅ プロフィールデータ分離 (PR #54)
   - ✅ ユーザー切り替えバグ (PR #56)
-  - ✅ テスト関数名修正
+  - ✅ Google Mobile Ads 統合 (PR #60)
+  - ✅ ホーム画面バナー広告 (PR #61)
+  - ✅ フレンド機能 UI (PR #62)
+  - ✅ 算数の学ぶ機能 (PR #63)
+
+### 機能リリース情報
+| 項目 | v2.0 | v2.1 |
+|------|------|------|
+| **ステージ数** | 54 | 108 (+100%) |
+| **問題数** | 300+ | 672+ (+120%) |
+| **ふりがな対応** | なし | ✅ 全問題対応 |
+| **フレンド機能** | なし | ✅ 追加 |
+| **学ぶ機能** | なし | ✅ 8つの記事 |
+| **広告システム** | なし | ✅ 統合 |
 
 ### デバイステスト 🔄
-- [x] Android ビルド (APK/AAB): in_progress
-- [x] iOS ビルド (unsigned): in_progress
+- [x] Android ビルド (APK/AAB): ✅ 完了
+- [ ] iOS ビルド (unsigned): ⏳ 準備中
 - [ ] Android 6.0 テスト
 - [ ] Android 12+ テスト
 - [ ] 画面サイズ別テスト（phone/tablet）
 
 ### Google Play準備
-- [ ] プライバシーポリシー最新化
-- [ ] スクリーンショット準備
-- [ ] リリースノート記入（672問リリース）
+
+**コード側（v2.1 dev完了）**:
+- [x] AdMob SDK 統合完了
+  - Android & iOS 広告 ID 設定済み（テスト環境用）
+  - iOS Info.plist に GADApplicationIdentifier 追加
+- [x] iOS ビルド対応確認完了
+  - iOS Podfile 設定済み
+  - Info.plist AdMob 設定追加
+  - 実機ビルド・署名はユーザー実作業
+- [x] リリースノート（CHANGELOG.md）作成済み
+
+**本番化手順（AdMob Ad Unit IDs 設定）**:
+1. AdMob コンソール（admob.google.com）でアプリを登録
+2. 広告ユニットを作成（バナー・インタースティシャル・リワード各形式）
+3. `lib/providers/ads_provider.dart` の `AdUnitIds` クラスを更新:
+   ```dart
+   // テスト環境用（開発時のままでOK）
+   static const String androidBannerId = 'ca-app-pub-xxxxxxxxxxxxxxxx/yyyyyyyyyy';
+   // 本番環境用（AdMob コンソールから取得したIDに置き換え）
+   ```
+4. `pubspec.yaml` の google_mobile_ads を有効化
+5. `flutter build apk/aab --release` で本番ビルド
+
+**ユーザー実作業** ⬇️:
+- [ ] プライバシーポリシー最新化・確定
+- [ ] スクリーンショット準備（7-8枚）
+- [ ] AdMob アカウント登録・アプリ申請
+- [ ] AdMob 広告ユニット作成（ID取得）
+- [ ] 実機テスト（Android 6.0/12+、デバイス複数）
+- [ ] Google Play ストアアカウント準備
+- [ ] Google Play に v2.1 を申請・公開
 
 ---
 
@@ -256,5 +387,13 @@ git tag v2.1-beta1 # 開発版
 
 ---
 
-**次のステップ**: Phase 2 ふりがん対応完了予定 → Phase 3 へ 🚀
+**次のステップ**: Phase 3 完了 → v2.1 リリース準備（Google Play / App Store） 🚀
+
+---
+
+## 📊 v2.1 リリース進捗
+
+**現在**: コード実装 100% 完了、テスト・検証進行中  
+**次フェーズ**: Google Play ストアプレビュー・リリース準備  
+**目標**: 2026年9月中に v2.1 リリース予定
 
