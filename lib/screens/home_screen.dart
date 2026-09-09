@@ -52,11 +52,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final profile = ref.read(profileProvider).currentProfile;
     if (profile != null) {
       // Initialize daily challenge
+      // ログインボーナス（連続日数・コイン）は dailyLoginProvider が
+      // splash_screen.dart の起動時 load() で管理しているため、ここでは
+      // デイリーチャレンジの読み込みのみ行う。
       ref.read(dailyChallengeProvider.notifier).loadDailyChallenge();
-
-      // Record login and update streak
-      ref.read(loginBonusProvider.notifier).initialize(profile.id);
-      ref.read(loginBonusProvider.notifier).recordLogin(profile.id);
     }
   }
 

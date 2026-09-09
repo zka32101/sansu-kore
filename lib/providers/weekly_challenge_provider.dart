@@ -3,6 +3,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import '../models/quest_model.dart';
 import '../data/stage_data.dart';
+import 'coin_provider.dart';
+
+// 全問正解ボーナス
+const int kWeeklyChallengeRewardCoins = 50;
 
 // ウィークリーチャレンジ — 毎週月曜リセット、10問
 const _wcStateKey = 'weekly_challenge_state';
@@ -127,9 +131,15 @@ class WeeklyChallengeNotifier extends Notifier<WeeklyChallengeState> {
   }
 
   Future<void> claimReward() async {
+    // 二重付与防止: 全問正解していない、または既に受け取り済みなら何もしない
+    if (!state.isAllDone || state.rewardClaimed) return;
+
     final newState = state.copyWith(rewardClaimed: true);
     state = newState;
     await _save(newState);
+
+    // コインを実際に付与
+    await ref.read(coinProvider.notifier).addCoins(kWeeklyChallengeRewardCoins);
 
     // ウィークリーチャレンジ完走時に連続カウント更新
     if (state.isAllDone) {

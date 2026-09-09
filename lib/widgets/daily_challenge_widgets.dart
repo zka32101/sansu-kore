@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sansu_kore/providers/daily_challenge_provider.dart';
+import 'package:sansu_kore/providers/daily_login_provider.dart';
 import 'package:sansu_kore/screens/daily_challenge_screen.dart';
 
 /// デイリーチャレンジカード - ホーム画面用
@@ -156,18 +157,22 @@ class DailyChallengeCard extends ConsumerWidget {
 
 /// ログインボーナス表示ウィジェット - ホーム画面用
 /// ログイン連続日数と報酬を表示
+///
+/// データは dailyLoginProvider（daily_login_provider.dart）から取得する。
+/// これは SharedPreferences に永続化されており、実際に「受け取る」ボタン
+/// （DailyBonusScreen）と連動している唯一のログインボーナス実装。
+/// 旧 loginBonusProvider（daily_challenge_provider.dart、セッション内のみで
+/// 永続化されず実際のコイン付与とも連動していなかった重複実装）は削除した。
 class LoginBonusWidget extends ConsumerWidget {
   const LoginBonusWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final bonusInfo = ref.watch(loginBonusInfoProvider);
+    final daily = ref.watch(dailyLoginProvider);
 
-    if (bonusInfo == null) {
+    if (daily.loginStreak == 0) {
       return const SizedBox.shrink();
     }
-
-    final streakLevel = _getStreakLevel(bonusInfo.currentStreak);
 
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -189,18 +194,18 @@ class LoginBonusWidget extends ConsumerWidget {
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                   decoration: BoxDecoration(
-                    color: _getStreakColor(bonusInfo.currentStreak).withOpacity(0.2),
+                    color: _getStreakColor(daily.loginStreak).withOpacity(0.2),
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                      color: _getStreakColor(bonusInfo.currentStreak),
+                      color: _getStreakColor(daily.loginStreak),
                     ),
                   ),
                   child: Text(
-                    '${bonusInfo.currentStreak}日連続',
+                    '${daily.loginStreak}日連続',
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.bold,
-                      color: _getStreakColor(bonusInfo.currentStreak),
+                      color: _getStreakColor(daily.loginStreak),
                     ),
                   ),
                 ),
@@ -209,7 +214,7 @@ class LoginBonusWidget extends ConsumerWidget {
             const SizedBox(height: 12),
 
             // ストリーク表示
-            _buildStreakIndicator(bonusInfo.currentStreak),
+            _buildStreakIndicator(daily.loginStreak),
             const SizedBox(height: 12),
 
             // 統計情報
@@ -218,22 +223,22 @@ class LoginBonusWidget extends ConsumerWidget {
                 Expanded(
                   child: _buildStatItem(
                     'コイン',
-                    '${bonusInfo.todayReward}',
+                    '${daily.todayReward.coins}',
                     Colors.orange,
                   ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
                   child: _buildStatItem(
-                    '最高',
-                    '${bonusInfo.longestStreak}日',
+                    '累計',
+                    '${daily.totalLoginDays}日',
                     Colors.purple,
                   ),
                 ),
               ],
             ),
 
-            if (!bonusInfo.isLoggedInToday)
+            if (!daily.todayClaimed)
               Padding(
                 padding: const EdgeInsets.only(top: 12),
                 child: Container(
@@ -344,14 +349,6 @@ class LoginBonusWidget extends ConsumerWidget {
     );
   }
 
-  String _getStreakLevel(int streak) {
-    if (streak >= 30) return 'Legend 🏆';
-    if (streak >= 14) return 'Master 👑';
-    if (streak >= 7) return 'Expert ⭐';
-    if (streak >= 3) return 'Rising 🔥';
-    return 'Starter 👶';
-  }
-
   Color _getStreakColor(int streak) {
     if (streak >= 30) return Colors.purple;
     if (streak >= 14) return Colors.red;
@@ -367,8 +364,9 @@ class LoginBonusBadge extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final streak = ref.watch(currentLoginStreakProvider);
-    final reward = ref.watch(todayLoginRewardProvider);
+    final daily = ref.watch(dailyLoginProvider);
+    final streak = daily.loginStreak;
+    final reward = daily.todayReward.coins;
 
     if (streak == 0) {
       return const SizedBox.shrink();
