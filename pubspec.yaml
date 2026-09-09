@@ -22,9 +22,13 @@ dependencies:
   in_app_purchase: ^3.3.0
   google_fonts: ^6.2.1
   uuid: ^4.0.0
-  google_mobile_ads: ^5.2.0
+  # google_mobile_ads: ^5.2.0  # TODO: Re-enable once SPM/CocoaPods conflict is resolved
   share_plus: ^11.0.0
   flutter_tts: ^4.2.5
+  # Note: google_mobile_ads dependency disabled (2026-09-09)
+  # Reason: iOS SPM/CocoaPods conflict with webview_flutter_wkwebview
+  # Will be re-enabled once dependency ecosystem resolves the conflict
+  # ads_provider.dart uses stub implementation
 
 dev_dependencies:
   flutter_test:
