@@ -344,10 +344,37 @@ lib/screens/lesson_screen.dart                              (画面) ✅
 - [ ] 画面サイズ別テスト（phone/tablet）
 
 ### Google Play準備
-- [ ] プライバシーポリシー最新化
-- [ ] スクリーンショット準備
-- [ ] リリースノート記入（672問、新機能紹介）
-- [ ] AdMob アカウント設定（本番 Ad Unit IDs）
+
+**コード側（v2.1 dev完了）**:
+- [x] AdMob SDK 統合完了
+  - Android & iOS 広告 ID 設定済み（テスト環境用）
+  - iOS Info.plist に GADApplicationIdentifier 追加
+- [x] iOS ビルド対応確認完了
+  - iOS Podfile 設定済み
+  - Info.plist AdMob 設定追加
+  - 実機ビルド・署名はユーザー実作業
+- [x] リリースノート（CHANGELOG.md）作成済み
+
+**本番化手順（AdMob Ad Unit IDs 設定）**:
+1. AdMob コンソール（admob.google.com）でアプリを登録
+2. 広告ユニットを作成（バナー・インタースティシャル・リワード各形式）
+3. `lib/providers/ads_provider.dart` の `AdUnitIds` クラスを更新:
+   ```dart
+   // テスト環境用（開発時のままでOK）
+   static const String androidBannerId = 'ca-app-pub-xxxxxxxxxxxxxxxx/yyyyyyyyyy';
+   // 本番環境用（AdMob コンソールから取得したIDに置き換え）
+   ```
+4. `pubspec.yaml` の google_mobile_ads を有効化
+5. `flutter build apk/aab --release` で本番ビルド
+
+**ユーザー実作業** ⬇️:
+- [ ] プライバシーポリシー最新化・確定
+- [ ] スクリーンショット準備（7-8枚）
+- [ ] AdMob アカウント登録・アプリ申請
+- [ ] AdMob 広告ユニット作成（ID取得）
+- [ ] 実機テスト（Android 6.0/12+、デバイス複数）
+- [ ] Google Play ストアアカウント準備
+- [ ] Google Play に v2.1 を申請・公開
 
 ---
 
