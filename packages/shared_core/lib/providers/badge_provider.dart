@@ -1,6 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/badge_model.dart';
+import 'profile_provider.dart';
+import 'profile_data_migration.dart';
 
 const _earnedPrefix = 'badge_earned_';
 
@@ -61,15 +63,28 @@ class BadgeNotifier extends Notifier<BadgeState> {
     _appBadges = badges;
   }
 
+  String _getEarnedBadgeKey(String profileId, String badgeId) {
+    return ProfileDataMigration.profileScopedKey(profileId, '$_earnedPrefix$badgeId');
+  }
+
   @override
   BadgeState build() => BadgeState.empty;
 
   Future<void> load(List<BadgeModel> badges) async {
     _appBadges = badges;
     final prefs = await SharedPreferences.getInstance();
+    final profileState = ref.watch(profileProvider);
+    final profileId = profileState.currentProfileId;
+
+    if (profileId == null) {
+      state = BadgeState.empty;
+      return;
+    }
+
     final earned = <EarnedBadge>[];
     for (final badge in _appBadges) {
-      final dateStr = prefs.getString('$_earnedPrefix${badge.id}');
+      final key = _getEarnedBadgeKey(profileId, badge.id);
+      final dateStr = prefs.getString(key);
       if (dateStr != null) {
         final date = DateTime.tryParse(dateStr);
         if (date != null) {
@@ -83,6 +98,11 @@ class BadgeNotifier extends Notifier<BadgeState> {
   // BadgeCategory ベースのデータ駆動判定
   Future<List<BadgeModel>> checkAndAward(BadgeCheckParams p) async {
     final prefs = await SharedPreferences.getInstance();
+    final profileState = ref.watch(profileProvider);
+    final profileId = profileState.currentProfileId;
+
+    if (profileId == null) return [];
+
     final alreadyEarned = state.earnedBadges.map((e) => e.badge.id).toSet();
     final newBadges = <BadgeModel>[];
 
@@ -117,7 +137,8 @@ class BadgeNotifier extends Notifier<BadgeState> {
 
       if (earned) {
         final now = DateTime.now();
-        await prefs.setString('$_earnedPrefix${badge.id}', now.toIso8601String());
+        final key = _getEarnedBadgeKey(profileId, badge.id);
+        await prefs.setString(key, now.toIso8601String());
         newBadges.add(badge);
       }
     }

@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/character_data.dart';
 import 'coin_provider.dart';
+import 'profile_provider.dart';
+import 'profile_data_migration.dart';
 
 typedef CharacterStateMap = Map<String, CharacterState>;
 
@@ -33,10 +35,24 @@ abstract class BaseCharacterNotifier extends Notifier<CharacterStateMap> {
     return {};
   }
 
+  String _getStorageKey(String profileId) {
+    return ProfileDataMigration.profileScopedKey(profileId, storageKey);
+  }
+
   Future<void> _load() async {
     if (_loaded) return;
     final prefs = await SharedPreferences.getInstance();
-    final raw = prefs.getString(storageKey);
+    final profileState = ref.watch(profileProvider);
+    final profileId = profileState.currentProfileId;
+
+    if (profileId == null) {
+      state = {};
+      _loaded = true;
+      return;
+    }
+
+    final key = _getStorageKey(profileId);
+    final raw = prefs.getString(key);
     if (raw != null) {
       final map = jsonDecode(raw) as Map<String, dynamic>;
       state = map.map(
@@ -54,7 +70,13 @@ abstract class BaseCharacterNotifier extends Notifier<CharacterStateMap> {
 
   Future<void> _persist() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(storageKey, jsonEncode(
+    final profileState = ref.watch(profileProvider);
+    final profileId = profileState.currentProfileId;
+
+    if (profileId == null) return;
+
+    final key = _getStorageKey(profileId);
+    await prefs.setString(key, jsonEncode(
       state.map((k, v) => MapEntry(k, v.toJson())),
     ));
   }
