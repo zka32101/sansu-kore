@@ -3,7 +3,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:shared_core/shared_core.dart' show characterStateProvider;
+import 'package:shared_core/shared_core.dart'
+    show
+        characterStateProvider,
+        globalRankingProvider,
+        missionProvider;
 import '../data/stage_data.dart';
 import '../models/quest_model.dart';
 import '../models/ranking_model.dart';
@@ -87,6 +91,33 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
       responseTimeSeconds: avgResponseTime,
     );
     await ref.read(rankingProvider.notifier).updateScoreAfterQuestion(scoreData);
+
+    // Phase 4.3-4.6 統合: グローバルランキングを更新
+    try {
+      final totalScore = r.isPassed ? (r.correctCount * 10) : 0;
+      if (totalScore > 0) {
+        await ref
+            .read(globalRankingProvider.notifier)
+            .fetchGlobalRanking();
+      }
+    } catch (e) {
+      if (kDebugMode) print('グローバルランキング更新エラー: $e');
+    }
+
+    // Phase 4.5 統合: デイリーミッション進捗を更新
+    try {
+      final profile = ref.read(profileProvider).currentProfile;
+      if (profile != null) {
+        await ref.read(missionProvider.notifier).detectMissionProgress(
+          userId: profile.id,
+          subject: 'math',
+          questionsCorrect: r.correctCount,
+          isPerfectStreak: r.isPerfect,
+        );
+      }
+    } catch (e) {
+      if (kDebugMode) print('ミッション進捗更新エラー: $e');
+    }
 
     final progress = ref.read(progressProvider);
 

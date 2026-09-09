@@ -7,7 +7,9 @@ import 'package:shared_core/shared_core.dart'
         kCommonShopItems,
         AppShopItem,
         screenTimeProvider,
-        ScreenTimeLimitReachedWidget;
+        ScreenTimeLimitReachedWidget,
+        missionProvider,
+        DailyMissionCard;
 import '../data/stage_data.dart';
 import '../data/math_tips_data.dart';
 import '../providers/progress_provider.dart';
@@ -20,7 +22,7 @@ import '../providers/weekly_challenge_provider.dart';
 import '../providers/retention_notifications_provider.dart';
 import '../providers/daily_challenge_provider.dart';
 import '../providers/ranking_provider.dart';
-import '../providers/ads_provider.dart';
+// import '../providers/ads_provider.dart';  // TODO: Re-enable once google_mobile_ads conflict is resolved
 import '../models/quest_model.dart';
 import '../models/math_guide_model.dart';
 import '../screens/daily_bonus_screen.dart';
@@ -256,6 +258,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             child: _WeeklyChallengeCard(),
           ),
 
+          // デイリーミッション（Phase 4.5 統合）
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: currentProfile != null
+                  ? _DailyMissionCardWrapper(userId: currentProfile.id)
+                  : const SizedBox.shrink(),
+            ),
+          ),
+
           // ランキングセクション
           SliverToBoxAdapter(
             child: _RankingPreviewSection(
@@ -336,7 +348,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             ),
           ),
           // バナー広告（下部）
-          _BannerAdWidget(),
+          // _BannerAdWidget(),  // TODO: Re-enable once google_mobile_ads conflict is resolved
         ],
         ),
       ),
@@ -1195,7 +1207,97 @@ class _RankingPreviewSection extends ConsumerWidget {
   }
 }
 
+/// デイリーミッションカードラッパー（Phase 4.5 統合）
+class _DailyMissionCardWrapper extends ConsumerWidget {
+  final String userId;
+
+  const _DailyMissionCardWrapper({required this.userId});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final missionState = ref.watch(missionProvider);
+
+    // ミッション読み込み中またはエラー時は表示しない
+    if (missionState.isLoading || missionState.missions.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    // 最初のミッションを表示
+    final firstMission = missionState.missions.first;
+
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [Colors.orange.shade300, Colors.red.shade400],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                '📋 今日のミッション',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
+              Text(
+                '${(firstMission.progressPercentage).toStringAsFixed(0)}%',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Text(
+            firstMission.mission.name,
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w600,
+              fontSize: 14,
+            ),
+          ),
+          const SizedBox(height: 8),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: LinearProgressIndicator(
+              value: firstMission.progressPercentage / 100,
+              minHeight: 8,
+              backgroundColor: Colors.white.withAlpha(100),
+              valueColor: AlwaysStoppedAnimation<Color>(
+                Colors.green.shade300,
+              ),
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            '報酬: ${firstMission.mission.rewards.fold<int>(0, (sum, reward) => sum + reward.amount)} コイン',
+            style: const TextStyle(
+              color: Colors.white70,
+              fontSize: 12,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 /// バナー広告ウィジェット
+// TODO: Re-enable once google_mobile_ads conflict is resolved
+/*
 class _BannerAdWidget extends ConsumerWidget {
   const _BannerAdWidget();
 
@@ -1235,3 +1337,4 @@ class _BannerAdWidget extends ConsumerWidget {
     );
   }
 }
+*/

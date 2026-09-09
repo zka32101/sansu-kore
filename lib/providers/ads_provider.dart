@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../utils/constants.dart';
 
 /// AdMob 広告 ID 設定
@@ -52,219 +51,86 @@ class AdsState {
   }
 }
 
-/// 広告管理ロジック
+/// Mock BannerAd for stub implementation
+class _MockBannerAd {
+  static const double width = 320.0;
+  static const double height = 50.0;
+
+  final _Size size = _Size(width, height);
+}
+
+/// Mock Size class
+class _Size {
+  final double width;
+  final double height;
+
+  _Size(this.width, this.height);
+}
+
+/// 広告管理ロジック - Stub 実装（google_mobile_ads 依存性回避）
+///
+/// google_mobile_ads は iOS SPM/CocoaPods 衝突のため一時的に無効化されています。
+/// 本実装は no-op ですが、API 互換性を保ちます。
+/// 本物の広告サポートは iOS 依存性衝突が解決されたら再度有効化します。
 class AdsNotifier extends StateNotifier<AdsState> {
-  BannerAd? _bannerAd;
-  InterstitialAd? _interstitialAd;
-  RewardedAd? _rewardedAd;
+  _MockBannerAd? _bannerAd;
 
   AdsNotifier() : super(AdsState()) {
     _initializeMobileAds();
   }
 
-  /// Google Mobile Ads SDK 初期化
+  /// Google Mobile Ads SDK 初期化 (Stub)
   Future<void> _initializeMobileAds() async {
     if (!FeatureFlags.adsEnabled) return;
 
     try {
-      await MobileAds.instance.initialize();
+      // google_mobile_ads 無効化のため、スキップ
       state = state.copyWith(isInitialized: true);
-
-      // 広告を読み込み
-      _loadBannerAd();
-      _loadInterstitialAd();
-      _loadRewardedAd();
+      if (kDebugMode) print('⚠️  AdMob: Stub implementation (google_mobile_ads disabled due to iOS conflict)');
     } catch (e) {
-      state = state.copyWith(error: '広告初期化失敗: $e');
-      if (kDebugMode) print('Error initializing MobileAds: $e');
+      state = state.copyWith(error: '広告初期化スキップ: $e');
     }
   }
 
-  /// バナー広告を読み込み（最適化：ホーム画面下部）
-  void _loadBannerAd() {
-    _bannerAd = BannerAd(
-      adUnitId: _getAdUnitId('banner'),
-      size: AdSize.banner,
-      request: const AdRequest(),
-      listener: BannerAdListener(
-        onAdLoaded: (_) {
-          state = state.copyWith(isBannerLoaded: true);
-          if (kDebugMode) print('✅ Banner Ad Loaded');
-        },
-        onAdFailedToLoad: (ad, error) {
-          state = state.copyWith(error: 'バナー広告読み込み失敗: ${error.message}');
-          if (kDebugMode) print('❌ Banner Ad Failed: $error');
-          ad.dispose();
-        },
-      ),
-    );
-
-    _bannerAd!.load();
+  /// バナー広告を表示 (Stub - no-op)
+  void showBannerAd() {
+    if (kDebugMode) print('⚠️  showBannerAd() called but google_mobile_ads is disabled');
   }
 
-  /// インタースティシャル広告を読み込み（最適化：ステージ完了時）
-  void _loadInterstitialAd() {
-    InterstitialAd.load(
-      adUnitId: _getAdUnitId('interstitial'),
-      request: const AdRequest(),
-      adLoadCallback: InterstitialAdLoadCallback(
-        onAdLoaded: (ad) {
-          _interstitialAd = ad;
-          state = state.copyWith(isInterstitialLoaded: true);
-          if (kDebugMode) print('✅ Interstitial Ad Loaded');
-        },
-        onAdFailedToLoad: (error) {
-          state = state.copyWith(error: 'インタースティシャル広告読み込み失敗: ${error.message}');
-          if (kDebugMode) print('❌ Interstitial Ad Failed: $error');
-        },
-      ),
-    );
-  }
-
-  /// リワード広告を読み込み（最適化：ボーナスコイン獲得時）
-  void _loadRewardedAd() {
-    RewardedAd.load(
-      adUnitId: _getAdUnitId('rewarded'),
-      request: const AdRequest(),
-      rewardedAdLoadCallback: RewardedAdLoadCallback(
-        onAdLoaded: (ad) {
-          _rewardedAd = ad;
-          state = state.copyWith(isRewardedLoaded: true);
-          if (kDebugMode) print('✅ Rewarded Ad Loaded');
-        },
-        onAdFailedToLoad: (error) {
-          state = state.copyWith(error: 'リワード広告読み込み失敗: ${error.message}');
-          if (kDebugMode) print('❌ Rewarded Ad Failed: $error');
-        },
-      ),
-    );
-  }
-
-  /// バナー広告を表示（ホーム画面下部用）
-  BannerAd? getBannerAd() {
-    return (_bannerAd != null && state.isBannerLoaded) ? _bannerAd : null;
-  }
-
-  /// インタースティシャル広告を表示（ステージ完了後）
+  /// インタースティシャル広告を表示 (Stub - no-op)
   Future<void> showInterstitialAd() async {
-    if (!FeatureFlags.adsEnabled || _interstitialAd == null) return;
-
-    try {
-      _interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
-        onAdDismissedFullScreenContent: (ad) {
-          ad.dispose();
-          _loadInterstitialAd(); // 次の広告を読み込み
-        },
-        onAdFailedToShowFullScreenContent: (ad, error) {
-          ad.dispose();
-          if (kDebugMode) print('❌ Interstitial failed to show: $error');
-          _loadInterstitialAd();
-        },
-      );
-
-      await _interstitialAd!.show();
-    } catch (e) {
-      if (kDebugMode) print('Error showing interstitial: $e');
-    }
+    if (kDebugMode) print('⚠️  showInterstitialAd() called but google_mobile_ads is disabled');
   }
 
-  /// リワード広告を表示（コイン獲得用）
-  Future<void> showRewardedAd({
-    required Function(RewardItem) onUserEarnedReward,
-  }) async {
-    if (!FeatureFlags.adsEnabled || _rewardedAd == null) return;
-
-    try {
-      _rewardedAd!.fullScreenContentCallback = FullScreenContentCallback(
-        onAdDismissedFullScreenContent: (ad) {
-          ad.dispose();
-          _loadRewardedAd(); // 次の広告を読み込み
-        },
-        onAdFailedToShowFullScreenContent: (ad, error) {
-          ad.dispose();
-          if (kDebugMode) print('❌ Rewarded ad failed to show: $error');
-          _loadRewardedAd();
-        },
-      );
-
-      await _rewardedAd!.show(
-        onUserEarnedReward: (ad, reward) {
-          onUserEarnedReward(reward);
-        },
-      );
-    } catch (e) {
-      if (kDebugMode) print('Error showing rewarded ad: $e');
-    }
+  /// リワード広告を表示 (Stub - no-op)
+  Future<void> showRewardedAd() async {
+    if (kDebugMode) print('⚠️  showRewardedAd() called but google_mobile_ads is disabled');
   }
 
-  /// 広告 ID を取得（テスト/本番）
-  String _getAdUnitId(String type) {
-    // デバッグモードまたはテスト中の場合はテスト広告を使用
-    if (kDebugMode || _shouldUseTestAds()) {
-      return _getTestAdUnitId(type);
-    }
-
-    // 本番広告
-    return _getProductionAdUnitId(type);
+  /// 広告をクリア (Stub - no-op)
+  void disposeAds() {
+    if (kDebugMode) print('⚠️  disposeAds() called but google_mobile_ads is disabled');
   }
 
-  /// 本番広告 ID を取得
-  String _getProductionAdUnitId(String type) {
-    switch (type) {
-      case 'banner':
-        return defaultTargetPlatform == TargetPlatform.android
-            ? AdUnitIds.androidBannerId
-            : AdUnitIds.iosBannerId;
-      case 'interstitial':
-        return defaultTargetPlatform == TargetPlatform.android
-            ? AdUnitIds.androidInterstitialId
-            : AdUnitIds.iosInterstitialId;
-      case 'rewarded':
-        return defaultTargetPlatform == TargetPlatform.android
-            ? AdUnitIds.androidRewardedId
-            : AdUnitIds.iosRewardedId;
-      default:
-        return '';
-    }
+  /// リロード (Stub - no-op)
+  Future<void> reloadAds() async {
+    if (kDebugMode) print('⚠️  reloadAds() called but google_mobile_ads is disabled');
   }
 
-  /// テスト広告 ID を取得
-  String _getTestAdUnitId(String type) {
-    switch (type) {
-      case 'banner':
-        return 'ca-app-pub-3940256099942544/6300978111';
-      case 'interstitial':
-        return 'ca-app-pub-3940256099942544/1033173712';
-      case 'rewarded':
-        return 'ca-app-pub-3940256099942544/5224354917';
-      default:
-        return '';
-    }
+  /// バナー広告を取得 (Stub - mock object 返す)
+  _MockBannerAd? getBannerAd() {
+    _bannerAd ??= _MockBannerAd();
+    return _bannerAd;
   }
 
-  /// テスト広告を使用すべきか判定
-  bool _shouldUseTestAds() {
-    // 開発環境またはテストデバイスの場合
-    return kDebugMode;
-  }
+  /// インタースティシャル広告を取得 (Stub - null 返す)
+  dynamic getInterstitialAd() => null;
 
-  /// クリーンアップ
-  @override
-  void dispose() {
-    _bannerAd?.dispose();
-    _interstitialAd?.dispose();
-    _rewardedAd?.dispose();
-    super.dispose();
-  }
+  /// リワード広告を取得 (Stub - null 返す)
+  dynamic getRewardedAd() => null;
 }
 
-/// 広告 Provider
-final adsProvider = StateNotifierProvider<AdsNotifier, AdsState>(
-  (ref) => AdsNotifier(),
-);
-
-/// バナー広告用 Provider
-final bannerAdProvider = Provider<BannerAd?>((ref) {
-  final adsNotifier = ref.read(adsProvider.notifier);
-  return adsNotifier.getBannerAd();
+/// 広告プロバイダー
+final adsProvider = StateNotifierProvider<AdsNotifier, AdsState>((ref) {
+  return AdsNotifier();
 });
