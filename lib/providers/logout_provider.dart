@@ -3,12 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shared_core/shared_core.dart';
 import 'package:flutter/foundation.dart';
-import 'profile_provider.dart';
-import 'progress_provider.dart';
-import 'coin_provider.dart';
-import 'badge_provider.dart';
-import 'ghost_provider.dart';
-import 'daily_login_provider.dart';
 
 // Firebase Auth Provider
 final firebaseAuthProvider = Provider<FirebaseAuth>((ref) {
@@ -78,34 +72,71 @@ class LogoutNotifier extends StateNotifier<AsyncValue<void>> {
     state = const AsyncValue.loading();
 
     try {
-      // 1. SharedPreferences をクリア
       final prefs = await SharedPreferences.getInstance();
-      await prefs.clear();
 
-      // 2. Firebase Auth からログアウト
+      // 1. ユーザー固有データのクリア（プロフィール情報は保持）
+      // shared_core の clearUserData() を使用
+      await _ref.read(profileProvider.notifier).clearUserData();
+
+      // 2. SharedPreferences から全ユーザー固有キーを削除
+      // プレフィックスベースで削除（プロフィール情報は保持）
+      const userDataPrefixes = [
+        'stage_cleared_',      // 進捗
+        'badge_earned_',       // バッジ
+        'character_',          // キャラクター
+        'growth_',             // 成長データ
+        'avatar_',             // アバター
+        'inventory_',          // インベントリ
+        'learning_timer_',     // タイマー
+        'daily_bonus_',        // デイリーボーナス
+        'streak_count',        // ストリーク
+        'last_study_date',     // 最後の学習日
+        'total_correct',       // 正解数
+        'total_primary_correct',
+        'total_secondary_correct',
+        'max_stage_cleared',
+        'perfect_stage_count',
+        'total_coins',         // コイン
+        'sansu_',              // 算数コレ固有
+        'selected_grade',      // 学年選択
+      ];
+
+      final keysToRemove = <String>[];
+      for (final key in prefs.getKeys()) {
+        // プロフィール情報キーは保持
+        if (key == 'user_profiles' || key == 'current_profile_id') continue;
+
+        // プレフィックスにマッチするキーを削除対象に
+        for (final prefix in userDataPrefixes) {
+          if (key.startsWith(prefix)) {
+            keysToRemove.add(key);
+            break;
+          }
+        }
+      }
+
+      // キーを削除
+      for (final key in keysToRemove) {
+        await prefs.remove(key);
+      }
+
+      // 3. Firebase Auth からログアウト
       final auth = FirebaseAuth.instance;
       await auth.signOut();
 
-      // 3. 全Provider をリセット（data 関連プロバイダーをクリア）
-      _ref.invalidate(profileProvider);
-      _ref.invalidate(progressProvider);
+      // 4. 全プロバイダーを無効化（メモリキャッシュをクリア）
+      // shared_core プロバイダー
+      _ref.invalidate(characterStateProvider);
       _ref.invalidate(coinProvider);
       _ref.invalidate(badgeProvider);
-      _ref.invalidate(ghostProvider);
-      _ref.invalidate(dailyLoginProvider);
-      // shared_core プロバイダーも invalidate
-      try {
-        _ref.invalidate(characterStateProvider);
-      } catch (e) {
-        if (kDebugMode) print('characterStateProvider invalidate: $e');
-      }
+      _ref.invalidate(progressProvider);
 
-      if (kDebugMode) print('✅ ログアウト完了');
+      if (kDebugMode) print('✅ ログアウト完了（プロフィール情報は保持）');
 
       state = const AsyncValue.data(null);
       return true;
     } catch (e, st) {
-      if (kDebugMode) print('❌ ログアウト失敗: $e');
+      if (kDebugMode) print('❌ ログアウト失敗: $e\n$st');
       state = AsyncValue.error(e, st);
       return false;
     }
