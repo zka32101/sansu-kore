@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/ranking_model.dart';
 import '../models/ranking_filter_model.dart';
 import 'profile_provider.dart';
+import 'friends_provider.dart';
 
 /// ランキングデータの状態管理
 class RankingState {
@@ -169,7 +170,6 @@ class RankingNotifier extends StateNotifier<RankingState> {
   }
 
   /// フレンドランキングを取得
-  /// TODO: フレンド機能が実装されたら実装
   Future<void> fetchFriendsRanking() async {
     try {
       state = state.copyWith(isLoading: true, error: null);
@@ -183,9 +183,8 @@ class RankingNotifier extends StateNotifier<RankingState> {
         return;
       }
 
-      // フレンドリストを取得（デフォルトは空）
-      // TODO: friendsProvider と連携
-      const friendIds = <String>[];
+      // フレンドリストを取得（friendsProvider と連携）
+      final friendIds = _ref.read(friendIdsProvider);
 
       if (friendIds.isEmpty) {
         state = state.copyWith(
