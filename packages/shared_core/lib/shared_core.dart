@@ -43,6 +43,7 @@ export 'widgets/coin_shop_page.dart';              // CoinShopPage, ShopItemTile
 export 'widgets/furigana_text.dart';               // FuriganaText（{漢字|かんじ}形式のルビ表示、全アプリ共通化）
 export 'widgets/lesson_menu_page.dart';            // LessonMenuPage, LessonDetailPage（解説メニュー）
 export 'widgets/feedback_form_page.dart';          // FeedbackFormPage（バグ報告・改善要望）
+export 'widgets/parental_gate.dart';               // ParentalGateDialog（保護者ゲート）
 export 'widgets/multiplayer/matchmaking_search_widget.dart'; // MatchmakingSearchWidget（マッチング待機アニメーション）
 export 'widgets/multiplayer/player_rating_card.dart';        // PlayerRatingCard（自分のレーティングカード）
 export 'widgets/multiplayer/leaderboard_view.dart';          // LeaderboardView（ランキング表示）
@@ -54,6 +55,7 @@ export 'services/firestore_matchmaking_service.dart'; // FirestoreMatchmakingSer
 
 // Utils
 export 'utils/rating_calculator.dart'; // RatingCalculator（Elo類似のレーティング計算）
+export 'utils/parental_gate_helper.dart'; // requireParentalGate（保護者ゲート呼び出しヘルパー）
 
 // Theme
 export 'theme/app_theme_base.dart';

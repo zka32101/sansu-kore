@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shared_core/shared_core.dart' show CrossPromoSection, FeedbackFormPage;
+import 'package:shared_core/shared_core.dart'
+    show CrossPromoSection, FeedbackFormPage, requireParentalGate;
 import '../providers/profile_provider.dart';
 import '../providers/progress_provider.dart';
 import '../providers/premium_provider.dart';
@@ -82,7 +83,7 @@ class SettingsScreen extends ConsumerWidget {
                       ? 'トライアル中（あと${premium.trialDaysLeft}日）'
                       : '無料プラン',
               subtitle: premium.isPremium ? '全ステージ利用可能' : 'アップグレードで全機能解放',
-              onTap: () => Navigator.of(context).pushNamed('/upgrade'),
+              onTap: () => _goToUpgrade(context),
             ),
 
             const SizedBox(height: 16),
@@ -323,7 +324,7 @@ class SettingsScreen extends ConsumerWidget {
               emoji: '🗑️',
               title: '学習データをリセット',
               subtitle: '進捗・コインが全て削除されます',
-              onTap: () => _showResetDialog(context, ref),
+              onTap: () => _confirmResetWithGate(context, ref),
             ),
             const SizedBox(height: 8),
             _SettingCard(
@@ -349,6 +350,18 @@ class SettingsScreen extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _goToUpgrade(BuildContext context) async {
+    final passedGate = await requireParentalGate(context);
+    if (!passedGate || !context.mounted) return;
+    Navigator.of(context).pushNamed('/upgrade');
+  }
+
+  Future<void> _confirmResetWithGate(BuildContext context, WidgetRef ref) async {
+    final passedGate = await requireParentalGate(context);
+    if (!passedGate || !context.mounted) return;
+    _showResetDialog(context, ref);
   }
 
   void _showResetDialog(BuildContext context, WidgetRef ref) {
