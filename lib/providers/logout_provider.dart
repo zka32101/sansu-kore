@@ -130,6 +130,7 @@ class LogoutNotifier extends StateNotifier<AsyncValue<void>> {
       _ref.invalidate(coinProvider);
       _ref.invalidate(badgeProvider);
       _ref.invalidate(progressProvider);
+      _ref.invalidate(equippedItemsProvider);
 
       if (kDebugMode) print('✅ ログアウト完了（プロフィール情報は保持）');
 

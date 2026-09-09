@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- PLACEHOLDER ASSET: 差し替え前提の仮イラスト -->
+  <defs>
+    <linearGradient id="sunnyBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFE082"/>
+      <stop offset="100%" stop-color="#FFB300"/>
+    </linearGradient>
+  </defs>
+  <rect width="200" height="200" rx="24" fill="url(#sunnyBg)"/>
+  <circle cx="100" cy="100" r="46" fill="#FFF8E1"/>
+  <circle cx="100" cy="100" r="46" fill="none" stroke="#FFFFFF" stroke-width="6" opacity="0.6"/>
+  <g stroke="#FFF8E1" stroke-width="6" stroke-linecap="round">
+    <line x1="100" y1="24" x2="100" y2="42"/>
+    <line x1="100" y1="158" x2="100" y2="176"/>
+    <line x1="24" y1="100" x2="42" y2="100"/>
+    <line x1="158" y1="100" x2="176" y2="100"/>
+    <line x1="46" y1="46" x2="59" y2="59"/>
+    <line x1="141" y1="141" x2="154" y2="154"/>
+    <line x1="154" y1="46" x2="141" y2="59"/>
+    <line x1="59" y1="141" x2="46" y2="154"/>
+  </g>
+</svg>

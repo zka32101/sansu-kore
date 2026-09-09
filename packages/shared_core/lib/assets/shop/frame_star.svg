@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- PLACEHOLDER ASSET: 差し替え前提の仮イラスト（円形リング + 星の装飾） -->
+  <defs>
+    <linearGradient id="starRing" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#CE93D8"/>
+      <stop offset="100%" stop-color="#7B1FA2"/>
+    </linearGradient>
+  </defs>
+  <circle cx="100" cy="100" r="90" fill="none" stroke="url(#starRing)" stroke-width="14"/>
+  <g fill="#FFEB3B">
+    <polygon points="100,0 106,14 121,14 109,23 114,38 100,29 86,38 91,23 79,14 94,14"/>
+    <polygon points="30,150 33,157 41,157 35,162 37,169 30,165 23,169 25,162 19,157 27,157"/>
+    <polygon points="170,150 173,157 181,157 175,162 177,169 170,165 163,169 165,162 159,157 167,157"/>
+  </g>
+</svg>

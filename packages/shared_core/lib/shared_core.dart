@@ -5,9 +5,12 @@ export 'models/user_profile.dart';
 export 'models/quest_model.dart';
 export 'models/badge_model.dart';
 export 'models/avatar_model.dart';
-export 'models/character_data.dart'; // BaseCharacter, CharacterState, AppShopItem, kLevelUpCost
+export 'models/character_data.dart'; // BaseCharacter, CharacterState, AppShopItem, ShopItemKind, kLevelUpCost
 export 'models/lesson_content_model.dart'; // LessonContent, LessonSection（解説メニュー）
 export 'models/feedback_model.dart'; // FeedbackType, FeedbackReport（バグ報告・改善要望）
+
+// Data
+export 'data/common_shop_items.dart'; // kCommonShopItems（背景テーマ・フレームの共通カタログ）
 
 // Providers
 export 'providers/progress_provider.dart';
@@ -21,6 +24,7 @@ export 'providers/profile_data_migration.dart'; // ProfileDataMigration
 export 'providers/learning_timer_provider.dart';
 export 'providers/character_state_provider.dart'; // BaseCharacterNotifier, characterStateProvider
 export 'providers/inventory_provider.dart';        // InventoryNotifier, inventoryProvider
+export 'providers/equipped_items_provider.dart';   // BaseEquippedItemsNotifier, equippedItemsProvider（装着状態）
 export 'providers/lesson_provider.dart';           // LessonNotifier, lessonProvider（解説メニュー）
 export 'providers/feedback_provider.dart';         // FeedbackNotifier, feedbackProvider（バグ報告・改善要望）
 

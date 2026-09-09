@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shared_core/shared_core.dart'
+    show equippedItemsProvider, kCommonShopItems, AppShopItem;
 import '../data/stage_data.dart';
 import '../data/math_tips_data.dart';
 import '../providers/progress_provider.dart';
@@ -105,8 +108,24 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final daily = ref.watch(dailyLoginProvider);
     ref.watch(weeklyChallengeProvider); // ウィークリーチャレンジ初期化
 
+    // ショップで装着中の背景テーマ・プロフィールフレーム（未購入・未装着なら null）
+    final equippedIds = ref.watch(equippedItemsProvider).equippedByCategory;
+    final equippedTheme = _findShopItem(equippedIds['背景']);
+    final equippedFrame = _findShopItem(equippedIds['フレーム']);
+    final themeColors = _themeGradientColors(equippedTheme);
+
     return Scaffold(
-      body: Column(
+      body: Container(
+        decoration: themeColors != null
+            ? BoxDecoration(
+                gradient: LinearGradient(
+                  colors: themeColors,
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+              )
+            : null,
+        child: Column(
         children: [
           Expanded(
             child: CustomScrollView(
@@ -130,24 +149,39 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               centerTitle: true,
               title: FittedBox(
                 fit: BoxFit.scaleDown,
-                child: Column(
+                child: Row(
                   mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                  const Text(
-                    '🔴 小学コレ！算数',
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 18),
-                  ),
-                  if (currentProfile != null)
-                    Text(
-                      '${currentProfile.name} (${currentProfile.grade}年生)',
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(color: Colors.white70, fontSize: 12),
+                    if (currentProfile != null)
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8),
+                        child: _ProfileAvatar(
+                          initial: currentProfile.name.isNotEmpty
+                              ? currentProfile.name.substring(0, 1)
+                              : '?',
+                          frame: equippedFrame,
+                        ),
+                      ),
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                      const Text(
+                        '🔴 小学コレ！算数',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 18),
+                      ),
+                      if (currentProfile != null)
+                        Text(
+                          '${currentProfile.name} (${currentProfile.grade}年生)',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(color: Colors.white70, fontSize: 12),
+                        ),
+                    ],
                     ),
-                ],
+                  ],
                 ),
               ),
             ),
@@ -285,6 +319,65 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ),
           // バナー広告（下部）
           _BannerAdWidget(),
+        ],
+        ),
+      ),
+    );
+  }
+}
+
+/// ショップで購入したアイテムを [equippedIds] のカテゴリ→id から解決するヘルパー。
+AppShopItem? _findShopItem(String? id) {
+  if (id == null) return null;
+  for (final item in kCommonShopItems) {
+    if (item.id == id) return item;
+  }
+  return null;
+}
+
+/// テーマアイテムの themeData から背景グラデーション色を取り出す。
+List<Color>? _themeGradientColors(AppShopItem? theme) {
+  final colors = theme?.themeData?['colors'];
+  if (colors is! List) return null;
+  final parsed = <Color>[];
+  for (final c in colors) {
+    if (c is String && c.startsWith('#')) {
+      final hex = c.substring(1);
+      final value = int.tryParse(hex.length == 6 ? 'FF$hex' : hex, radix: 16);
+      if (value != null) parsed.add(Color(value));
+    }
+  }
+  return parsed.length >= 2 ? parsed : null;
+}
+
+/// ホーム画面ヘッダーに表示する小さなプロフィールアバター。
+/// 装着中のフレーム（[frame]）があれば、そのSVGを縁取りとして重ねる。
+class _ProfileAvatar extends StatelessWidget {
+  final String initial;
+  final AppShopItem? frame;
+
+  const _ProfileAvatar({required this.initial, this.frame});
+
+  @override
+  Widget build(BuildContext context) {
+    const size = 36.0;
+    return SizedBox(
+      width: size,
+      height: size,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          CircleAvatar(
+            radius: size / 2 - 3,
+            backgroundColor: Colors.white,
+            child: Text(initial,
+                style: const TextStyle(
+                    color: kPrimaryColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14)),
+          ),
+          if (frame?.assetPath != null)
+            SvgPicture.asset(frame!.assetPath!, width: size, height: size),
         ],
       ),
     );

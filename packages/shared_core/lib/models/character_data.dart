@@ -119,6 +119,13 @@ class CharacterState {
 
 // ─── AppShopItem ───────────────────────────────────────────────────────────
 
+/// ショップアイテムの種別。
+/// - [emoji]: 従来通り絵文字だけで表現するアイテム（帽子・BGM等）
+/// - [theme]: 背景テーマ（ホーム画面やプロフィールの背景色・柄）
+/// - [frame]: プロフィールフレーム（アイコン周りの縁取り）
+/// - [accessory]: アバターに装着する装飾パーツ
+enum ShopItemKind { emoji, theme, frame, accessory }
+
 class AppShopItem {
   final String id;
   final String emoji;
@@ -127,6 +134,20 @@ class AppShopItem {
   final String category;
   final int coinCost;
 
+  /// アイテムの種別。装着可能かどうか・表示方法の判定に使う。
+  /// 既存の商品定義との後方互換のためデフォルトは [ShopItemKind.emoji]。
+  final ShopItemKind kind;
+
+  /// SVGアセットのパス（例:
+  /// 'packages/shared_core/assets/shop/theme_sunny.svg'）。
+  /// null の場合は従来通り [emoji] を表示にフォールバックする。
+  final String? assetPath;
+
+  /// テーマ等の色情報を直接埋め込む軽量な代替案。
+  /// SVGアセットを用意しづらい場合や、コード側でグラデーション等を
+  /// 動的に組み立てたい場合に使う（例: {'colors': ['#FFE082', '#FFF3C4']}）。
+  final Map<String, dynamic>? themeData;
+
   const AppShopItem({
     required this.id,
     required this.emoji,
@@ -134,5 +155,8 @@ class AppShopItem {
     required this.description,
     required this.category,
     required this.coinCost,
+    this.kind = ShopItemKind.emoji,
+    this.assetPath,
+    this.themeData,
   });
 }
