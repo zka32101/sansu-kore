@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_core/shared_core.dart'
-    show equippedItemsProvider, kCommonShopItems, AppShopItem;
+    show
+        equippedItemsProvider,
+        kCommonShopItems,
+        AppShopItem,
+        screenTimeProvider,
+        ScreenTimeLimitReachedWidget;
 import '../data/stage_data.dart';
 import '../data/math_tips_data.dart';
 import '../providers/progress_provider.dart';
@@ -108,6 +113,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final adaptive = ref.watch(adaptiveProvider);
     final daily = ref.watch(dailyLoginProvider);
     ref.watch(weeklyChallengeProvider); // ウィークリーチャレンジ初期化
+
+    // 利用時間制限: 1日の上限に達していたら、ホーム画面の代わりに
+    // 全画面オーバーレイを表示する（端末・アプリ単位、プロフィール共通）。
+    ref.watch(screenTimeProvider); // usedMinutes の変化を監視して再評価
+    if (ref.read(screenTimeProvider.notifier).isLimitReached) {
+      return const ScreenTimeLimitReachedWidget(primaryColor: kPrimaryColor);
+    }
 
     // ショップで装着中の背景テーマ・プロフィールフレーム（未購入・未装着なら null）
     final equippedIds = ref.watch(equippedItemsProvider).equippedByCategory;
