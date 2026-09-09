@@ -436,7 +436,6 @@ const _grade1Stages = [
         correctIndex: 1,
         explanation: '3つのかどがある形は「さんかくけい」だよ！「さん」は3のことで、かどが3つあるから「さんかくけい」という名前なんだ。おにぎりやサンドイッチを切ったときの形もさんかくけい！',
         hint: 'さん=3、かど={角|かど}',
-        shapeName: 'triangle',
       ),
       QuizQuestion(
         id: 'g1s8q2', type: MathTopicType.geometry, grade: 1,
@@ -445,7 +444,6 @@ const _grade1Stages = [
         correctIndex: 2,
         explanation: 'まるい形は「えん（円）」だよ！かどがなくて、どこも同じようにまるいのが円の特ちょうだよ。コイン、ボタン、太陽の形も円だね。ぐるぐるまるく描いた形が円だよ！',
         hint: 'かどがなく、まるい{形|かたち}',
-        shapeName: 'circle',
       ),
       QuizQuestion(
         id: 'g1s8q3', type: MathTopicType.geometry, grade: 1,
@@ -453,7 +451,6 @@ const _grade1Stages = [
         choices: ['さんかくけい', 'えん', 'しかくけい', 'ろっかっけい'],
         correctIndex: 2,
         explanation: '4本のへんがある形は「しかくけい」だよ！「し」は4のこと。4本のへんと4つのかどがあるよ。教かしょや窓の形もしかくけいだね。かどを数えてみると4つあるよ！',
-        shapeName: 'square',
       ),
       QuizQuestion(
         id: 'g1s8q4', type: MathTopicType.geometry, grade: 1,
@@ -462,7 +459,6 @@ const _grade1Stages = [
         correctIndex: 1,
         explanation: 'さんかくけいのかどは3つだよ！「さん」は3という意味だから、さんかくけいにはかどが3つ、へんも3本あるよ。名前の中に数がかくれているんだね。賢く覚えられたね！',
         hint: 'さん＝３',
-        shapeName: 'triangle',
       ),
       QuizQuestion(
         id: 'g1s8q5', type: MathTopicType.geometry, grade: 1,
@@ -470,7 +466,6 @@ const _grade1Stages = [
         choices: ['3つ', '4つ', '5つ', '6つ'],
         correctIndex: 1,
         explanation: 'しかくけいのかどは4つだよ！「し」は4という意味だから、しかくけいにはかどが4つ、へんも4本あるよ。「さんかくけい→3つ」「しかくけい→4つ」と名前で覚えよう！',
-        shapeName: 'square',
       ),
       QuizQuestion(
         id: 'g1s8q6', type: MathTopicType.geometry, grade: 1,
@@ -479,7 +474,6 @@ const _grade1Stages = [
         correctIndex: 2,
         explanation: 'ボールの形は「きゅう（球）」だよ！えんは平らなまるい形だけど、きゅうはたて体のまるい形で、どこから見ても円に見えるよ。ボールをころがすとどこにでもいくね！',
         hint: '{立体|りったい}の{丸|まる}い{形|かたち}',
-        shapeName: 'sphere',
       ),
       QuizQuestion(
         id: 'g1s8q7', type: MathTopicType.geometry, grade: 1,
@@ -487,7 +481,6 @@ const _grade1Stages = [
         choices: ['きゅう', 'さんかくちゅう', 'ちょくほうたい', 'えんちゅう'],
         correctIndex: 2,
         explanation: 'はこの形は「ちょくほうたい（直方体）」だよ！しかくけいの面が6つあつまった立体の形だよ。お菓子の箱、ティッシュの箱もちょくほうたい。6つの面をかぞえてみよう！',
-        shapeName: 'box',
       ),
       QuizQuestion(
         id: 'g1s8q8', type: MathTopicType.geometry, grade: 1,
@@ -495,7 +488,6 @@ const _grade1Stages = [
         choices: ['きゅう', 'えんちゅう', 'えん', 'さんかくけい'],
         correctIndex: 1,
         explanation: 'えんぴつのような細長いまるい形は「えんちゅう（円柱）」だよ！上と下が円で、まわりがまっすぐな立体だよ。ジュースのかん、コップ、トイレットペーパーの芯も円柱だね！',
-        shapeName: 'cylinder',
       ),
     ],
   ),
@@ -1616,7 +1608,6 @@ const _grade2Stages = [
         choices: ['みんな同じ', '向かい合う辺が等しい', 'バラバラ', '隣り合う辺が等しい'],
         correctIndex: 1,
         explanation: '長方形は向かい合う2辺が等しいよ！上と下の辺の長さが同じ、左と右の辺の長さが同じになっているんだ。4つの角がすべて直角（90度）なのも長方形の特ちょうだよ！',
-        shapeName: 'rectangle',
       ),
       QuizQuestion(
         id: 'g2s12q2', type: MathTopicType.geometry, grade: 2,
@@ -1624,7 +1615,6 @@ const _grade2Stages = [
         choices: ['2辺が長い', '全部違う', 'すべて等しい', '向かい合う辺だけ等しい'],
         correctIndex: 2,
         explanation: '正方形は4つの辺がすべて等しいよ！タテもヨコも同じ長さで、4つの角がすべて直角（90度）になっているんだ。長方形の中でも全辺が同じものを正方形というよ！',
-        shapeName: 'square',
       ),
       QuizQuestion(
         id: 'g2s12q3', type: MathTopicType.geometry, grade: 2,
@@ -1633,7 +1623,6 @@ const _grade2Stages = [
         correctIndex: 1,
         explanation: '長方形のまわりの長さは（たて＋よこ）×2で求めるよ！（5＋8）×2＝13×2＝26cm！向かい合う辺が同じだから、2種類の辺をたして2倍すればいいんだね！',
         hint: '(たて+よこ)×2',
-        shapeName: 'rectangle',
       ),
       QuizQuestion(
         id: 'g2s12q4', type: MathTopicType.geometry, grade: 2,
@@ -1642,7 +1631,6 @@ const _grade2Stages = [
         correctIndex: 1,
         explanation: '正方形のまわりの長さは1辺×4で求めるよ！4辺すべて同じ長さだから6×4＝24cm！または6＋6＋6＋6でも24cmになるね。正方形はかけ算1つで簡単に求まるよ！',
         hint: '4辺すべて同じ長さ',
-        shapeName: 'square',
       ),
       QuizQuestion(
         id: 'g2s12q5', type: MathTopicType.geometry, grade: 2,
@@ -1650,7 +1638,6 @@ const _grade2Stages = [
         choices: ['正方形が2つ', '直角三角形が2つ', '二等辺三角形が2つ', '台形が2つ'],
         correctIndex: 1,
         explanation: '長方形を対角線で切ると直角三角形が2つできるよ！長方形の4つの角はすべて直角だから、対角線で切った三角形にも直角が残るんだ。折り紙を折って確かめてみよう！',
-        shapeName: 'right_triangle',
       ),
       QuizQuestion(
         id: 'g2s12q6', type: MathTopicType.geometry, grade: 2,
@@ -1658,7 +1645,6 @@ const _grade2Stages = [
         choices: ['45度', '60度', '90度', '180度'],
         correctIndex: 2,
         explanation: '直角は90度だよ！ノートや本のかどの角がまさに直角だよ。三角定規の一番小さな角も90度！「L字形」の角が直角と覚えよう。身のまわりにたくさんあるね！',
-        shapeName: 'angle_right',
       ),
     ],
   ),
@@ -2305,7 +2291,6 @@ const _grade3Stages = [
         correctIndex: 1,
         explanation: '円の中心（ちゅうしん）から外側（えんしゅう）までの長さを「半径（はんけい）」というよ！「半（はん）」は半分（はんぶん）という意味（いみ）。円を半分に切（き）ったときの端（はし）から中心（ちゅうしん）までの長さが半径（はんけい）だよ！コンパスで円をかくときにも使うよ！',
         hint: '「半」は半分という意味',
-        shapeName: 'circle_radius',
       ),
       QuizQuestion(
         id: 'g3s8q2', type: MathTopicType.geometry, grade: 3,
@@ -2314,7 +2299,6 @@ const _grade3Stages = [
         correctIndex: 1,
         explanation: '直径（ちょっけい）は半径（はんけい）の 2 倍だよ！直径 = 半径 × 2！中心（ちゅうしん）を通って円の両端（りょうはし）を結ぶ一番長い線が直径。半径が 2 本分で直径になるから、2 倍（ばい）なんだね！',
         hint: '直径は円の中心を通る一番長い線',
-        shapeName: 'circle_radius',
       ),
       QuizQuestion(
         id: 'g3s8q3', type: MathTopicType.geometry, grade: 3,
@@ -2323,7 +2307,6 @@ const _grade3Stages = [
         correctIndex: 2,
         explanation: '半径（はんけい）3cm の円の直径（ちょっけい）は 6cm だよ！直径 = 半径 × 2 だから、3 × 2 = 6cm！半径の 2 本分が直径だね。実際（じっさい）にコンパスで 3cm に開いて円をかいてみると、直径がちょうど 6cm になるよ！',
         hint: '直径＝半径×2',
-        shapeName: 'circle_radius',
       ),
       QuizQuestion(
         id: 'g3s8q4', type: MathTopicType.geometry, grade: 3,
@@ -2332,7 +2315,6 @@ const _grade3Stages = [
         correctIndex: 2,
         explanation: '直径（ちょっけい）10cm の円の半径（はんけい）は 5cm だよ！半径 = 直径 ÷ 2 だから、10 ÷ 2 = 5cm！直径を半分（はんぶん）にすれば半径が出るよ。直径と半径はいつも 2 倍（ばい）の関係（かんけい）だね！',
         hint: '半径＝直径÷2',
-        shapeName: 'circle_radius',
       ),
       QuizQuestion(
         id: 'g3s8q5', type: MathTopicType.geometry, grade: 3,
@@ -2986,7 +2968,6 @@ const _grade4Stages = [
         correctIndex: 2,
         explanation: '面積 = 縦 × 横 = 3 × 5 = 15cm² だよ！面積は「何cm²のタイルが何枚入るか」で考えよう。縦3cm・横5cmの長方形には1cm²が15個並ぶよ。3 × 5 = 15cm²、単位の「cm²」も忘れずに書こうね！',
         hint: '面積 = 縦 × 横',
-        shapeName: 'area_rectangle',
       ),
       QuizQuestion(
         id: 'g4s4q2', type: MathTopicType.geometry, grade: 4,
@@ -2994,7 +2975,6 @@ const _grade4Stages = [
         choices: ['8cm²', '12cm²', '16cm²', '20cm²'],
         correctIndex: 2,
         explanation: '正方形の面積 = 一辺 × 一辺 = 4 × 4 = 16cm² だよ！正方形は4辺がすべて同じ長さ。一辺が4cmなら 4 × 4 = 16cm²！4cm四方のメモ帳が16枚のタイルでぴったり埋まるイメージだよ！',
-        shapeName: 'area_rectangle',
       ),
       QuizQuestion(
         id: 'g4s4q3', type: MathTopicType.geometry, grade: 4,
@@ -3100,7 +3080,6 @@ const _grade4Stages = [
         correctIndex: 1,
         explanation: '直角は90度だよ！三角定規のL字の角がまさに直角！正方形は4つの角がすべて90度になっているよ。ドアや窓の角も直角になっているね。身の回りにある「まっすぐな角」を探してみよう！',
         hint: '正方形の角を思い出そう',
-        shapeName: 'angle_right',
       ),
       QuizQuestion(
         id: 'g4s6q2', type: MathTopicType.geometry, grade: 4,
@@ -3109,7 +3088,6 @@ const _grade4Stages = [
         correctIndex: 2,
         explanation: '90度より小さい角を「鋭角（えいかく）」というよ！「鋭」という字はとがったイメージ。とんがり山の形や、シャープな鉛筆の先のような細い角が鋭角だよ。0度より大きく90度より小さい角すべてが鋭角だね！',
         hint: '90度より小さい角',
-        shapeName: 'angle_acute',
       ),
       QuizQuestion(
         id: 'g4s6q3', type: MathTopicType.geometry, grade: 4,
@@ -3118,7 +3096,6 @@ const _grade4Stages = [
         correctIndex: 2,
         explanation: '90度より大きく180度より小さい角を「鈍角（どんかく）」というよ！「鈍」はにぶいイメージで、直角より大きく開いた角のことだよ。お家の屋根や、ゆったり開いた傘の角度が鈍角の例だね。鋭角・直角・鈍角の3つを覚えよう！',
         hint: '90度～180度の角',
-        shapeName: 'angle_obtuse',
       ),
       QuizQuestion(
         id: 'g4s6q4', type: MathTopicType.geometry, grade: 4,
@@ -5647,7 +5624,6 @@ const _grade6Stages = [
         correctIndex: 0,
         explanation: '三角形の面積（めんせき）は「底辺×高さ÷2」だよ！同じ三角形を2つ合わせると平行四辺形になるから÷2するんだね。8×5÷2＝20cm²！公式の意味も覚えよう！',
         hint: '三角形の面積（めんせき） = 底辺 × 高さ ÷ 2',
-        shapeName: 'area_triangle',
       ),
       QuizQuestion(
         id: 'g5s15q2', type: MathTopicType.geometry, grade: 5,
@@ -5656,7 +5632,6 @@ const _grade6Stages = [
         correctIndex: 2,
         explanation: '平行四辺形の面積（めんせき）は「底辺×高さ」だよ！斜めの辺ではなく垂直な高さを使うのがポイント！6×9＝54cm²！長方形に変形して考えると分かりやすいね！',
         hint: '平行四辺形の面積（めんせき） = 底辺 × 高さ',
-        shapeName: 'area_parallelogram',
       ),
       QuizQuestion(
         id: 'g5s15q3', type: MathTopicType.geometry, grade: 5,
@@ -5664,7 +5639,6 @@ const _grade6Stages = [
         choices: ['42cm²', '84cm²', '19cm²', '36cm²'],
         correctIndex: 0,
         explanation: '三角形の面積（めんせき）は「底辺×高さ÷2」だよ！底辺12cm、高さ7cmなら12×7÷2＝42cm²！2つ合わせると平行四辺形になるから÷2するんだね。できたね！',
-        shapeName: 'area_triangle',
       ),
       QuizQuestion(
         id: 'g5s15q4', type: MathTopicType.geometry, grade: 5,
@@ -5673,7 +5647,6 @@ const _grade6Stages = [
         correctIndex: 1,
         explanation: '台形の面積（めんせき）は「(上底＋下底)×高さ÷2」だよ！2つ合わせると平行四辺形になるから÷2するんだね。上底と下底の長さをたしてから高さをかけよう！',
         hint: '台形を長方形に変形して考えよう',
-        shapeName: 'trapezoid',
       ),
       QuizQuestion(
         id: 'g5s15q5', type: MathTopicType.geometry, grade: 5,
@@ -5682,7 +5655,6 @@ const _grade6Stages = [
         correctIndex: 1,
         explanation: '台形の面積（めんせき）は「(上底＋下底)×高さ÷2」だよ！上底3cm＋下底7cm＝10、10×4÷2＝20cm²！まず上底と下底をたしてから計算するのが順番のポイントだね！',
         hint: '(上底+下底)×高さ÷2',
-        shapeName: 'trapezoid',
       ),
       QuizQuestion(
         id: 'g5s15q6', type: MathTopicType.geometry, grade: 5,
@@ -5691,7 +5663,6 @@ const _grade6Stages = [
         correctIndex: 0,
         explanation: 'ひし形の面積（めんせき）は「対角線×対角線÷2」だよ！2本の対角線で囲まれた長方形の半分と考えるから÷2！8×6÷2＝24cm²！対角線の長さに注目しよう！できたね！',
         hint: 'ひし形の面積（めんせき） = 対角線 × 対角線 ÷ 2',
-        shapeName: 'rhombus',
       ),
       QuizQuestion(
         id: 'g5s15q7', type: MathTopicType.geometry, grade: 5,
@@ -5699,7 +5670,6 @@ const _grade6Stages = [
         choices: ['4', '5', '6', '8'],
         correctIndex: 1,
         explanation: '正五角形は辺が5本・角が5つある図形だよ！全ての辺の長さが等しく、全ての角の大きさも等しい（1つ108°）！サッカーボールの黒い部分のような形だね！',
-        shapeName: 'pentagon',
       ),
       QuizQuestion(
         id: 'g5s15q8', type: MathTopicType.geometry, grade: 5,
@@ -5708,7 +5678,6 @@ const _grade6Stages = [
         correctIndex: 1,
         explanation: '正六角形の内角の和は (6-2)×180=720度 だよ！多角形は三角形に分けて考えよう。6角形は4つの三角形に分けられるから、180×4=720度！ハチの巣みたいな六角形、角度の合計を覚えられたね！',
         hint: '多角形の内角の和=(n-2)×180°',
-        shapeName: 'hexagon',
       ),
     ],
   ),
