@@ -91,106 +91,23 @@ class DailyChallengeResult {
   }
 }
 
-/// Login bonus system - tracks consecutive login days
-class LoginBonus {
-  final String userId;
-  final int currentStreak; // Days in a row
-  final int longestStreak; // Historical longest streak
-  final DateTime lastLoginDate;
-  final List<DateTime> loginDates; // History of login dates
-
-  LoginBonus({
-    required this.userId,
-    required this.currentStreak,
-    required this.longestStreak,
-    required this.lastLoginDate,
-    required this.loginDates,
-  });
-
-  /// Get reward coins for current streak
-  int getStreakReward() {
-    return switch (currentStreak) {
-      1 => 10,
-      2 => 20,
-      3 => 30,
-      4 => 50,
-      5 => 100,
-      >= 6 => 100 + (currentStreak - 5) * 10,
-      _ => 0,
-    };
-  }
-
-  /// Check if user logged in today
-  bool get isLoggedInToday {
-    final today = DateTime.now();
-    final lastDate = DateTime(lastLoginDate.year, lastLoginDate.month, lastLoginDate.day);
-    final todayDate = DateTime(today.year, today.month, today.day);
-    return lastDate.isAtSameMomentAs(todayDate);
-  }
-
-  /// Check if logged in yesterday (determines streak continuation)
-  bool wasLoggedInYesterday() {
-    final yesterday = DateTime.now().subtract(const Duration(days: 1));
-    final yesterdayDate = DateTime(yesterday.year, yesterday.month, yesterday.day);
-    final lastDate = DateTime(lastLoginDate.year, lastLoginDate.month, lastLoginDate.day);
-    return lastDate.isAtSameMomentAs(yesterdayDate);
-  }
-
-  /// Record new login and update streak
-  LoginBonus recordLogin() {
-    final today = DateTime.now();
-
-    // Check if already logged in today
-    if (isLoggedInToday) {
-      return this;
-    }
-
-    int newStreak = currentStreak;
-
-    // Check if logged in yesterday to continue streak
-    if (!wasLoggedInYesterday()) {
-      newStreak = 1; // Reset streak if gap
-    } else {
-      newStreak = currentStreak + 1; // Continue streak
-    }
-
-    // Update longest streak if new record
-    final newLongestStreak = newStreak > longestStreak ? newStreak : longestStreak;
-
-    return LoginBonus(
-      userId: userId,
-      currentStreak: newStreak,
-      longestStreak: newLongestStreak,
-      lastLoginDate: today,
-      loginDates: [...loginDates, today],
-    );
-  }
-
-  /// Create initial login bonus record
-  static LoginBonus create(String userId) {
-    final now = DateTime.now();
-    return LoginBonus(
-      userId: userId,
-      currentStreak: 1,
-      longestStreak: 1,
-      lastLoginDate: now,
-      loginDates: [now],
-    );
-  }
-}
+// 注: 旧 LoginBonus モデル（連続ログイン管理）はここに定義されていたが、
+// SharedPreferences に永続化されず、実際のコイン付与にも接続されていない
+// 重複実装だったため削除した。連続ログイン・コイン付与は
+// lib/providers/daily_login_provider.dart の DailyLoginState /
+// dailyLoginProvider（永続化され、DailyBonusScreen の「受け取る」操作で
+// 実際にコインが加算される）に一本化されている。
 
 /// Daily challenge state
 class DailyChallengeState {
   final DailyChallenge? currentChallenge;
   final DailyChallengeResult? todayResult;
-  final LoginBonus? loginBonus;
   final bool isLoading;
   final String? error;
 
   DailyChallengeState({
     this.currentChallenge,
     this.todayResult,
-    this.loginBonus,
     this.isLoading = false,
     this.error,
   });
@@ -198,14 +115,12 @@ class DailyChallengeState {
   DailyChallengeState copyWith({
     DailyChallenge? currentChallenge,
     DailyChallengeResult? todayResult,
-    LoginBonus? loginBonus,
     bool? isLoading,
     String? error,
   }) {
     return DailyChallengeState(
       currentChallenge: currentChallenge ?? this.currentChallenge,
       todayResult: todayResult ?? this.todayResult,
-      loginBonus: loginBonus ?? this.loginBonus,
       isLoading: isLoading ?? this.isLoading,
       error: error,
     );
