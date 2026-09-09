@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_core/shared_core.dart'
-    show CrossPromoSection, FeedbackFormPage, requireParentalGate;
+    show
+        CrossPromoSection,
+        FeedbackFormPage,
+        requireParentalGate,
+        ScreenTimeSettingsWidget;
 import '../providers/profile_provider.dart';
 import '../providers/progress_provider.dart';
 import '../providers/premium_provider.dart';
@@ -289,6 +293,17 @@ class SettingsScreen extends ConsumerWidget {
 
             const SizedBox(height: 16),
 
+            // 利用時間制限
+            _SectionHeader('⏰ 利用時間制限'),
+            _SettingCard(
+              emoji: '⏰',
+              title: '利用時間を制限する',
+              subtitle: '1日の利用時間に上限を設定できます（保護者向け）',
+              onTap: () => _goToScreenTimeSettings(context),
+            ),
+
+            const SizedBox(height: 16),
+
             // その他
             _SectionHeader('その他'),
             _SettingCard(
@@ -356,6 +371,22 @@ class SettingsScreen extends ConsumerWidget {
     final passedGate = await requireParentalGate(context);
     if (!passedGate || !context.mounted) return;
     Navigator.of(context).pushNamed('/upgrade');
+  }
+
+  Future<void> _goToScreenTimeSettings(BuildContext context) async {
+    final passedGate = await requireParentalGate(context);
+    if (!passedGate || !context.mounted) return;
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => Scaffold(
+          appBar: AppBar(
+            title: const Text('利用時間の設定'),
+            backgroundColor: kPrimaryColor,
+          ),
+          body: const ScreenTimeSettingsWidget(primaryColor: kPrimaryColor),
+        ),
+      ),
+    );
   }
 
   Future<void> _confirmResetWithGate(BuildContext context, WidgetRef ref) async {

@@ -15,13 +15,15 @@ import 'package:shared_core/shared_core.dart'
         feedbackProvider,
         equippedItemsProvider,
         matchmakingHandlersProvider,
-        matchHandlersProvider;
+        matchHandlersProvider,
+        screenTimeProvider;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 import 'models/quest_model.dart';
 import 'providers/character_provider.dart';
 import 'providers/firestore_provider.dart';
 import 'providers/multiplayer_provider.dart';
+import 'providers/screen_time_provider.dart';
 import 'services/profile_migration_service.dart';
 import 'screens/character_screen.dart';
 import 'screens/badge_collection_screen.dart';
@@ -103,6 +105,9 @@ Future<void> main() async {
       matchHandlersProvider.overrideWithValue(
         buildSansuMatchHandlers(FirebaseFirestore.instance),
       ),
+      // 利用時間制限（スクリーンタイム）: 端末・アプリ単位で管理し、
+      // プロフィール切り替え・ログアウトを跨いで共通の制限を適用する。
+      screenTimeProvider.overrideWith(ScreenTimeNotifier.new),
     ],
   );
 
