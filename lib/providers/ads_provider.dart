@@ -51,12 +51,30 @@ class AdsState {
   }
 }
 
+/// Mock BannerAd for stub implementation
+class _MockBannerAd {
+  static const double width = 320.0;
+  static const double height = 50.0;
+
+  final _Size size = _Size(width, height);
+}
+
+/// Mock Size class
+class _Size {
+  final double width;
+  final double height;
+
+  _Size(this.width, this.height);
+}
+
 /// 広告管理ロジック - Stub 実装（google_mobile_ads 依存性回避）
 ///
 /// google_mobile_ads は iOS SPM/CocoaPods 衝突のため一時的に無効化されています。
 /// 本実装は no-op ですが、API 互換性を保ちます。
 /// 本物の広告サポートは iOS 依存性衝突が解決されたら再度有効化します。
 class AdsNotifier extends StateNotifier<AdsState> {
+  _MockBannerAd? _bannerAd;
+
   AdsNotifier() : super(AdsState()) {
     _initializeMobileAds();
   }
@@ -98,6 +116,18 @@ class AdsNotifier extends StateNotifier<AdsState> {
   Future<void> reloadAds() async {
     if (kDebugMode) print('⚠️  reloadAds() called but google_mobile_ads is disabled');
   }
+
+  /// バナー広告を取得 (Stub - mock object 返す)
+  _MockBannerAd? getBannerAd() {
+    _bannerAd ??= _MockBannerAd();
+    return _bannerAd;
+  }
+
+  /// インタースティシャル広告を取得 (Stub - null 返す)
+  dynamic getInterstitialAd() => null;
+
+  /// リワード広告を取得 (Stub - null 返す)
+  dynamic getRewardedAd() => null;
 }
 
 /// 広告プロバイダー
