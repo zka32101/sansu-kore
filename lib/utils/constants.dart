@@ -32,8 +32,12 @@ class FeatureFlags {
   static const bool adsEnabled = true;
 
   /// Premium features (ad-free, advanced analytics, etc.)
-  /// Disabled: Awaiting monetization strategy decision
-  static const bool premiumEnabled = false;
+  /// Enabled: RevenueCat subscription integration (Phase 4.2)
+  static const bool premiumEnabled = true;
+
+  /// RevenueCat subscription system
+  /// Enabled: ¥120/month subscription for premium features
+  static const bool subscriptionEnabled = true;
 
   /// Friend ranking features
   /// Enabled: Friends system implementation complete
@@ -190,4 +194,35 @@ class DisabledFeatures {
   /// Features: Add friends, friend-only challenges, friend leaderboards
   static const String friendsReason =
       'Requires user social profile system implementation';
+}
+
+/// RevenueCat Configuration for Subscription Management
+/// Phase 4.2: Monetization through subscription
+class AppConstants {
+  /// RevenueCat API Key
+  /// Used for SDK initialization and subscription verification
+  /// Environment: Shared across all 小学コレ apps
+  static const String revenueCatApiKey = String.fromEnvironment(
+    'REVENUE_CAT_API_KEY',
+    defaultValue: 'appl_test_key_sansu',  // Test key for development
+  );
+
+  /// Premium Entitlement ID
+  /// Granted to users with active subscription
+  static const String premiumEntitlementId = 'sansu_premium';
+
+  /// Monthly Subscription Product ID
+  /// ¥120/month subscription package
+  static const String monthlySubscriptionId = 'sansu_premium_monthly';
+
+  /// Annual Subscription Product ID (Future)
+  /// Planned for discounted annual offering
+  static const String annualSubscriptionId = 'sansu_premium_annual';
+
+  /// Premium Features granted by subscription:
+  /// - Ad-free experience (remove banner/interstitial ads)
+  /// - Unlimited daily challenges (default: 3 per day)
+  /// - Advanced analytics and progress reports
+  /// - Early access to new features
+  /// - Offline quiz download support
 }
