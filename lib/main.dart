@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
@@ -5,11 +7,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_core/shared_core.dart'
-    show characterStateProvider, coinProvider, CrossPromoService;
+    show characterStateProvider, coinProvider, CrossPromoService, feedbackProvider;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 import 'models/quest_model.dart';
 import 'providers/character_provider.dart';
+import 'providers/firestore_provider.dart';
 import 'services/profile_migration_service.dart';
 import 'screens/character_screen.dart';
 import 'screens/badge_collection_screen.dart';
@@ -74,11 +77,20 @@ Future<void> main() async {
     }
   }
 
-  runApp(ProviderScope(
+  final container = ProviderContainer(
     overrides: [
       // 算数コレのキャラクターノティファイアを注入
       characterStateProvider.overrideWith(CharacterNotifier.new),
     ],
+  );
+
+  // バグ報告・改善要望: Firestore の `feedback` コレクションへの書き込みを注入し、
+  // オフライン中に溜まった未送信分の再送信を試みる。
+  container.read(feedbackProvider.notifier).setSubmitHandler(FeedbackSync.submit);
+  unawaited(container.read(feedbackProvider.notifier).retryPendingReports());
+
+  runApp(UncontrolledProviderScope(
+    container: container,
     child: const SansuKoreApp(),
   ));
 }

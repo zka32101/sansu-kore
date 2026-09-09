@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sansu_kore/utils/security_utils.dart';
+import 'package:shared_core/shared_core.dart' show FeedbackReport;
 
 final firestoreProvider = Provider((ref) => FirebaseFirestore.instance);
 final authProvider = Provider((ref) => FirebaseAuth.instance);
@@ -225,5 +226,28 @@ class AnalyticsSync {
     }
 
     return stats;
+  }
+}
+
+/// バグ報告・改善要望（shared_core の FeedbackNotifier から注入される送信処理）
+class FeedbackSync {
+  /// [FeedbackReport] を Firestore の `feedback` コレクションへ書き込む。
+  ///
+  /// main.dart で `feedbackProvider.notifier.setSubmitHandler(FeedbackSync.submit)`
+  /// として登録する想定。
+  static Future<void> submit(FeedbackReport report) async {
+    final firestore = FirebaseFirestore.instance;
+    await firestore.collection('feedback').doc(report.id).set({
+      'type': report.type.name,
+      'title': report.title,
+      'description': report.description,
+      'appName': report.appName,
+      'appVersion': report.appVersion,
+      'platform': report.platform,
+      'createdAt': report.createdAt.toIso8601String(),
+      'serverCreatedAt': FieldValue.serverTimestamp(),
+      'userId': report.userId,
+      'status': report.status,
+    });
   }
 }
