@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- PLACEHOLDER ASSET: 差し替え前提の仮イラスト（円形リング + リボン装飾） -->
+  <circle cx="100" cy="100" r="90" fill="none" stroke="#EF5350" stroke-width="14"/>
+  <circle cx="100" cy="100" r="90" fill="none" stroke="#FFFFFF" stroke-width="2" opacity="0.5"/>
+  <g transform="translate(100,190)">
+    <polygon points="0,0 -18,22 -6,14 0,24 6,14 18,22" fill="#D32F2F"/>
+  </g>
+  <circle cx="100" cy="14" r="10" fill="#D32F2F"/>
+</svg>

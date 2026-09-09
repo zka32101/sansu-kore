@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../models/character_data.dart';
 import '../providers/character_state_provider.dart';
 import '../providers/coin_provider.dart';
+import '../providers/equipped_items_provider.dart';
 import '../providers/inventory_provider.dart';
 import '../theme/app_theme_base.dart';
 import 'coin_balance_widget.dart';
+
+/// [ShopItemKind.emoji] 以外（テーマ・フレーム・アクセサリ）は
+/// 購入後に「装着する」概念を持つアイテムとして扱う。
+bool _isEquippable(AppShopItem item) => item.kind != ShopItemKind.emoji;
 
 String _currentSeason() {
   final m = DateTime.now().month;
@@ -598,7 +604,7 @@ class _CategoryHeader extends StatelessWidget {
 }
 
 /// ショップアイテムの1行タイル（交換所・期間限定共通）
-class ShopItemTile extends StatelessWidget {
+class ShopItemTile extends ConsumerWidget {
   final AppShopItem item;
   final bool isOwned;
   final int currentCoins;
@@ -613,47 +619,78 @@ class ShopItemTile extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final primary = Theme.of(context).colorScheme.primary;
     final canAfford = currentCoins >= item.coinCost;
+    final equippable = isOwned && _isEquippable(item);
+    final equipped = equippable
+        ? ref.watch(equippedItemsProvider
+            .select((s) => s.equippedByCategory[item.category] == item.id))
+        : false;
 
     return Card(
       margin: const EdgeInsets.only(bottom: 8),
       elevation: 1,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: equipped
+            ? BorderSide(color: primary, width: 1.5)
+            : BorderSide.none,
+      ),
       child: ListTile(
         leading: Container(
           width: 46,
           height: 46,
+          padding: item.assetPath != null ? const EdgeInsets.all(4) : null,
           decoration: BoxDecoration(
             color: isOwned
                 ? kAccentGreen.withAlpha(20)
                 : primary.withAlpha(20),
             borderRadius: BorderRadius.circular(12),
           ),
-          child: Center(
-              child: Text(item.emoji, style: const TextStyle(fontSize: 22))),
+          child: item.assetPath != null
+              ? ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: SvgPicture.asset(item.assetPath!, fit: BoxFit.cover),
+                )
+              : Center(
+                  child:
+                      Text(item.emoji, style: const TextStyle(fontSize: 22))),
         ),
-        title: Text(item.name,
-            style:
-                const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Flexible(
+              child: Text(item.name,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 14),
+                  overflow: TextOverflow.ellipsis),
+            ),
+            if (equipped) ...[
+              const SizedBox(width: 4),
+              Icon(Icons.check_circle, size: 15, color: primary),
+            ],
+          ],
+        ),
         subtitle: Text(item.description,
             style: const TextStyle(fontSize: 11, color: kTextMuted)),
         trailing: isOwned
-            ? Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                decoration: BoxDecoration(
-                  color: kAccentGreen.withAlpha(20),
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: kAccentGreen.withAlpha(60)),
-                ),
-                child: const Text('所持済み',
-                    style: TextStyle(
-                        fontSize: 11,
-                        color: kAccentGreen,
-                        fontWeight: FontWeight.bold)),
-              )
+            ? (equippable
+                ? _EquipButton(item: item, equipped: equipped)
+                : Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: kAccentGreen.withAlpha(20),
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: kAccentGreen.withAlpha(60)),
+                    ),
+                    child: const Text('所持済み',
+                        style: TextStyle(
+                            fontSize: 11,
+                            color: kAccentGreen,
+                            fontWeight: FontWeight.bold)),
+                  ))
             : ElevatedButton(
                 onPressed: canAfford ? onPurchase : null,
                 style: ElevatedButton.styleFrom(
@@ -679,6 +716,38 @@ class ShopItemTile extends StatelessWidget {
         contentPadding:
             const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
       ),
+    );
+  }
+}
+
+/// 所持済み・装着可能なアイテムの「装着する / 解除する」ボタン。
+class _EquipButton extends ConsumerWidget {
+  final AppShopItem item;
+  final bool equipped;
+
+  const _EquipButton({required this.item, required this.equipped});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final primary = Theme.of(context).colorScheme.primary;
+    return ElevatedButton(
+      onPressed: () {
+        final notifier = ref.read(equippedItemsProvider.notifier);
+        if (equipped) {
+          notifier.unequip(item.category);
+        } else {
+          notifier.equip(item.category, item.id);
+        }
+      },
+      style: ElevatedButton.styleFrom(
+        backgroundColor: equipped ? Colors.grey.shade300 : primary,
+        foregroundColor: equipped ? kTextDark : Colors.white,
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+        minimumSize: const Size(72, 34),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      ),
+      child: Text(equipped ? '解除する' : '装着する',
+          style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold)),
     );
   }
 }

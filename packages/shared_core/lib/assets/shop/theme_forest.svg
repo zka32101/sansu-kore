@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- PLACEHOLDER ASSET: 差し替え前提の仮イラスト -->
+  <defs>
+    <linearGradient id="forestBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#AED581"/>
+      <stop offset="100%" stop-color="#2E7D32"/>
+    </linearGradient>
+  </defs>
+  <rect width="200" height="200" rx="24" fill="url(#forestBg)"/>
+  <g fill="#1B5E20" opacity="0.85">
+    <polygon points="60,150 45,110 75,110"/>
+    <polygon points="60,120 40,80 80,80"/>
+    <rect x="56" y="150" width="8" height="20"/>
+  </g>
+  <g fill="#1B5E20" opacity="0.7">
+    <polygon points="140,160 120,110 160,110"/>
+    <polygon points="140,125 118,75 162,75"/>
+    <rect x="136" y="160" width="8" height="20"/>
+  </g>
+</svg>

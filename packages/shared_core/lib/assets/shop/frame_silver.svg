@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- PLACEHOLDER ASSET: 差し替え前提の仮イラスト（円形リング状フレーム） -->
+  <defs>
+    <linearGradient id="silverRing" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F5F5F5"/>
+      <stop offset="50%" stop-color="#B0BEC5"/>
+      <stop offset="100%" stop-color="#78909C"/>
+    </linearGradient>
+  </defs>
+  <circle cx="100" cy="100" r="92" fill="none" stroke="url(#silverRing)" stroke-width="14"/>
+  <circle cx="100" cy="100" r="92" fill="none" stroke="#FFFFFF" stroke-width="2" opacity="0.6"/>
+</svg>

@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_core/shared_core.dart'
-    show characterStateProvider, coinProvider, CrossPromoService, feedbackProvider;
+    show characterStateProvider, coinProvider, CrossPromoService, feedbackProvider, equippedItemsProvider;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 import 'models/quest_model.dart';
@@ -81,6 +81,8 @@ Future<void> main() async {
     overrides: [
       // 算数コレのキャラクターノティファイアを注入
       characterStateProvider.overrideWith(CharacterNotifier.new),
+      // 算数コレのショップアイテム装着状態ノティファイアを注入
+      equippedItemsProvider.overrideWith(EquippedItemsNotifier.new),
     ],
   );
 

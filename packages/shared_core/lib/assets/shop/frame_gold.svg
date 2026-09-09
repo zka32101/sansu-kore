@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- PLACEHOLDER ASSET: 差し替え前提の仮イラスト（円形リング状フレーム） -->
+  <defs>
+    <linearGradient id="goldRing" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF59D"/>
+      <stop offset="50%" stop-color="#FFC107"/>
+      <stop offset="100%" stop-color="#FF8F00"/>
+    </linearGradient>
+  </defs>
+  <circle cx="100" cy="100" r="92" fill="none" stroke="url(#goldRing)" stroke-width="16"/>
+  <circle cx="100" cy="100" r="92" fill="none" stroke="#FFFFFF" stroke-width="2" opacity="0.5"/>
+  <g fill="#FFC107">
+    <polygon points="100,4 104,14 95,14"/>
+    <polygon points="100,196 104,186 95,186"/>
+  </g>
+</svg>

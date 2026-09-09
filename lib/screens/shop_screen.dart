@@ -93,7 +93,8 @@ class ShopScreen extends CoinShopPage {
   const ShopScreen({super.key})
       : super(
           characters: kSansuCharacters,
-          exchangeItems: const [],
+          // 共通カタログ（背景テーマ4種 + プロフィールフレーム4種）を交換所に追加。
+          exchangeItems: kCommonShopItems,
           seasonalItems: const {},
         );
 }

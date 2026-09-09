@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- PLACEHOLDER ASSET: 差し替え前提の仮イラスト -->
+  <defs>
+    <linearGradient id="oceanBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#81D4FA"/>
+      <stop offset="100%" stop-color="#0277BD"/>
+    </linearGradient>
+  </defs>
+  <rect width="200" height="200" rx="24" fill="url(#oceanBg)"/>
+  <path d="M0 120 Q 25 105 50 120 T 100 120 T 150 120 T 200 120 V200 H0 Z" fill="#B3E5FC" opacity="0.7"/>
+  <path d="M0 150 Q 25 135 50 150 T 100 150 T 150 150 T 200 150 V200 H0 Z" fill="#E1F5FE" opacity="0.85"/>
+  <circle cx="150" cy="55" r="20" fill="#FFF9C4" opacity="0.9"/>
+</svg>
