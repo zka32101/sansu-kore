@@ -19,6 +19,7 @@ import '../screens/daily_bonus_screen.dart';
 import '../screens/math_guide_screen.dart';
 import '../screens/math_guide_detail_screen.dart';
 import '../screens/ranking_filter_screen.dart';
+import '../screens/lesson_screen.dart';
 import '../theme/app_theme.dart';
 import '../widgets/daily_challenge_widgets.dart';
 import '../widgets/math_guide_widgets.dart';
@@ -235,6 +236,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             ),
           ),
 
+          // 学ぶ（解説メニュー）への導線
+          const SliverToBoxAdapter(
+            child: _LessonMenuCard(),
+          ),
+
           // スペシャルモード（無限とっくん・ゴーストバトル）
           SliverToBoxAdapter(
             child: _SpecialModeSection(
@@ -340,6 +346,64 @@ class _StatCard extends StatelessWidget {
             const SizedBox(height: 4),
             Text(value, style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: color)),
             Text(label, style: const TextStyle(fontSize: 10, color: kTextMuted)),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _LessonMenuCard extends StatelessWidget {
+  const _LessonMenuCard();
+
+  @override
+  Widget build(BuildContext context) {
+    const color = Color(0xFF2980B9);
+
+    return GestureDetector(
+      onTap: () => Navigator.of(context).push(
+        MaterialPageRoute(builder: (_) => const LessonScreen()),
+      ),
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            colors: [color, Color(0xFF1B4F72)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+                color: color.withValues(alpha: 0.3),
+                blurRadius: 8,
+                offset: const Offset(0, 3))
+          ],
+        ),
+        child: const Row(
+          children: [
+            Text('📖', style: TextStyle(fontSize: 32)),
+            SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('算数を学ぶ',
+                      style: TextStyle(
+                          fontSize: 13,
+                          color: Colors.white70,
+                          fontWeight: FontWeight.w500)),
+                  SizedBox(height: 4),
+                  Text('計算・図形・割合などのしくみを読んでふくしゅう',
+                      style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold)),
+                ],
+              ),
+            ),
+            Icon(Icons.chevron_right, color: Colors.white),
           ],
         ),
       ),
