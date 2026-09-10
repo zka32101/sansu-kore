@@ -17,6 +17,7 @@ import '../providers/coin_provider.dart';
 import '../providers/profile_provider.dart';
 import '../providers/daily_login_provider.dart';
 import '../providers/adaptive_provider.dart' as localAdaptiveProvider;
+import '../providers/adaptive_provider.dart' show AdaptiveState;
 import '../providers/weekly_challenge_provider.dart';
 import '../providers/retention_notifications_provider.dart';
 import '../providers/daily_challenge_provider.dart';
@@ -1224,7 +1225,6 @@ class _DailyMissionCardWrapper extends ConsumerWidget {
     if (missionState.isLoading || missionState.missions.isEmpty) {
       return const SizedBox.shrink();
     }
-    /*
 
     // 最初のミッションを表示
     final firstMission = missionState.missions.first;
