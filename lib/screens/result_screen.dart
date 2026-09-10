@@ -23,7 +23,7 @@ import '../providers/retention_notifications_provider.dart';
 // - Ads: Requires google_mobile_ads integration
 // - Premium: Awaiting monetization strategy
 import '../services/notification_service.dart';
-import '../theme/app_theme.dart' as appTheme;
+import '../theme/app_theme.dart';
 
 class ResultScreen extends ConsumerStatefulWidget {
   final localQuestModel.QuestResult result;
@@ -269,7 +269,7 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
   Widget build(BuildContext context) {
     final r = widget.result;
     final pct = r.correctCount / r.totalCount;
-    final color = pct >= 0.8 ? appTheme.kAccentGreen : pct >= 0.6 ? appTheme.kAccentOrange : appTheme.kPrimaryColor;
+    final color = pct >= 0.8 ? kAccentGreen : pct >= 0.6 ? appTheme.kAccentOrange : kPrimaryColor;
     final emoji = r.isPerfect ? '🏆' : pct >= 0.8 ? '⭐' : pct >= 0.6 ? '👍' : '📝';
     final message = r.isPerfect
         ? '完璧！天才算数マスター！'
@@ -283,7 +283,7 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
       appBar: AppBar(
         title: const Text('結果'),
         automaticallyImplyLeading: false,
-        backgroundColor: appTheme.kPrimaryColor,
+        backgroundColor: kPrimaryColor,
       ),
       body: Stack(
         children: [
@@ -294,7 +294,7 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
                 confettiController: _confetti,
                 blastDirectionality: BlastDirectionality.explosive,
                 numberOfParticles: 30,
-                colors: const [appTheme.kPrimaryColor, appTheme.kAccentGreen, appTheme.kAccentBlue, Colors.orange],
+                colors: const [kPrimaryColor, kAccentGreen, appTheme.kAccentBlue, Colors.orange],
               ),
             ),
           SingleChildScrollView(
@@ -303,7 +303,7 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
               children: [
                 const SizedBox(height: 16),
                 _saving
-                    ? const CircularProgressIndicator(color: appTheme.kPrimaryColor)
+                    ? const CircularProgressIndicator(color: kPrimaryColor)
                     : _ScoreDisplay(emoji: emoji, message: message, r: r, color: color),
                 const SizedBox(height: 20),
                 _StageInfo(stage: widget.stage, elapsed: r.elapsed),
@@ -343,7 +343,7 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
                           (route) => route.settings.name == '/home',
                         ),
                         style: OutlinedButton.styleFrom(
-                          side: const BorderSide(color: appTheme.kPrimaryColor),
+                          side: const BorderSide(color: kPrimaryColor),
                           padding: const EdgeInsets.symmetric(vertical: 14),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                         ),
@@ -398,7 +398,7 @@ class _ScoreDisplay extends StatelessWidget {
         children: [
           Text(emoji, style: const TextStyle(fontSize: 64)),
           const SizedBox(height: 12),
-          Text(message, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: appTheme.kTextDark)),
+          Text(message, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: kTextDark)),
           const SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -435,7 +435,7 @@ class _ScoreStat extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(label, style: const TextStyle(color: appTheme.kTextMuted, fontSize: 12)),
+        Text(label, style: const TextStyle(color: kTextMuted, fontSize: 12)),
         const SizedBox(height: 4),
         Row(
           crossAxisAlignment: CrossAxisAlignment.baseline,
@@ -443,7 +443,7 @@ class _ScoreStat extends StatelessWidget {
           children: [
             Text(value, style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold, color: color)),
             const SizedBox(width: 4),
-            Text(suffix, style: const TextStyle(fontSize: 14, color: appTheme.kTextMuted)),
+            Text(suffix, style: const TextStyle(fontSize: 14, color: kTextMuted)),
           ],
         ),
       ],
@@ -484,7 +484,7 @@ class _InfoItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(label, style: const TextStyle(color: appTheme.kTextMuted, fontSize: 11)),
+        Text(label, style: const TextStyle(color: kTextMuted, fontSize: 11)),
         const SizedBox(height: 4),
         Text(value, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
       ],
@@ -542,8 +542,8 @@ class _ShareAchievementButton extends ConsumerWidget {
       icon: const Icon(Icons.share, size: 18),
       label: const Text('成果をシェア！'),
       style: OutlinedButton.styleFrom(
-        foregroundColor: appTheme.kPrimaryColor,
-        side: const BorderSide(color: appTheme.kPrimaryColor),
+        foregroundColor: kPrimaryColor,
+        side: const BorderSide(color: kPrimaryColor),
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20)),
         padding:
@@ -661,14 +661,14 @@ class _GhostComparisonSection extends ConsumerWidget {
                     'ゴーストレコード保存中...',
                     style: TextStyle(
                       fontSize: 13,
-                      color: appTheme.kTextMuted,
+                      color: kTextMuted,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                   SizedBox(height: 2),
                   Text(
                     '次回プレイで前回の自分と対戦！',
-                    style: TextStyle(fontSize: 12, color: appTheme.kTextMuted),
+                    style: TextStyle(fontSize: 12, color: kTextMuted),
                   ),
                 ],
               ),
@@ -700,7 +700,7 @@ class _GhostComparisonSection extends ConsumerWidget {
         ),
         borderRadius: BorderRadius.circular(14),
         border: Border.all(
-          color: isNewRecord ? appTheme.kAccentGreen : appTheme.kPrimaryColor,
+          color: isNewRecord ? kAccentGreen : kPrimaryColor,
           width: 1.5,
         ),
       ),
@@ -718,7 +718,7 @@ class _GhostComparisonSection extends ConsumerWidget {
                       'ゴースト対戦',
                       style: TextStyle(
                         fontSize: 12,
-                        color: appTheme.kTextMuted,
+                        color: kTextMuted,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -731,7 +731,7 @@ class _GhostComparisonSection extends ConsumerWidget {
                           style: const TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.bold,
-                            color: appTheme.kTextDark,
+                            color: kTextDark,
                           ),
                         ),
                         Text(
@@ -739,7 +739,7 @@ class _GhostComparisonSection extends ConsumerWidget {
                           style: TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.bold,
-                            color: isNewRecord ? appTheme.kAccentGreen : appTheme.kTextDark,
+                            color: isNewRecord ? kAccentGreen : kTextDark,
                           ),
                         ),
                       ],
@@ -766,7 +766,7 @@ class _GhostComparisonSection extends ConsumerWidget {
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
-                    color: isNewRecord ? const Color(0xFF2E7D32) : appTheme.kPrimaryColor,
+                    color: isNewRecord ? const Color(0xFF2E7D32) : kPrimaryColor,
                   ),
                 ),
               ],
@@ -918,7 +918,7 @@ class _ParentPraiseHint extends StatelessWidget {
       decoration: BoxDecoration(
         color: const Color(0xFFF0FFF4),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: appTheme.kAccentGreen.withAlpha(80)),
+        border: Border.all(color: kAccentGreen.withAlpha(80)),
       ),
       child: Row(
         children: [
@@ -930,13 +930,13 @@ class _ParentPraiseHint extends StatelessWidget {
               children: [
                 const Text(
                   '保護者の方へ',
-                  style: TextStyle(fontSize: 12, color: appTheme.kTextMuted),
+                  style: TextStyle(fontSize: 12, color: kTextMuted),
                 ),
                 Text(
                   isPerfect
                       ? '今すぐ「満点だね！すごい！」と褒めてあげましょう 🎉'
                       : '「よく頑張ったね！」と声をかけてあげましょう',
-                  style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: appTheme.kTextDark),
+                  style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: kTextDark),
                 ),
               ],
             ),

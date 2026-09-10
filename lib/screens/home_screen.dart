@@ -33,7 +33,7 @@ import '../screens/math_guide_detail_screen.dart';
 import '../screens/ranking_filter_screen.dart';
 import '../screens/lesson_screen.dart';
 import '../screens/multiplayer/multiplayer_home_screen.dart';
-import '../theme/app_theme.dart' as appTheme;
+import '../theme/app_theme.dart';
 import '../widgets/daily_challenge_widgets.dart';
 import '../widgets/math_guide_widgets.dart';
 import '../widgets/ranking_filter_widget.dart';
@@ -122,7 +122,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     // 全画面オーバーレイを表示する（端末・アプリ単位、プロフィール共通）。
     ref.watch(screenTimeProvider); // usedMinutes の変化を監視して再評価
     if (ref.read(screenTimeProvider.notifier).isLimitReached) {
-      return const ScreenTimeLimitReachedWidget(primaryColor: appTheme.kPrimaryColor);
+      return const ScreenTimeLimitReachedWidget(primaryColor: kPrimaryColor);
     }
 
     // ショップで装着中の背景テーマ・プロフィールフレーム（未購入・未装着なら null）
@@ -150,13 +150,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           SliverAppBar(
             expandedHeight: 120,
             pinned: true,
-            backgroundColor: appTheme.kPrimaryColor,
+            backgroundColor: kPrimaryColor,
             forceElevated: true,
             flexibleSpace: FlexibleSpaceBar(
               background: Container(
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [appTheme.kPrimaryColor, kPrimaryDark],
+                    colors: [kPrimaryColor, kPrimaryDark],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
@@ -406,7 +406,7 @@ class _ProfileAvatar extends StatelessWidget {
             backgroundColor: Colors.white,
             child: Text(initial,
                 style: const TextStyle(
-                    color: appTheme.kPrimaryColor,
+                    color: kPrimaryColor,
                     fontWeight: FontWeight.bold,
                     fontSize: 14)),
           ),
@@ -441,7 +441,7 @@ class _StatsRow extends StatelessWidget {
           const SizedBox(width: 10),
           _StatCard(label: 'コイン', value: '$coinCount枚', emoji: '🪙', color: const Color(0xFFFFB81C)),
           const SizedBox(width: 10),
-          _StatCard(label: 'クリア', value: '$cleared/$totalStages', emoji: '🎯', color: appTheme.kAccentGreen),
+          _StatCard(label: 'クリア', value: '$cleared/$totalStages', emoji: '🎯', color: kAccentGreen),
         ],
       ),
     );
@@ -471,7 +471,7 @@ class _StatCard extends StatelessWidget {
             Text(emoji, style: const TextStyle(fontSize: 22)),
             const SizedBox(height: 4),
             Text(value, style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: color)),
-            Text(label, style: const TextStyle(fontSize: 10, color: appTheme.kTextMuted)),
+            Text(label, style: const TextStyle(fontSize: 10, color: kTextMuted)),
           ],
         ),
       ),
@@ -551,14 +551,14 @@ class _MultiplayerCard extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           gradient: const LinearGradient(
-            colors: [appTheme.kPrimaryColor, kPrimaryDeep],
+            colors: [kPrimaryColor, kPrimaryDeep],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
-                color: appTheme.kPrimaryColor.withValues(alpha: 0.3),
+                color: kPrimaryColor.withValues(alpha: 0.3),
                 blurRadius: 8,
                 offset: const Offset(0, 3))
           ],
@@ -685,10 +685,10 @@ class _AdaptiveRecommendCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('AIおすすめ', style: TextStyle(fontSize: 12, color: appTheme.kTextMuted)),
+                const Text('AIおすすめ', style: TextStyle(fontSize: 12, color: kTextMuted)),
                 Text(
                   adaptive.weeklyRecommendation,
-                  style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: appTheme.kTextDark),
+                  style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: kTextDark),
                 ),
               ],
             ),
@@ -716,14 +716,14 @@ class _QuickStartCard extends StatelessWidget {
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
             gradient: const LinearGradient(
-              colors: [appTheme.kPrimaryColor, kPrimaryDark],
+              colors: [kPrimaryColor, kPrimaryDark],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
-                color: appTheme.kPrimaryColor.withAlpha(80),
+                color: kPrimaryColor.withAlpha(80),
                 blurRadius: 12,
                 offset: const Offset(0, 4),
               ),
@@ -790,7 +790,7 @@ class _RecentBadgesSection extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: appTheme.kPrimaryColor.withAlpha(60)),
+                    border: Border.all(color: kPrimaryColor.withAlpha(60)),
                   ),
                   child: Column(
                     children: [
@@ -841,7 +841,7 @@ class _SpecialModeSection extends StatelessWidget {
               style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
-                  color: appTheme.kTextDark),
+                  color: kTextDark),
             ),
           ),
           Row(
