@@ -1,10 +1,11 @@
+import 'dart:convert';
+
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
-import '../models/quest_model.dart';
 
-// アダプティブラーニング：トピックごとの正答率を追記
-// 設計書の「ZPD（最近接発達領域）」実装
+
+import '../models/quest_model.dart';
 const _accuracyKey = 'topic_accuracy';
 const _wrongCountKey = 'topic_wrong_streak';
 

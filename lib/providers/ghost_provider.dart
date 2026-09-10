@@ -1,11 +1,14 @@
 import 'dart:convert';
+
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'firestore_provider.dart';
 
+
+import 'firestore_provider.dart';
 const _ghostPrefKey = 'ghost_records_v1';
 
 /// ゴーストバトル用レコード：1ステージの問題ごと回答時間

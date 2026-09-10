@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../providers/weekly_challenge_provider.dart';
-import '../providers/profile_provider.dart';
-import '../models/quest_model.dart';
-import '../theme/app_theme.dart';
 
+
+import '../models/quest_model.dart';
+import '../providers/profile_provider.dart';
+import '../providers/weekly_challenge_provider.dart';
+import '../theme/app_theme.dart';
 class WeeklyChallengeScreen extends ConsumerStatefulWidget {
   const WeeklyChallengeScreen({super.key});
 

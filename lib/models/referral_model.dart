@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+
 /// 紹介コード情報
 class ReferralCode {
   final String code;

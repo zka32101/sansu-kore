@@ -1,18 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+
+import '../providers/coin_provider.dart';
 import '../providers/grade_provider.dart';
 import '../providers/profile_provider.dart';
-import '../providers/coin_provider.dart';
 import '../theme/app_theme.dart';
-
-// 設計書「最初の5分で感動」オンボーディング
-// Step 1: 名前入力
-// Step 2: 学年選択
-// Step 3: お試しクイズ（1問）
-// Step 4: 正解！キャラクター獲得演出
-// Step 5: 図鑑に追加＋「あと109体」
-// Step 6: 完了「今日は何を学ぼう？」
-
 class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key});
 

@@ -1,3 +1,5 @@
+import 'package:cross_promo_kit/cross_promo_kit.dart'
+    show CrossPromoSection;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -10,20 +12,19 @@ import 'package:shared_core/shared_core.dart'
         ScreenTimeLimitReachedWidget,
         missionProvider,
         DailyMissionCard;
-import 'package:cross_promo_kit/cross_promo_kit.dart'
-    show CrossPromoSection;
-import '../data/stage_data.dart';
+
 import '../data/math_tips_data.dart';
-import '../providers/progress_provider.dart';
+import '../data/stage_data.dart';
+import '../providers/adaptive_provider.dart';
 import '../providers/badge_provider.dart';
 import '../providers/coin_provider.dart';
-import '../providers/profile_provider.dart';
-import '../providers/daily_login_provider.dart';
-import '../providers/adaptive_provider.dart';
-import '../providers/weekly_challenge_provider.dart';
-import '../providers/retention_notifications_provider.dart';
 import '../providers/daily_challenge_provider.dart';
+import '../providers/daily_login_provider.dart';
+import '../providers/profile_provider.dart';
+import '../providers/progress_provider.dart';
 import '../providers/ranking_provider.dart';
+import '../providers/retention_notifications_provider.dart';
+import '../providers/weekly_challenge_provider.dart';
 // import '../providers/ads_provider.dart';  // TODO: Re-enable once google_mobile_ads conflict is resolved
 import '../models/quest_model.dart';
 import '../models/math_guide_model.dart';

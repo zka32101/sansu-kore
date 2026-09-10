@@ -1,12 +1,15 @@
 // VFX Widget Layer - Rendering visual effects
 // Features: Particle effects, animations, floating text, impact effects
 
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:math';
 import 'dart:ui' as ui;
+
+
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sansu_kore/models/vfx_model.dart';
 import 'package:sansu_kore/providers/vfx_provider.dart';
+
 
 /// パーティクルエフェクトを表示するウィジェット
 class ParticleEffectWidget extends StatefulWidget {

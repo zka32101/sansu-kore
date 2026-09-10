@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../providers/grade_upgrade_provider.dart';
 
-/// 学年アップグレード通知画面
-/// 4月に学年が上がったことをユーザーに通知
+
+import '../providers/grade_upgrade_provider.dart';
 class GradeUpgradeScreen extends ConsumerStatefulWidget {
   final int newGrade;
   final int previousGrade;

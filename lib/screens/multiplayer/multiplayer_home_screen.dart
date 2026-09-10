@@ -6,12 +6,8 @@ import 'package:shared_core/shared_core.dart'
 
 import '../../providers/multiplayer_provider.dart';
 import '../../theme/app_theme.dart';
-import 'matchmaking_waiting_screen.dart';
 import 'leaderboard_screen.dart';
-
-/// マルチプレイ対戦のトップ画面（レーティング表示・対戦履歴・クイックマッチ）。
-///
-/// 参考: social_quiz_app の matchmaker_screen.dart。
+import 'matchmaking_waiting_screen.dart';
 class MultiplayerHomeScreen extends ConsumerWidget {
   const MultiplayerHomeScreen({super.key});
 

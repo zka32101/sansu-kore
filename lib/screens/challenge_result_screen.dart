@@ -1,6 +1,6 @@
+import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:confetti/confetti.dart';
 import 'package:sansu_kore/models/game_mode_model.dart';
 import 'package:sansu_kore/models/sound_model.dart';
 import 'package:sansu_kore/models/vfx_model.dart';
@@ -8,6 +8,7 @@ import 'package:sansu_kore/providers/game_mode_provider.dart';
 import 'package:sansu_kore/providers/sound_provider.dart';
 import 'package:sansu_kore/providers/vfx_provider.dart';
 import 'package:sansu_kore/widgets/vfx_widgets.dart';
+
 
 /// チャレンジ結果画面
 /// ゲーム完了後のスコア、コイン、バッジを表示

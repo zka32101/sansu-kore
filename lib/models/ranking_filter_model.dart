@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
-import 'ranking_model.dart';
 
-/// ランキングのグループ化オプション
+
+import 'ranking_model.dart';
 enum RankingGroupOption {
   global, // 全体ランキング
   grade, // 学年別ランキング

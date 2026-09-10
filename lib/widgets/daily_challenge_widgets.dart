@@ -4,6 +4,7 @@ import 'package:sansu_kore/providers/daily_challenge_provider.dart';
 import 'package:sansu_kore/providers/daily_login_provider.dart';
 import 'package:sansu_kore/screens/daily_challenge_screen.dart';
 
+
 /// デイリーチャレンジカード - ホーム画面用
 /// 本日のチャレンジ状況を表示し、タップでプレイ画面へ遷移
 class DailyChallengeCard extends ConsumerWidget {

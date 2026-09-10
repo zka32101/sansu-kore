@@ -1,5 +1,4 @@
 import '../models/quest_model.dart';
-
 List<Stage> getStagesForGrade(int grade) {
   final stages = switch (grade) {
     1 => _grade1Stages,

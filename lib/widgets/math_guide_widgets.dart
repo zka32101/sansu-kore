@@ -7,6 +7,7 @@ import 'package:sansu_kore/models/math_guide_model.dart';
 import 'package:sansu_kore/providers/guide_progress_provider.dart';
 import 'package:sansu_kore/widgets/furigana_widgets.dart';
 
+
 /// ガイドカード（ホーム画面表示用）
 class MathGuideCard extends ConsumerWidget {
   final MathGuide guide;

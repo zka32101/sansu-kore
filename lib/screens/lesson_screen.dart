@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_core/shared_core.dart' show LessonMenuPage, lessonProvider;
-import '../data/lesson_data.dart';
 
-/// 「学ぶ」画面。shared_core の LessonMenuPage をラップし、
-/// 画面表示時に算数コレ！の解説記事一覧を lessonProvider に読み込む。
+
+import '../data/lesson_data.dart';
 class LessonScreen extends ConsumerStatefulWidget {
   const LessonScreen({super.key});
 

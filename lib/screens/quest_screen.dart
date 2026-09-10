@@ -1,20 +1,23 @@
 import 'dart:async';
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../models/quest_model.dart';
 import 'package:shared_core/shared_core.dart' show characterStateProvider;
+
+
+import '../models/quest_model.dart';
 import '../providers/adaptive_provider.dart';
+import '../providers/character_level_provider.dart';
 import '../providers/ghost_provider.dart';
 import '../providers/profile_provider.dart';
 import '../providers/sansu_profile_provider.dart';
-import '../providers/character_level_provider.dart';
-import '../theme/app_theme.dart';
 import '../providers/tts_provider.dart';
 import '../providers/tts_provider.dart' as tts_enums show TtsSource;
-import '../widgets/furigana_text.dart';
+import '../theme/app_theme.dart';
 import '../widgets/calculation_steps_widget.dart';
+import '../widgets/furigana_text.dart';
 import '../widgets/geometry_visual_widget.dart';
-
 class QuestScreen extends ConsumerStatefulWidget {
   final Stage stage;
   const QuestScreen({super.key, required this.stage});

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+
 import '../providers/friends_provider.dart';
 import '../theme/app_theme.dart';
-
-/// フレンド追加画面
 class AddFriendScreen extends ConsumerStatefulWidget {
   const AddFriendScreen({super.key});
 

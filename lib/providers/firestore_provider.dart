@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sansu_kore/utils/security_utils.dart';
 import 'package:shared_core/shared_core.dart' show FeedbackReport;
-
 final firestoreProvider = Provider((ref) => FirebaseFirestore.instance);
 final authProvider = Provider((ref) => FirebaseAuth.instance);
 

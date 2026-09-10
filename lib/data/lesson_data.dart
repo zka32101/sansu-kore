@@ -6,7 +6,6 @@
 /// stage_data.dart / math_tips_data.dart の学年配分・トーンを踏襲。
 
 import 'package:shared_core/shared_core.dart' show LessonContent, LessonSection;
-
 const List<LessonContent> kLessons = [
   LessonContent(
     id: 'lesson_addition_subtraction',

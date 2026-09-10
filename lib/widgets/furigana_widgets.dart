@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../models/furigana_model.dart';
 
-/// ふりがな対応テキストウィジェット
+
+import '../models/furigana_model.dart';
 class FuriganaText extends StatelessWidget {
   /// 表示するテキスト
   final String text;

@@ -3,8 +3,9 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sansu_kore/models/math_guide_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 /// ガイド進捗状態
 class GuideProgressState {

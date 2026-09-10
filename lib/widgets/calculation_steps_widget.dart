@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../models/quest_model.dart';
 
-/// 計算過程を表示するウィジェット（筆算ヒント）
+
+import '../models/quest_model.dart';
 class CalculationStepsWidget extends StatelessWidget {
   final QuizQuestion question;
   final bool showSteps;

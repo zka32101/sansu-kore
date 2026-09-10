@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+
 /// 学年アップグレード処理を管理するプロバイダ
 final gradeUpgradeProvider = Provider<GradeUpgradeService>((ref) {
   return GradeUpgradeService(

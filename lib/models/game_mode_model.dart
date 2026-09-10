@@ -2,7 +2,6 @@
 // Defines 5 game modes with unique mechanics and scoring systems
 
 import 'package:uuid/uuid.dart';
-
 enum GameMode { normal, timeAttack, survival, flash, marathon }
 
 enum GameModeStatus { idle, active, paused, completed, failed }

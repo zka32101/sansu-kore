@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+
 import '../models/ranking_filter_model.dart';
 import '../models/ranking_model.dart';
 import '../providers/ranking_provider.dart';
-
-/// ランキングフィルタ画面
-/// 4種類のグループ化オプションでランキングをフィルタリング
 class RankingFilterScreen extends ConsumerWidget {
   const RankingFilterScreen({Key? key}) : super(key: key);
 

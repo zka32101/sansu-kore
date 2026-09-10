@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+
 import '../data/infinite_generator.dart';
 import '../models/quest_model.dart';
 import '../providers/adaptive_provider.dart';
 import '../providers/profile_provider.dart';
 import '../theme/app_theme.dart';
 import '../widgets/furigana_text.dart';
-
-/// 無限とっくん画面
-/// ランダムに問題を無限生成し、連続正解ストリークを競う練習モード
 class InfinitePracticeScreen extends ConsumerStatefulWidget {
   /// 初期トピック（ホームから渡す）。null の場合は最弱トピックを自動選択
   final MathTopicType? initialTopic;

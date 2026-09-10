@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cross_promo_kit/cross_promo_kit.dart'
+    show CrossPromoService;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
@@ -19,46 +21,45 @@ import 'package:shared_core/shared_core.dart'
         badgeProvider,
         unifiedBadges,
         BadgeNotifier;
-import 'package:cross_promo_kit/cross_promo_kit.dart'
-    show CrossPromoService;
 import 'package:shared_preferences/shared_preferences.dart';
+
 import 'firebase_options.dart';
 import 'models/quest_model.dart';
 import 'providers/character_provider.dart';
-import 'providers/lesson_provider.dart' show LessonNotifier, lessonProvider;
 import 'providers/firestore_provider.dart';
+import 'providers/lesson_provider.dart' show LessonNotifier, lessonProvider;
 import 'providers/multiplayer_provider.dart';
 import 'providers/screen_time_provider.dart';
-import 'services/profile_migration_service.dart';
-import 'services/revenue_cat_service.dart';
-import 'screens/character_screen.dart';
+import 'screens/add_friend_screen.dart';
+import 'screens/analysis_dashboard_screen.dart';
 import 'screens/badge_collection_screen.dart';
-import 'screens/ranking_filter_screen.dart';
-import 'screens/shop_screen.dart';
+import 'screens/character_screen.dart';
 import 'screens/daily_bonus_screen.dart';
-import 'screens/weekly_challenge_screen.dart';
+import 'screens/friend_requests_screen.dart';
+import 'screens/friends_list_screen.dart';
+import 'screens/grade_upgrade_screen.dart';
 import 'screens/growth_screen.dart';
-import 'screens/invite_screen.dart';
 import 'screens/home_screen.dart';
+import 'screens/infinite_practice_screen.dart';
+import 'screens/invite_screen.dart';
 import 'screens/math_guide_screen.dart';
+import 'screens/multiplayer/leaderboard_screen.dart';
+import 'screens/multiplayer/multiplayer_home_screen.dart';
 import 'screens/onboarding_screen.dart';
 import 'screens/org_splash_screen.dart';
 import 'screens/privacy_policy_screen.dart';
 import 'screens/profile_selection_screen.dart';
 import 'screens/quest_screen.dart';
+import 'screens/ranking_filter_screen.dart';
 import 'screens/result_screen.dart';
 import 'screens/settings_screen.dart';
+import 'screens/shop_screen.dart';
 import 'screens/splash_screen.dart';
 import 'screens/stage_select_screen.dart';
-import 'screens/infinite_practice_screen.dart';
 import 'screens/upgrade_screen.dart';
-import 'screens/analysis_dashboard_screen.dart';
-import 'screens/grade_upgrade_screen.dart';
-import 'screens/friends_list_screen.dart';
-import 'screens/add_friend_screen.dart';
-import 'screens/friend_requests_screen.dart';
-import 'screens/multiplayer/multiplayer_home_screen.dart';
-import 'screens/multiplayer/leaderboard_screen.dart';
+import 'screens/weekly_challenge_screen.dart';
+import 'services/profile_migration_service.dart';
+import 'services/revenue_cat_service.dart';
 import 'theme/app_theme.dart';
 
 Future<void> main() async {

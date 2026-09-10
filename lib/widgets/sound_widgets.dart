@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sansu_kore/models/sound_model.dart';
 import 'package:sansu_kore/providers/sound_provider.dart';
 
+
 /// サウンドプレイボタン
 class SoundPlayButton extends ConsumerWidget {
   final SoundEffect soundEffect;

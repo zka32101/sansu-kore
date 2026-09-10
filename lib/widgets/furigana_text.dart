@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 /// ふりがな（ルビ）付きテキストウィジェット
 /// 形式: {漢字|ふりがな} または Map<String, String> を使用
 class FuriganaText extends StatelessWidget {

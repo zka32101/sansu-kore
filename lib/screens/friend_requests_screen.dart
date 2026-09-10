@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+
 import '../providers/friends_provider.dart';
 import '../theme/app_theme.dart';
-
-/// フレンドリクエスト画面
 class FriendRequestsScreen extends ConsumerStatefulWidget {
   const FriendRequestsScreen({super.key});
 

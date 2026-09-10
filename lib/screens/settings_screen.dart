@@ -6,14 +6,15 @@ import 'package:shared_core/shared_core.dart'
         FeedbackFormPage,
         requireParentalGate,
         ScreenTimeSettingsWidget;
+
+import '../providers/adaptive_provider.dart';
+import '../providers/daily_login_provider.dart';
+import '../providers/logout_provider.dart';
+import '../providers/premium_provider.dart';
 import '../providers/profile_provider.dart';
 import '../providers/progress_provider.dart';
-import '../providers/premium_provider.dart';
-import '../providers/daily_login_provider.dart';
-import '../providers/adaptive_provider.dart';
-import '../providers/logout_provider.dart';
-import '../providers/sansu_profile_provider.dart';
 import '../providers/ranking_provider.dart';
+import '../providers/sansu_profile_provider.dart';
 import '../providers/tts_provider.dart';
 import '../services/notification_service.dart';
 import '../theme/app_theme.dart';
