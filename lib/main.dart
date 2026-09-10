@@ -20,7 +20,9 @@ import 'package:shared_core/shared_core.dart'
         screenTimeProvider,
         badgeProvider,
         unifiedBadges,
-        BadgeNotifier;
+        BadgeNotifier,
+        rankingProvider,
+        friendProvider;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'firebase_options.dart';
@@ -58,6 +60,8 @@ import 'screens/splash_screen.dart';
 import 'screens/stage_select_screen.dart';
 import 'screens/upgrade_screen.dart';
 import 'screens/weekly_challenge_screen.dart';
+import 'services/firestore_friend_service.dart';
+import 'services/firestore_ranking_service.dart';
 import 'services/profile_migration_service.dart';
 import 'services/revenue_cat_service.dart';
 import 'theme/app_theme.dart';
@@ -128,8 +132,21 @@ Future<void> main() async {
       screenTimeProvider.overrideWith(ScreenTimeNotifier.new),
       // 算数コレの学習コンテンツ（解説記事）ノティファイアを注入
       lessonProvider.overrideWith(LessonNotifier.new),
+      // Phase 4.3: マルチアプリランキング・フレンド機能
+      // Firestore ベースのランキング・フレンド機能を統一化（shared_core の型を使用）
     ],
   );
+
+  // Firestore ランキング・フレンド サービスの初期化
+  final rankingService = FirestoreRankingService();
+  final friendService = FirestoreFriendService();
+
+  // Handler を shared_core provider に注入
+  container.read(rankingProvider.notifier).setFetchHandler(rankingService.fetchRankings);
+  container.read(friendProvider.notifier)
+    ..setFetchHandler(friendService.fetchFriends)
+    ..setAddFriendHandler(friendService.addFriend)
+    ..setRemoveFriendHandler(friendService.removeFriend);
 
   // バッジシステム初期化: 統一バッジを主題タグで初期化
   container.read(badgeProvider.notifier).setBadgeDefinitions(unifiedBadges, subject: 'sansu');
