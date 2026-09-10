@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shared_core/shared_core.dart'
-    show globalRankingProvider, GlobalRankingEntry;
 import '../models/ranking_model.dart';
 import '../providers/ranking_provider.dart';
 
@@ -19,18 +17,11 @@ class _RankingScreenState extends ConsumerState<RankingScreen>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 1, vsync: this);
 
-    // 初期化時に全ランキングを取得
+    // 初期化時にフレンドランキングを取得
     Future.microtask(() async {
-      final globalRanking = ref.read(globalRankingProvider.notifier);
       final ranking = ref.read(rankingProvider.notifier);
-
-      // グローバルランキング（全7アプリ合計）
-      await globalRanking.fetchGlobalRanking();
-
-      // 教科別ランキング（算数）
-      await globalRanking.fetchSubjectRanking('math');
 
       // ローカルフレンドランキング
       await ranking.fetchFriendsRanking();
@@ -56,8 +47,6 @@ class _RankingScreenState extends ConsumerState<RankingScreen>
         bottom: TabBar(
           controller: _tabController,
           tabs: const [
-            Tab(text: 'グローバル'),
-            Tab(text: '教科別'),
             Tab(text: 'フレンド'),
           ],
         ),
@@ -67,20 +56,11 @@ class _RankingScreenState extends ConsumerState<RankingScreen>
           // ユーザーランキング統計セクション
           if (rankingState.currentUserRanking != null)
             _UserStatsCard(userRanking: rankingState.currentUserRanking!),
-          // タブ別ランキング表示
+          // フレンドランキング表示
           Expanded(
             child: TabBarView(
               controller: _tabController,
               children: [
-                // Tab 0: グローバルランキング（全7アプリ合計）
-                _GlobalRankingTabView(onRefresh: () async {
-                  await ref.read(globalRankingProvider.notifier).fetchGlobalRanking();
-                }),
-                // Tab 1: 教科別ランキング（算数）
-                _SubjectRankingTabView(onRefresh: () async {
-                  await ref.read(globalRankingProvider.notifier).fetchSubjectRanking('math');
-                }),
-                // Tab 2: フレンドランキング
                 _RankingListView(
                   ranking: rankingState.friendsRanking,
                   currentUserRanking: rankingState.currentUserRanking,
@@ -544,250 +524,3 @@ class _RankingTile extends StatelessWidget {
   }
 }
 
-/// グローバルランキング表示（全7アプリ合計）
-class _GlobalRankingTabView extends ConsumerWidget {
-  final Future<void> Function() onRefresh;
-
-  const _GlobalRankingTabView({required this.onRefresh});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final globalRankingState = ref.watch(globalRankingProvider);
-
-    if (globalRankingState.isLoading && globalRankingState.entries.isEmpty) {
-      return const Center(child: CircularProgressIndicator());
-    }
-
-    if (globalRankingState.error != null && globalRankingState.entries.isEmpty) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.error_outline, size: 64, color: Colors.grey.shade400),
-            const SizedBox(height: 16),
-            Text('エラーが発生しました\n${globalRankingState.error}'),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: onRefresh,
-              child: const Text('再度読み込む'),
-            ),
-          ],
-        ),
-      );
-    }
-
-    if (globalRankingState.entries.isEmpty) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.leaderboard, size: 64, color: Colors.grey.shade400),
-            const SizedBox(height: 16),
-            const Text('ランキングデータがありません'),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: onRefresh,
-              child: const Text('読み込む'),
-            ),
-          ],
-        ),
-      );
-    }
-
-    return RefreshIndicator(
-      onRefresh: onRefresh,
-      child: ListView.builder(
-        itemCount: globalRankingState.entries.length,
-        itemBuilder: (context, index) {
-          final entry = globalRankingState.entries[index];
-          return _GlobalRankingEntryTile(entry: entry, rank: index + 1);
-        },
-      ),
-    );
-  }
-}
-
-/// 教科別ランキング表示（算数）
-class _SubjectRankingTabView extends ConsumerWidget {
-  final Future<void> Function() onRefresh;
-
-  const _SubjectRankingTabView({required this.onRefresh});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final globalRankingState = ref.watch(globalRankingProvider);
-
-    if (globalRankingState.isLoading && globalRankingState.entries.isEmpty) {
-      return const Center(child: CircularProgressIndicator());
-    }
-
-    if (globalRankingState.error != null && globalRankingState.entries.isEmpty) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.error_outline, size: 64, color: Colors.grey.shade400),
-            const SizedBox(height: 16),
-            Text('エラーが発生しました\n${globalRankingState.error}'),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: onRefresh,
-              child: const Text('再度読み込む'),
-            ),
-          ],
-        ),
-      );
-    }
-
-    if (globalRankingState.entries.isEmpty) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.leaderboard, size: 64, color: Colors.grey.shade400),
-            const SizedBox(height: 16),
-            const Text('ランキングデータがありません'),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: onRefresh,
-              child: const Text('読み込む'),
-            ),
-          ],
-        ),
-      );
-    }
-
-    return RefreshIndicator(
-      onRefresh: onRefresh,
-      child: ListView.builder(
-        itemCount: globalRankingState.entries.length,
-        itemBuilder: (context, index) {
-          final entry = globalRankingState.entries[index];
-          return _SubjectRankingEntryTile(entry: entry, rank: index + 1);
-        },
-      ),
-    );
-  }
-}
-
-/// グローバルランキングエントリータイル
-class _GlobalRankingEntryTile extends StatelessWidget {
-  final GlobalRankingEntry entry;
-  final int rank;
-
-  const _GlobalRankingEntryTile({
-    required this.entry,
-    required this.rank,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      leading: Container(
-        width: 40,
-        height: 40,
-        decoration: BoxDecoration(
-          color: _getRankColor(rank),
-          shape: BoxShape.circle,
-        ),
-        child: Center(
-          child: Text(
-            '$rank',
-            style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-            ),
-          ),
-        ),
-      ),
-      title: Text(
-        entry.userName,
-        style: const TextStyle(fontWeight: FontWeight.bold),
-      ),
-      subtitle: Text('総スコア: ${entry.globalRank ?? 0}'),
-      trailing: Text(
-        '${entry.totalScore ?? 0} pts',
-        style: const TextStyle(
-          color: Colors.blue,
-          fontWeight: FontWeight.bold,
-          fontSize: 14,
-        ),
-      ),
-    );
-  }
-
-  Color _getRankColor(int rank) {
-    switch (rank) {
-      case 1:
-        return Colors.amber[600]!;
-      case 2:
-        return Colors.grey[400]!;
-      case 3:
-        return Colors.orange[600]!;
-      default:
-        return Colors.blue;
-    }
-  }
-}
-
-/// 教科別ランキングエントリータイル
-class _SubjectRankingEntryTile extends StatelessWidget {
-  final GlobalRankingEntry entry;
-  final int rank;
-
-  const _SubjectRankingEntryTile({
-    required this.entry,
-    required this.rank,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      leading: Container(
-        width: 40,
-        height: 40,
-        decoration: BoxDecoration(
-          color: _getRankColor(rank),
-          shape: BoxShape.circle,
-        ),
-        child: Center(
-          child: Text(
-            '$rank',
-            style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-            ),
-          ),
-        ),
-      ),
-      title: Text(
-        entry.userName,
-        style: const TextStyle(fontWeight: FontWeight.bold),
-      ),
-      subtitle: Text('算数スコア: ${entry.subjectRank ?? 0}'),
-      trailing: Text(
-        '${entry.subjectScore ?? 0} pts',
-        style: const TextStyle(
-          color: Colors.green,
-          fontWeight: FontWeight.bold,
-          fontSize: 14,
-        ),
-      ),
-    );
-  }
-
-  Color _getRankColor(int rank) {
-    switch (rank) {
-      case 1:
-        return Colors.amber[600]!;
-      case 2:
-        return Colors.grey[400]!;
-      case 3:
-        return Colors.orange[600]!;
-      default:
-        return Colors.green;
-    }
-  }
-}
