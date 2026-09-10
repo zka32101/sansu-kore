@@ -7,10 +7,10 @@ import 'package:shared_core/shared_core.dart'
         kCommonShopItems,
         AppShopItem,
         screenTimeProvider,
-        ScreenTimeLimitReachedWidget,
-        MathTopicType;
+        ScreenTimeLimitReachedWidget;
 import '../data/stage_data.dart';
 import '../data/math_tips_data.dart';
+import '../models/quest_model.dart' as localQuestModel;
 import '../providers/progress_provider.dart';
 import '../providers/badge_provider.dart';
 import '../providers/coin_provider.dart';
@@ -815,8 +815,8 @@ class _RecentBadgesSection extends StatelessWidget {
 
 // ─── スペシャルモードセクション（無限とっくん + ゴーストバトル）─────
 class _SpecialModeSection extends StatelessWidget {
-  final MathTopicType? weakestTopic;
-  final void Function(MathTopicType?) onInfinite;
+  final localQuestModel.MathTopicType? weakestTopic;
+  final void Function(localQuestModel.MathTopicType?) onInfinite;
   final VoidCallback onGhost;
 
   const _SpecialModeSection({

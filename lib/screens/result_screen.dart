@@ -5,8 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_core/shared_core.dart'
     show
-        characterStateProvider,
-        MathTopicType;
+        characterStateProvider;
 import '../data/stage_data.dart';
 import '../models/quest_model.dart' as localQuestModel;
 import '../models/ranking_model.dart';
@@ -246,15 +245,15 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
     }
   }
 
-  String _topicName(MathTopicType t) {
-    if (t == MathTopicType.addition) return 'たし算';
-    if (t == MathTopicType.subtraction) return 'ひき算';
-    if (t == MathTopicType.multiplication) return 'かけ算';
-    if (t == MathTopicType.division) return 'わり算';
-    if (t == MathTopicType.fraction) return '分数';
-    if (t == MathTopicType.decimal) return '小数';
-    if (t == MathTopicType.geometry) return '図形';
-    if (t == MathTopicType.word) return '文章問題';
+  String _topicName(localQuestModel.MathTopicType t) {
+    if (t == localQuestModel.MathTopicType.addition) return 'たし算';
+    if (t == localQuestModel.MathTopicType.subtraction) return 'ひき算';
+    if (t == localQuestModel.MathTopicType.multiplication) return 'かけ算';
+    if (t == localQuestModel.MathTopicType.division) return 'わり算';
+    if (t == localQuestModel.MathTopicType.fraction) return '分数';
+    if (t == localQuestModel.MathTopicType.decimal) return '小数';
+    if (t == localQuestModel.MathTopicType.geometry) return '図形';
+    if (t == localQuestModel.MathTopicType.word) return '文章問題';
     return '不明';
   }
 
