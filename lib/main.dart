@@ -102,11 +102,7 @@ Future<void> main() async {
       // 算数コレのショップアイテム装着状態ノティファイアを注入
       equippedItemsProvider.overrideWith(EquippedItemsNotifier.new),
       // 統一バッジシステム（Phase 4.1）: 算数コレ用バッジを主題タグで初期化
-      badgeProvider.overrideWith((ref) {
-        final notifier = BadgeNotifier();
-        notifier.setBadgeDefinitions(unifiedBadges, subject: 'sansu');
-        return notifier;
-      }),
+      badgeProvider.overrideWith(() => BadgeNotifier()),
       // マルチプレイ対戦（レートマッチング）: Firestore実装をコレクション名
       // 'sansu_' プレフィックス付きで注入。対戦はプロフィール分離の対象外
       // （PR #54/#56 とは独立、userId=Firebase Auth uid 単位でグローバルに管理）。
@@ -123,6 +119,9 @@ Future<void> main() async {
       lessonProvider.overrideWith(LessonNotifier.new),
     ],
   );
+
+  // バッジシステム初期化: 統一バッジを主題タグで初期化
+  container.read(badgeProvider.notifier).setBadgeDefinitions(unifiedBadges, subject: 'sansu');
 
   // バグ報告・改善要望: Firestore の `feedback` コレクションへの書き込みを注入し、
   // オフライン中に溜まった未送信分の再送信を試みる。
