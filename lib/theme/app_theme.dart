@@ -4,7 +4,7 @@
 /// UI デザイン統一 Phase 2: shared_core v3.0.0 AppColors/AppTypography 統合
 
 import 'package:flutter/material.dart';
-import 'package:shared_core/shared_core.dart' show buildAppTheme, AppTypography, AppButton, AppCard, AppDialog, AppAppBar, AppSnackBar;
+import 'package:shared_core/shared_core.dart' show buildAppTheme;
 
 // 小学コレ！算数メインカラー（赤系 #E74C3C）
 // 既存の多数の画面がこれらの定数を直接参照しているため、残す必要がある。
@@ -38,13 +38,13 @@ ThemeData buildSansuThemeV3() => ThemeData(
     brightness: Brightness.light,
   ),
   scaffoldBackgroundColor: kBgLight,
-  textTheme: AppTypography.buildTextTheme(),
+  textTheme: const TextTheme(),  // TODO: Implement custom typography in Phase 4
   appBarTheme: AppBarTheme(
     backgroundColor: kPrimaryColor,
     foregroundColor: Colors.white,
     elevation: 0,
     centerTitle: true,
-    titleTextStyle: AppTypography.headingSmall(color: Colors.white),
+    titleTextStyle: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),  // TODO: Use AppTypography when available
   ),
 );
 

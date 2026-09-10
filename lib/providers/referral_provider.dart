@@ -101,7 +101,7 @@ class ReferralNotifier extends Notifier<ReferralState> {
         'usedCount': 0,
         'maxUses': ReferralRewards.maxUsesPerCode,
         'createdAt': FieldValue.serverTimestamp(),
-        'expiresAt': FieldValue.serverTimestamp() + (86400000 * ReferralRewards.expirationDays),
+        'expiresAt': Timestamp.now().toDate().add(Duration(days: ReferralRewards.expirationDays)),
       });
 
       myCodes[newCode] = 0; // このコードで受取済みのコイン量（初期0）

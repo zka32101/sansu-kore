@@ -5,18 +5,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_core/shared_core.dart'
     show
-        characterStateProvider,
-        globalRankingProvider,
-        missionProvider;
+        characterStateProvider;
 import '../data/stage_data.dart';
-import '../models/quest_model.dart';
+import '../models/quest_model.dart' as localQuestModel;
 import '../models/ranking_model.dart';
 import 'package:shared_core/models/badge_model.dart';
 import '../providers/progress_provider.dart';
 import '../providers/badge_provider.dart';
 import '../providers/coin_provider.dart';
 import '../providers/profile_provider.dart';
-import '../providers/adaptive_provider.dart';
+import '../providers/adaptive_provider.dart' as localAdaptiveProvider;
 import '../providers/ghost_provider.dart';
 import '../providers/ranking_provider.dart';
 import '../providers/retention_notifications_provider.dart';
@@ -27,8 +25,8 @@ import '../services/notification_service.dart';
 import '../theme/app_theme.dart';
 
 class ResultScreen extends ConsumerStatefulWidget {
-  final QuestResult result;
-  final Stage stage;
+  final localQuestModel.QuestResult result;
+  final localQuestModel.Stage stage;
 
   const ResultScreen({super.key, required this.result, required this.stage});
 
@@ -76,7 +74,7 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
     );
 
     // アダプティブラーニング更新（教育工学機能）
-    await ref.read(adaptiveProvider.notifier).recordAnswers(
+    await ref.read(localAdaptiveProvider.adaptiveProvider.notifier).recordAnswers(
       topic: s.topicType,
       correct: r.correctCount,
       total: r.totalCount,
@@ -93,6 +91,8 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
     await ref.read(rankingProvider.notifier).updateScoreAfterQuestion(scoreData);
 
     // Phase 4.3-4.6 統合: グローバルランキングを更新
+    // TODO: Uncomment when globalRankingProvider is implemented
+    /*
     try {
       final totalScore = r.isPassed ? (r.correctCount * 10) : 0;
       if (totalScore > 0) {
@@ -103,8 +103,11 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
     } catch (e) {
       if (kDebugMode) print('グローバルランキング更新エラー: $e');
     }
+    */
 
     // Phase 4.5 統合: デイリーミッション進捗を更新
+    // TODO: Uncomment when missionProvider is implemented
+    /*
     try {
       final profile = ref.read(profileProvider).currentProfile;
       if (profile != null) {
@@ -118,6 +121,7 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
     } catch (e) {
       if (kDebugMode) print('ミッション進捗更新エラー: $e');
     }
+    */
 
     final progress = ref.read(progressProvider);
 
@@ -173,7 +177,7 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
     }
 
     // セーフティネット：つまずき検出
-    final adaptiveState = ref.read(adaptiveProvider);
+    final adaptiveState = ref.read(localAdaptiveProvider.adaptiveProvider);
     if (adaptiveState.parentAlertNeeded) {
       final profile = ref.read(profileProvider).currentProfile;
       final childName = profile?.name ?? 'お子さん';
@@ -182,7 +186,7 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
         childName: childName,
         topicName: topicName,
       );
-      ref.read(adaptiveProvider.notifier).clearParentAlert();
+      ref.read(localAdaptiveProvider.adaptiveProvider.notifier).clearParentAlert();
     }
 
     // キャラクター解放チェック（shared_core）
@@ -241,17 +245,16 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
     }
   }
 
-  String _topicName(MathTopicType t) {
-    switch (t) {
-      case MathTopicType.addition: return 'たし算';
-      case MathTopicType.subtraction: return 'ひき算';
-      case MathTopicType.multiplication: return 'かけ算';
-      case MathTopicType.division: return 'わり算';
-      case MathTopicType.fraction: return '分数';
-      case MathTopicType.decimal: return '小数';
-      case MathTopicType.geometry: return '図形';
-      case MathTopicType.word: return '文章問題';
-    }
+  String _topicName(localQuestModel.MathTopicType t) {
+    if (t == localQuestModel.MathTopicType.addition) return 'たし算';
+    if (t == localQuestModel.MathTopicType.subtraction) return 'ひき算';
+    if (t == localQuestModel.MathTopicType.multiplication) return 'かけ算';
+    if (t == localQuestModel.MathTopicType.division) return 'わり算';
+    if (t == localQuestModel.MathTopicType.fraction) return '分数';
+    if (t == localQuestModel.MathTopicType.decimal) return '小数';
+    if (t == localQuestModel.MathTopicType.geometry) return '図形';
+    if (t == localQuestModel.MathTopicType.word) return '文章問題';
+    return '不明';
   }
 
   @override
@@ -373,7 +376,7 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
 class _ScoreDisplay extends StatelessWidget {
   final String emoji;
   final String message;
-  final QuestResult r;
+  final localQuestModel.QuestResult r;
   final Color color;
 
   const _ScoreDisplay({required this.emoji, required this.message, required this.r, required this.color});
@@ -447,7 +450,7 @@ class _ScoreStat extends StatelessWidget {
 }
 
 class _StageInfo extends StatelessWidget {
-  final Stage stage;
+  final localQuestModel.Stage stage;
   final Duration elapsed;
   const _StageInfo({required this.stage, required this.elapsed});
 
@@ -525,8 +528,8 @@ class _NewBadgesSection extends StatelessWidget {
 
 // SNSシェアボタン（設計書A-rank: ほめカードSNSシェア）
 class _ShareAchievementButton extends ConsumerWidget {
-  final QuestResult result;
-  final Stage stage;
+  final localQuestModel.QuestResult result;
+  final localQuestModel.Stage stage;
 
   const _ShareAchievementButton({required this.result, required this.stage});
 
