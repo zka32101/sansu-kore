@@ -8,8 +8,10 @@ import 'package:shared_core/shared_core.dart'
         AppShopItem,
         screenTimeProvider,
         ScreenTimeLimitReachedWidget,
-        missionProvider,
-        DailyMissionCard;
+        MathTopicType,
+        // missionProvider,  // TODO: Phase 4.5 - Daily mission feature
+        // DailyMissionCard,  // TODO: Phase 4.5 - Daily mission feature
+        ;
 import '../data/stage_data.dart';
 import '../data/math_tips_data.dart';
 import '../providers/progress_provider.dart';
@@ -17,13 +19,13 @@ import '../providers/badge_provider.dart';
 import '../providers/coin_provider.dart';
 import '../providers/profile_provider.dart';
 import '../providers/daily_login_provider.dart';
-import '../providers/adaptive_provider.dart';
+import '../providers/adaptive_provider.dart' as localAdaptiveProvider;
 import '../providers/weekly_challenge_provider.dart';
 import '../providers/retention_notifications_provider.dart';
 import '../providers/daily_challenge_provider.dart';
 import '../providers/ranking_provider.dart';
 // import '../providers/ads_provider.dart';  // TODO: Re-enable once google_mobile_ads conflict is resolved
-import '../models/quest_model.dart';
+import '../models/quest_model.dart' as localQuestModel;
 import '../models/math_guide_model.dart';
 import '../screens/daily_bonus_screen.dart';
 import '../screens/math_guide_screen.dart';
@@ -31,7 +33,7 @@ import '../screens/math_guide_detail_screen.dart';
 import '../screens/ranking_filter_screen.dart';
 import '../screens/lesson_screen.dart';
 import '../screens/multiplayer/multiplayer_home_screen.dart';
-import '../theme/app_theme.dart';
+import '../theme/app_theme.dart' as appTheme;
 import '../widgets/daily_challenge_widgets.dart';
 import '../widgets/math_guide_widgets.dart';
 import '../widgets/ranking_filter_widget.dart';
@@ -120,7 +122,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     // 全画面オーバーレイを表示する（端末・アプリ単位、プロフィール共通）。
     ref.watch(screenTimeProvider); // usedMinutes の変化を監視して再評価
     if (ref.read(screenTimeProvider.notifier).isLimitReached) {
-      return const ScreenTimeLimitReachedWidget(primaryColor: kPrimaryColor);
+      return const ScreenTimeLimitReachedWidget(primaryColor: appTheme.kPrimaryColor);
     }
 
     // ショップで装着中の背景テーマ・プロフィールフレーム（未購入・未装着なら null）
@@ -148,13 +150,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           SliverAppBar(
             expandedHeight: 120,
             pinned: true,
-            backgroundColor: kPrimaryColor,
+            backgroundColor: appTheme.kPrimaryColor,
             forceElevated: true,
             flexibleSpace: FlexibleSpaceBar(
               background: Container(
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [kPrimaryColor, kPrimaryDark],
+                    colors: [appTheme.kPrimaryColor, kPrimaryDark],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
@@ -259,12 +261,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ),
 
           // デイリーミッション（Phase 4.5 統合）
+          // TODO: Uncomment when missionProvider is implemented
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 8),
-              child: currentProfile != null
-                  ? _DailyMissionCardWrapper(userId: currentProfile.id)
-                  : const SizedBox.shrink(),
+              child: const SizedBox.shrink(),
+              // child: currentProfile != null
+              //     ? _DailyMissionCardWrapper(userId: currentProfile.id)
+              //     : const SizedBox.shrink(),
             ),
           ),
 
@@ -402,7 +406,7 @@ class _ProfileAvatar extends StatelessWidget {
             backgroundColor: Colors.white,
             child: Text(initial,
                 style: const TextStyle(
-                    color: kPrimaryColor,
+                    color: appTheme.kPrimaryColor,
                     fontWeight: FontWeight.bold,
                     fontSize: 14)),
           ),
@@ -437,7 +441,7 @@ class _StatsRow extends StatelessWidget {
           const SizedBox(width: 10),
           _StatCard(label: 'コイン', value: '$coinCount枚', emoji: '🪙', color: const Color(0xFFFFB81C)),
           const SizedBox(width: 10),
-          _StatCard(label: 'クリア', value: '$cleared/$totalStages', emoji: '🎯', color: kAccentGreen),
+          _StatCard(label: 'クリア', value: '$cleared/$totalStages', emoji: '🎯', color: appTheme.kAccentGreen),
         ],
       ),
     );
@@ -467,7 +471,7 @@ class _StatCard extends StatelessWidget {
             Text(emoji, style: const TextStyle(fontSize: 22)),
             const SizedBox(height: 4),
             Text(value, style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: color)),
-            Text(label, style: const TextStyle(fontSize: 10, color: kTextMuted)),
+            Text(label, style: const TextStyle(fontSize: 10, color: appTheme.kTextMuted)),
           ],
         ),
       ),
@@ -547,14 +551,14 @@ class _MultiplayerCard extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           gradient: const LinearGradient(
-            colors: [kPrimaryColor, kPrimaryDeep],
+            colors: [appTheme.kPrimaryColor, kPrimaryDeep],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
-                color: kPrimaryColor.withValues(alpha: 0.3),
+                color: appTheme.kPrimaryColor.withValues(alpha: 0.3),
                 blurRadius: 8,
                 offset: const Offset(0, 3))
           ],
@@ -681,10 +685,10 @@ class _AdaptiveRecommendCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('AIおすすめ', style: TextStyle(fontSize: 12, color: kTextMuted)),
+                const Text('AIおすすめ', style: TextStyle(fontSize: 12, color: appTheme.kTextMuted)),
                 Text(
                   adaptive.weeklyRecommendation,
-                  style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: kTextDark),
+                  style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: appTheme.kTextDark),
                 ),
               ],
             ),
@@ -712,14 +716,14 @@ class _QuickStartCard extends StatelessWidget {
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
             gradient: const LinearGradient(
-              colors: [kPrimaryColor, kPrimaryDark],
+              colors: [appTheme.kPrimaryColor, kPrimaryDark],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
-                color: kPrimaryColor.withAlpha(80),
+                color: appTheme.kPrimaryColor.withAlpha(80),
                 blurRadius: 12,
                 offset: const Offset(0, 4),
               ),
@@ -786,7 +790,7 @@ class _RecentBadgesSection extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: kPrimaryColor.withAlpha(60)),
+                    border: Border.all(color: appTheme.kPrimaryColor.withAlpha(60)),
                   ),
                   child: Column(
                     children: [
@@ -837,7 +841,7 @@ class _SpecialModeSection extends StatelessWidget {
               style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
-                  color: kTextDark),
+                  color: appTheme.kTextDark),
             ),
           ),
           Row(
@@ -1208,6 +1212,8 @@ class _RankingPreviewSection extends ConsumerWidget {
 }
 
 /// デイリーミッションカードラッパー（Phase 4.5 統合）
+// TODO: Implement when missionProvider is available
+/*
 class _DailyMissionCardWrapper extends ConsumerWidget {
   final String userId;
 
@@ -1221,6 +1227,7 @@ class _DailyMissionCardWrapper extends ConsumerWidget {
     if (missionState.isLoading || missionState.missions.isEmpty) {
       return const SizedBox.shrink();
     }
+    /*
 
     // 最初のミッションを表示
     final firstMission = missionState.missions.first;
@@ -1294,6 +1301,7 @@ class _DailyMissionCardWrapper extends ConsumerWidget {
     );
   }
 }
+*/
 
 /// バナー広告ウィジェット
 // TODO: Re-enable once google_mobile_ads conflict is resolved

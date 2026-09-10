@@ -38,13 +38,13 @@ ThemeData buildSansuThemeV3() => ThemeData(
     brightness: Brightness.light,
   ),
   scaffoldBackgroundColor: kBgLight,
-  textTheme: AppTypography.buildTextTheme(),
+  textTheme: const TextTheme(),  // TODO: Implement custom typography in Phase 4
   appBarTheme: AppBarTheme(
     backgroundColor: kPrimaryColor,
     foregroundColor: Colors.white,
     elevation: 0,
     centerTitle: true,
-    titleTextStyle: AppTypography.headingSmall(color: Colors.white),
+    titleTextStyle: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),  // TODO: Use AppTypography when available
   ),
 );
 
