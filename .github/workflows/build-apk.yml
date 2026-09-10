@@ -28,6 +28,7 @@ jobs:
 
     - name: Clean and get dependencies
       run: |
+        rm -rf .dart_tool pubspec.lock
         flutter clean
         flutter pub get
 
@@ -50,6 +51,7 @@ jobs:
 
     - name: Clean and get dependencies
       run: |
+        rm -rf .dart_tool pubspec.lock
         flutter clean
         flutter pub get
 
