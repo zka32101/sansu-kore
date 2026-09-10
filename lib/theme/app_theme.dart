@@ -4,7 +4,7 @@
 /// UI デザイン統一 Phase 2: shared_core v3.0.0 AppColors/AppTypography 統合
 
 import 'package:flutter/material.dart';
-import 'package:shared_core/shared_core.dart' show buildAppTheme, AppButton, AppCard, AppDialog, AppAppBar, AppSnackBar;
+import 'package:shared_core/shared_core.dart' show buildAppTheme, AppButton, AppCard, AppDialog, AppAppBar, AppSnackBar hide kTextDark, kTextMuted, kBgLight, kAccentBlue, kAccentGreen, kAccentOrange, kPrimaryColor;
 
 // 小学コレ！算数メインカラー（赤系 #E74C3C）
 // 既存の多数の画面がこれらの定数を直接参照しているため、残す必要がある。

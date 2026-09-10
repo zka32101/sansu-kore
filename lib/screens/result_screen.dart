@@ -269,7 +269,7 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
   Widget build(BuildContext context) {
     final r = widget.result;
     final pct = r.correctCount / r.totalCount;
-    final color = pct >= 0.8 ? kAccentGreen : pct >= 0.6 ? appTheme.kAccentOrange : kPrimaryColor;
+    final color = pct >= 0.8 ? kAccentGreen : pct >= 0.6 ? kAccentOrange : kPrimaryColor;
     final emoji = r.isPerfect ? '🏆' : pct >= 0.8 ? '⭐' : pct >= 0.6 ? '👍' : '📝';
     final message = r.isPerfect
         ? '完璧！天才算数マスター！'
@@ -294,7 +294,7 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
                 confettiController: _confetti,
                 blastDirectionality: BlastDirectionality.explosive,
                 numberOfParticles: 30,
-                colors: const [kPrimaryColor, kAccentGreen, appTheme.kAccentBlue, Colors.orange],
+                colors: const [kPrimaryColor, kAccentGreen, kAccentBlue, Colors.orange],
               ),
             ),
           SingleChildScrollView(
@@ -462,7 +462,7 @@ class _StageInfo extends StatelessWidget {
     final secs = elapsed.inSeconds % 60;
     return Container(
       padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(color: appTheme.kBgLight, borderRadius: BorderRadius.circular(16)),
+      decoration: BoxDecoration(color: kBgLight, borderRadius: BorderRadius.circular(16)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
