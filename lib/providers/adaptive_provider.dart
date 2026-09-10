@@ -105,16 +105,17 @@ class AdaptiveState {
   }
 
   static String _topicName(MathTopicType t) {
-    switch (t) {
-      case MathTopicType.addition: return 'たし算';
-      case MathTopicType.subtraction: return 'ひき算';
-      case MathTopicType.multiplication: return 'かけ算';
-      case MathTopicType.division: return 'わり算';
-      case MathTopicType.fraction: return '分数';
-      case MathTopicType.decimal: return '小数';
-      case MathTopicType.geometry: return '図形';
-      case MathTopicType.word: return '文章問題';
-    }
+    const topicNames = {
+      MathTopicType.addition: 'たし算',
+      MathTopicType.subtraction: 'ひき算',
+      MathTopicType.multiplication: 'かけ算',
+      MathTopicType.division: 'わり算',
+      MathTopicType.fraction: '分数',
+      MathTopicType.decimal: '小数',
+      MathTopicType.geometry: '図形',
+      MathTopicType.word: '文章問題',
+    };
+    return topicNames[t] ?? '不明';
   }
 }
 
