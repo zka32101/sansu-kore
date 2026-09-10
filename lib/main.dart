@@ -30,6 +30,7 @@ import 'providers/firestore_provider.dart';
 import 'providers/multiplayer_provider.dart';
 import 'providers/screen_time_provider.dart';
 import 'services/profile_migration_service.dart';
+import 'services/revenue_cat_service.dart';
 import 'screens/character_screen.dart';
 import 'screens/badge_collection_screen.dart';
 import 'screens/ranking_filter_screen.dart';
@@ -92,6 +93,15 @@ Future<void> main() async {
   } catch (e) {
     if (kDebugMode) {
       print('❌ Firebase init error: $e');
+    }
+  }
+
+  // RevenueCat 初期化（サブスクリプション管理）
+  try {
+    await RevenueCatService().initialize();
+  } catch (e) {
+    if (kDebugMode) {
+      print('❌ RevenueCat init error: $e');
     }
   }
 
