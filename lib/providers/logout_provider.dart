@@ -74,11 +74,7 @@ class LogoutNotifier extends StateNotifier<AsyncValue<void>> {
     try {
       final prefs = await SharedPreferences.getInstance();
 
-      // 1. ユーザー固有データのクリア（プロフィール情報は保持）
-      // shared_core の clearUserData() を使用
-      await _ref.read(profileProvider.notifier).clearUserData();
-
-      // 2. SharedPreferences から全ユーザー固有キーを削除
+      // 1. SharedPreferences から全ユーザー固有キーを削除
       // プレフィックスベースで削除（プロフィール情報は保持）
       const userDataPrefixes = [
         'stage_cleared_',      // 進捗
@@ -120,11 +116,11 @@ class LogoutNotifier extends StateNotifier<AsyncValue<void>> {
         await prefs.remove(key);
       }
 
-      // 3. Firebase Auth からログアウト
+      // 2. Firebase Auth からログアウト
       final auth = FirebaseAuth.instance;
       await auth.signOut();
 
-      // 4. 全プロバイダーを無効化（メモリキャッシュをクリア）
+      // 3. 全プロバイダーを無効化（メモリキャッシュをクリア）
       // shared_core プロバイダー
       _ref.invalidate(characterStateProvider);
       _ref.invalidate(coinProvider);

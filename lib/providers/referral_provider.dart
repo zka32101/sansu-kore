@@ -96,13 +96,17 @@ class ReferralNotifier extends Notifier<ReferralState> {
 
       // 新規生成
       final newCode = _generateCodeString();
+      final now = DateTime.now();
+      final expiresAt = now.add(
+        Duration(days: ReferralRewards.expirationDays),
+      );
       await _collection.doc(newCode).set({
         'creatorId': userId,
         'creatorCoins': 0,
         'usedCount': 0,
         'maxUses': ReferralRewards.maxUsesPerCode,
         'createdAt': FieldValue.serverTimestamp(),
-        'expiresAt': FieldValue.serverTimestamp() + (86400000 * ReferralRewards.expirationDays),
+        'expiresAt': Timestamp.fromDate(expiresAt),
       });
 
       myCodes[newCode] = 0; // このコードで受取済みのコイン量（初期0）
