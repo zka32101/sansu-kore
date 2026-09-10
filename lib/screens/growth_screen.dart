@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-
 import '../providers/adaptive_provider.dart';
 import '../providers/growth_provider.dart';
 import '../providers/profile_provider.dart';

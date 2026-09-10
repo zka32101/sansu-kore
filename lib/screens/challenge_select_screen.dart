@@ -4,7 +4,6 @@ import 'package:sansu_kore/models/game_mode_model.dart';
 import 'package:sansu_kore/providers/game_mode_provider.dart';
 import 'package:sansu_kore/screens/game_play_screen.dart';
 
-
 /// チャレンジモード選択画面
 /// ユーザーが5つのゲームモードから選んで開始できる
 class ChallengeSelectScreen extends ConsumerWidget {

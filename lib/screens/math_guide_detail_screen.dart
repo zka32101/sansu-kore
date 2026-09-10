@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:sansu_kore/models/math_guide_model.dart';
 import 'package:sansu_kore/widgets/math_guide_widgets.dart';
 
-
 /// 数学ガイド詳細画面
 /// フルスクリーンでガイドの全ステップを表示
 class MathGuideDetailScreen extends StatelessWidget {

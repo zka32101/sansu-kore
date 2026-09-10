@@ -3,10 +3,8 @@
 
 import 'dart:async';
 
-
 import 'package:flutter/foundation.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
-
 
 import '../utils/constants.dart';
 class RevenueCatService {

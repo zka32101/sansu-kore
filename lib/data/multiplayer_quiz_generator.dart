@@ -1,6 +1,5 @@
 import 'dart:math';
 
-
 import '../models/quest_model.dart';
 import 'stage_data.dart';
 class MultiplayerQuizGenerator {

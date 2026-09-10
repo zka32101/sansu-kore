@@ -1,8 +1,6 @@
 import 'dart:convert';
 
-
 import 'package:shared_preferences/shared_preferences.dart';
-
 
 // 親のほめ導線自動化（設計書S-rank機能）
 // FCMが未設定の場合はローカルのほめメッセージキューで代替

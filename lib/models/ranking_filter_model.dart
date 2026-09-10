@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 
-
 import 'ranking_model.dart';
 enum RankingGroupOption {
   global, // 全体ランキング

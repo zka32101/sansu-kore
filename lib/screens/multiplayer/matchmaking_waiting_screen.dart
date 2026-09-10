@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_core/shared_core.dart' show MatchmakingSearchWidget, matchmakingProvider, MatchmakingStatus;
 
-
 import '../../providers/multiplayer_provider.dart';
 import '../../theme/app_theme.dart';
 import 'multiplayer_quiz_screen.dart';

@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
 
-
 import '../providers/profile_provider.dart';
 import '../providers/referral_provider.dart';
 import '../theme/app_theme.dart';

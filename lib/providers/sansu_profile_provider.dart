@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_core/shared_core.dart' show profileProvider, ProfileDataMigration;
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 import 'firestore_provider.dart';
 const _favoriteItemBaseKey = 'sansu_favorite_item';
 

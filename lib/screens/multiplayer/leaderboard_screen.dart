@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_core/shared_core.dart' show LeaderboardView, leaderboardProvider;
 
-
 import '../../theme/app_theme.dart';
 class LeaderboardScreen extends ConsumerWidget {
   final String? currentUserId;

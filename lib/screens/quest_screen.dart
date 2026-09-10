@@ -1,10 +1,8 @@
 import 'dart:async';
 
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_core/shared_core.dart' show characterStateProvider;
-
 
 import '../models/quest_model.dart';
 import '../providers/adaptive_provider.dart';

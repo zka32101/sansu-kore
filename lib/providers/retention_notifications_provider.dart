@@ -2,7 +2,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_core/shared_core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 import '../services/notification_service.dart';
 class RetentionNotificationsState {
   final bool streakReminderSent;

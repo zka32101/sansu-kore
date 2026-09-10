@@ -9,7 +9,6 @@ import 'package:sansu_kore/providers/sound_provider.dart';
 import 'package:sansu_kore/providers/vfx_provider.dart';
 import 'package:sansu_kore/widgets/vfx_widgets.dart';
 
-
 /// チャレンジ結果画面
 /// ゲーム完了後のスコア、コイン、バッジを表示
 class ChallengeResultScreen extends ConsumerStatefulWidget {

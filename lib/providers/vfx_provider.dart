@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sansu_kore/models/vfx_model.dart';
 
-
 /// Active VFX effect being displayed
 class ActiveVFXEffect {
   final VFXPreset preset;

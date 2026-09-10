@@ -4,7 +4,6 @@
 import 'package:sansu_kore/models/quest_model.dart';
 import 'package:uuid/uuid.dart';
 
-
 /// Daily Challenge Status
 enum DailyChallengeStatus { notStarted, inProgress, completed, expired }
 

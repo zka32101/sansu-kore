@@ -1,6 +1,5 @@
 import 'dart:async';
 
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sansu_kore/models/daily_challenge_model.dart';
@@ -8,7 +7,6 @@ import 'package:sansu_kore/models/quest_model.dart';
 import 'package:sansu_kore/models/sound_model.dart';
 import 'package:sansu_kore/providers/daily_challenge_provider.dart';
 import 'package:sansu_kore/providers/sound_provider.dart';
-
 
 /// デイリーチャレンジ画面
 /// 毎日5問のチャレンジをプレイ

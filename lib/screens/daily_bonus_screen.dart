@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-
 import '../providers/coin_provider.dart';
 import '../providers/daily_login_provider.dart';
 import '../theme/app_theme.dart';

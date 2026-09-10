@@ -1,6 +1,5 @@
 import 'dart:math' as math;
 
-
 import 'package:flutter/material.dart';
 class GeometryVisualWidget extends StatelessWidget {
   final String shapeName;

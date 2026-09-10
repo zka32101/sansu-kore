@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-
 import '../models/quest_model.dart';
 import '../providers/profile_provider.dart';
 import '../providers/weekly_challenge_provider.dart';

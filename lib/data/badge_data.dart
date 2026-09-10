@@ -1,6 +1,5 @@
 import 'package:shared_core/shared_core.dart';
 
-
 // 小学コレ！算数のバッジ定義
 // content1 = 算数正解数, content2 = 未使用（sansu-koreでは全問primary）
 // streak はログイン連続日数・学習連続日数の両方に対応

@@ -7,7 +7,6 @@ import 'package:sansu_kore/models/sound_model.dart';
 import 'package:sansu_kore/providers/sound_provider.dart';
 import 'package:sansu_kore/widgets/sound_widgets.dart';
 
-
 /// 音声設定画面
 class AudioSettingsScreen extends ConsumerStatefulWidget {
   const AudioSettingsScreen({Key? key}) : super(key: key);

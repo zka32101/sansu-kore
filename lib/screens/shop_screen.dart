@@ -1,6 +1,5 @@
 import 'package:shared_core/shared_core.dart';
 
-
 import '../data/sansu_characters.dart';
 const _exchangeItemsArchive = [
   AppShopItem(id: 'hat_number',    emoji: '🔢', name: '数字帽子',

@@ -1,6 +1,5 @@
 import 'dart:math';
 
-
 import '../models/quest_model.dart';
 class InfiniteGenerator {
   static final _rng = Random();

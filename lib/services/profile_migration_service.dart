@@ -3,7 +3,6 @@ import 'package:shared_core/shared_core.dart'
     show ProfileDataMigration;
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 /// アプリ起動時に実行される、プロフィール対応へのマイグレーションサービス
 class ProfileMigrationService {
   static const _migrationDoneKey = 'profile_data_migration_v1_done';

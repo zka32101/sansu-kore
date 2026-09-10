@@ -1,6 +1,5 @@
 import 'package:shared_core/shared_core.dart';
 
-
 import '../data/sansu_characters.dart';
 class CharacterNotifier extends BaseCharacterNotifier {
   @override

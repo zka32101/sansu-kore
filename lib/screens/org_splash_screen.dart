@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 /// アプリ起動時に最初に表示する組織（会社）ロゴスプラッシュ。
 /// 表示後は自動的にアプリ本体のスプラッシュ画面へ遷移する。
 class OrgSplashScreen extends StatefulWidget {

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_core/shared_core.dart';
 
-
 /// バッジ表示用の再利用可能ウィジェット集
 
 /// 新規バッジ獲得時のポップアップ表示

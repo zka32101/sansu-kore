@@ -1,10 +1,8 @@
 import 'dart:convert';
 
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_core/shared_core.dart' show profileProvider, ProfileDataMigration;
 import 'package:shared_preferences/shared_preferences.dart';
-
 
 // 成長タイムカプセル — 最初の記録 vs 現在の記録
 const _growthBaseKey = 'growth_record';

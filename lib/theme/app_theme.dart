@@ -6,7 +6,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_core/shared_core.dart' show buildAppTheme, AppTypography, AppButton, AppCard, AppDialog, AppAppBar, AppSnackBar;
 
-
 // 小学コレ！算数メインカラー（赤系 #E74C3C）
 // 既存の多数の画面がこれらの定数を直接参照しているため、残す必要がある。
 // v3.0.0: shared_core の SubjectColors.math（#1E40AF）との差分は意図的に保持

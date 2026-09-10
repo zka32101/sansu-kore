@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sansu_kore/models/game_mode_model.dart';
 import 'package:uuid/uuid.dart';
 
-
 /// 現在のゲームセッション状態
 class GameSessionState {
   final GameSession? currentSession;
