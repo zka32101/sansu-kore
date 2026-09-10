@@ -15,7 +15,10 @@ import 'package:shared_core/shared_core.dart'
         equippedItemsProvider,
         matchmakingHandlersProvider,
         matchHandlersProvider,
-        screenTimeProvider;
+        screenTimeProvider,
+        badgeProvider,
+        unifiedBadges,
+        BadgeNotifier;
 import 'package:cross_promo_kit/cross_promo_kit.dart'
     show CrossPromoService;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -98,6 +101,12 @@ Future<void> main() async {
       characterStateProvider.overrideWith(CharacterNotifier.new),
       // 算数コレのショップアイテム装着状態ノティファイアを注入
       equippedItemsProvider.overrideWith(EquippedItemsNotifier.new),
+      // 統一バッジシステム（Phase 4.1）: 算数コレ用バッジを主題タグで初期化
+      badgeProvider.overrideWith((ref) {
+        final notifier = BadgeNotifier();
+        notifier.setBadgeDefinitions(unifiedBadges, subject: 'sansu');
+        return notifier;
+      }),
       // マルチプレイ対戦（レートマッチング）: Firestore実装をコレクション名
       // 'sansu_' プレフィックス付きで注入。対戦はプロフィール分離の対象外
       // （PR #54/#56 とは独立、userId=Firebase Auth uid 単位でグローバルに管理）。
