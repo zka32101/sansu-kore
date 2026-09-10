@@ -28,8 +28,9 @@ class AppConfig {
 /// Feature flags for enabling/disabling features
 class FeatureFlags {
   /// Google Mobile Ads integration
-  /// Enabled: Optimized ad placements for monetization
-  static const bool adsEnabled = true;
+  /// Disabled: Temporary disable for development/testing (google_mobile_ads SPM/CocoaPods conflict)
+  /// Note: Revert to true after resolving iOS dependency issues
+  static const bool adsEnabled = false;
 
   /// Premium features (ad-free, advanced analytics, etc.)
   /// Enabled: RevenueCat subscription integration (Phase 4.2)
