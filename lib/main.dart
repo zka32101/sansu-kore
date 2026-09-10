@@ -22,6 +22,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 import 'models/quest_model.dart';
 import 'providers/character_provider.dart';
+import 'providers/lesson_provider.dart' show LessonNotifier, lessonProvider;
 import 'providers/firestore_provider.dart';
 import 'providers/multiplayer_provider.dart';
 import 'providers/screen_time_provider.dart';
@@ -109,6 +110,8 @@ Future<void> main() async {
       // 利用時間制限（スクリーンタイム）: 端末・アプリ単位で管理し、
       // プロフィール切り替え・ログアウトを跨いで共通の制限を適用する。
       screenTimeProvider.overrideWith(ScreenTimeNotifier.new),
+      // 算数コレの学習コンテンツ（解説記事）ノティファイアを注入
+      lessonProvider.overrideWith(LessonNotifier.new),
     ],
   );
 
