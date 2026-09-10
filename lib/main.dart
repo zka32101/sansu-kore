@@ -54,7 +54,6 @@ import 'screens/friend_requests_screen.dart';
 import 'screens/multiplayer/multiplayer_home_screen.dart';
 import 'screens/multiplayer/leaderboard_screen.dart';
 import 'theme/app_theme.dart';
-import '../theme/app_theme.dart' show kPrimaryColor, kPrimaryDark, kPrimaryDeep, kAccentGreen, kBgLight, kTextDark, kTextMuted, kAccentBlue, kAccentOrange;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
