@@ -396,11 +396,11 @@ class _UserSearchTileState extends ConsumerState<_UserSearchTile> {
 
       if (success) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(message: 'フレンドリクエストを送信しました'),
+          const SnackBar(content: Text('フレンドリクエストを送信しました')),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(message: 'エラーが発生しました'),
+          const SnackBar(content: Text('エラーが発生しました')),
         );
       }
     }

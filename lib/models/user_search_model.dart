@@ -93,7 +93,7 @@ class UserSearchState {
     this.error,
     this.lastQuery,
     DateTime? lastSearchedAt,
-  }) : lastSearchedAt = lastSearchedAt ?? DateTime(1970);
+  }) : lastSearchedAt = lastSearchedAt ?? const DateTime.utc(1970, 1, 1);
 
   UserSearchState copyWith({
     List<SearchUserData>? searchResults,
