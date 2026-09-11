@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../providers/analytics_provider.dart';
 
+import '../providers/analytics_provider.dart';
 class AnalysisDashboardScreen extends ConsumerWidget {
   const AnalysisDashboardScreen({Key? key}) : super(key: key);
 

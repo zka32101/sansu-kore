@@ -1,11 +1,6 @@
 import 'package:shared_core/shared_core.dart';
+
 import '../data/sansu_characters.dart';
-
-// ── 算数コレ 交換所アイテム ──────────────────────────────────────────────
-// 2026-07: 交換所・期間限定タブはいったん非表示（ラインナップ見直し中）。
-// 復活する際は _exchangeItems / _seasonalItems をそのまま CoinShopPage に渡す。
-
-// ignore: unused_element
 const _exchangeItemsArchive = [
   AppShopItem(id: 'hat_number',    emoji: '🔢', name: '数字帽子',
       description: 'キャラに数字の帽子をかぶせる', category: '帽子', coinCost: 80),

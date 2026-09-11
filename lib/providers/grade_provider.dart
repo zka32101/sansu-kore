@@ -1,7 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shared_core/shared_core.dart' show profileProvider, ProfileDataMigration;
-
+import 'package:shared_preferences/shared_preferences.dart';
 const _gradeBaseKey = 'selected_grade';
 
 class GradeNotifier extends Notifier<int> {

@@ -3,12 +3,9 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
+
 import '../services/revenue_cat_service.dart';
 import '../utils/constants.dart';
-
-// ─── Subscription Status Provider ───────────────────────────────────────────
-// Notifier for subscription state
-
 class SubscriptionNotifier extends StateNotifier<AsyncValue<bool>> {
   final RevenueCatService _revenueCat;
 

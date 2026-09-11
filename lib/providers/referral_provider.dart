@@ -1,13 +1,14 @@
 import 'dart:convert';
 import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_core/shared_core.dart' show coinProvider;
 import 'package:shared_preferences/shared_preferences.dart';
-import '../models/referral_model.dart';
 
+import '../models/referral_model.dart';
 const _myCodesKey = 'sansu_my_referral_codes'; // 自分が生成したコード → 受取済みコイン
 const _redeemedCodesKey = 'sansu_redeemed_referral_codes'; // この端末で使用済みのコード
 
@@ -95,13 +96,17 @@ class ReferralNotifier extends Notifier<ReferralState> {
 
       // 新規生成
       final newCode = _generateCodeString();
+      final now = DateTime.now();
+      final expiresAt = now.add(
+        Duration(days: ReferralRewards.expirationDays),
+      );
       await _collection.doc(newCode).set({
         'creatorId': userId,
         'creatorCoins': 0,
         'usedCount': 0,
         'maxUses': ReferralRewards.maxUsesPerCode,
         'createdAt': FieldValue.serverTimestamp(),
-        'expiresAt': Timestamp.now().toDate().add(Duration(days: ReferralRewards.expirationDays)),
+        'expiresAt': Timestamp.fromDate(expiresAt),
       });
 
       myCodes[newCode] = 0; // このコードで受取済みのコイン量（初期0）

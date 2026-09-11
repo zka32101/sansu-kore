@@ -5,12 +5,6 @@ import 'package:shared_core/shared_core.dart' show MatchmakingSearchWidget, matc
 import '../../providers/multiplayer_provider.dart';
 import '../../theme/app_theme.dart';
 import 'multiplayer_quiz_screen.dart';
-
-/// 対戦相手探索中の待機画面。
-///
-/// [matchmakingProvider]（shared_core の BaseMatchmakingNotifier）が
-/// レート ±300 の範囲で相手を探し、見つかり次第 matchId を state に反映する。
-/// 参考: social_quiz_app の matching_waiting_screen.dart。
 class MatchmakingWaitingScreen extends ConsumerStatefulWidget {
   final String userId;
   final String displayName;

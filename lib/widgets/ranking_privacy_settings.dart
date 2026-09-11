@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../providers/ranking_provider.dart';
 
-/// ランキング公開設定ウィジェット
-/// ユーザーがランキングに名前を公開するかどうかを設定
+import '../providers/ranking_provider.dart';
 class RankingPrivacySettings extends ConsumerStatefulWidget {
   final bool initialValue;
   final VoidCallback? onChanged;

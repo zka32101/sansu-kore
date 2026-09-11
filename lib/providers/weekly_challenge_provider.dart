@@ -1,11 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
-import '../models/quest_model.dart';
-import '../data/stage_data.dart';
-import 'coin_provider.dart';
 
-// 全問正解ボーナス
+import '../data/stage_data.dart';
+import '../models/quest_model.dart';
+import 'coin_provider.dart';
 const int kWeeklyChallengeRewardCoins = 50;
 
 // ウィークリーチャレンジ — 毎週月曜リセット、10問

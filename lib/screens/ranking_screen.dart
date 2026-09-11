@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../models/ranking_model.dart';
 import '../providers/ranking_provider.dart';
-import 'user_ranking_detail_screen.dart';
-
 class RankingScreen extends ConsumerStatefulWidget {
   const RankingScreen({Key? key}) : super(key: key);
 

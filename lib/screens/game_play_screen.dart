@@ -1,12 +1,13 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'dart:async';
+import 'package:sansu_kore/data/stage_data.dart';
 import 'package:sansu_kore/models/game_mode_model.dart';
 import 'package:sansu_kore/models/quest_model.dart';
 import 'package:sansu_kore/models/sound_model.dart';
 import 'package:sansu_kore/providers/game_mode_provider.dart';
 import 'package:sansu_kore/providers/sound_provider.dart';
-import 'package:sansu_kore/data/stage_data.dart';
 import 'package:sansu_kore/screens/challenge_result_screen.dart';
 
 /// ゲーム進行画面

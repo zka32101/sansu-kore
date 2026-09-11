@@ -1,8 +1,6 @@
 import 'dart:math';
-import '../models/quest_model.dart';
 
-/// 無限とっくん用ランダム問題ジェネレーター
-/// MathTopicType + grade を受け取り、その場でランダム QuizQuestion を生成する
+import '../models/quest_model.dart';
 class InfiniteGenerator {
   static final _rng = Random();
 

@@ -7,14 +7,6 @@ import '../../data/multiplayer_quiz_generator.dart';
 import '../../models/quest_model.dart';
 import '../../providers/multiplayer_provider.dart';
 import '../../theme/app_theme.dart';
-
-/// 対戦本編（算数の問題形式に合わせた実装）。
-///
-/// [matchId] は両プレイヤー間で共有され、[MultiplayerQuizGenerator] が
-/// matchId をシードに問題セットを決定するため、両者に同じ問題・同じ順序が出題される。
-/// スコアは Firestore（[watchMatchProvider]）でリアルタイム同期する。
-///
-/// 参考: social_quiz_app の multiplayer_quiz_screen.dart。
 class MultiplayerQuizScreen extends ConsumerStatefulWidget {
   final String matchId;
   final String userId;

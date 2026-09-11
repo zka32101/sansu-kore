@@ -1,3 +1,5 @@
+import 'package:cross_promo_kit/cross_promo_kit.dart'
+    show CrossPromoSection;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -7,21 +9,23 @@ import 'package:shared_core/shared_core.dart'
         kCommonShopItems,
         AppShopItem,
         screenTimeProvider,
-        ScreenTimeLimitReachedWidget;
-import '../data/stage_data.dart';
+        ScreenTimeLimitReachedWidget,
+        missionProvider,
+        DailyMissionCard,
+        DailyMissionPage;
+
 import '../data/math_tips_data.dart';
-import '../models/quest_model.dart' as localQuestModel;
-import '../providers/progress_provider.dart';
+import '../data/stage_data.dart';
+import '../providers/adaptive_provider.dart';
 import '../providers/badge_provider.dart';
 import '../providers/coin_provider.dart';
-import '../providers/profile_provider.dart';
-import '../providers/daily_login_provider.dart';
-import '../providers/adaptive_provider.dart' show AdaptiveState, adaptiveProvider;
-import '../providers/adaptive_provider.dart' as localAdaptiveProvider;
-import '../providers/weekly_challenge_provider.dart';
-import '../providers/retention_notifications_provider.dart';
 import '../providers/daily_challenge_provider.dart';
+import '../providers/daily_login_provider.dart';
+import '../providers/profile_provider.dart';
+import '../providers/progress_provider.dart';
 import '../providers/ranking_provider.dart';
+import '../providers/retention_notifications_provider.dart';
+import '../providers/weekly_challenge_provider.dart';
 // import '../providers/ads_provider.dart';  // TODO: Re-enable once google_mobile_ads conflict is resolved
 import '../models/quest_model.dart' as localQuestModel;
 import '../models/math_guide_model.dart';
@@ -35,6 +39,7 @@ import '../theme/app_theme.dart';
 import '../widgets/daily_challenge_widgets.dart';
 import '../widgets/math_guide_widgets.dart';
 import '../widgets/ranking_filter_widget.dart';
+import 'package:shared_core/shared_core.dart' show FriendsListPage;
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -201,6 +206,32 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               ),
             ),
             actions: [
+              // デイリーミッションボタン（Phase 4.5）
+              IconButton(
+                icon: const Icon(Icons.assignment, color: Colors.white),
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => DailyMissionPage(
+                        primaryColor: kPrimaryColor,
+                        appTitle: '小学コレ！算数',
+                        filterSubject: 'math',
+                      ),
+                    ),
+                  );
+                },
+                tooltip: 'デイリーミッション',
+              ),
+              // フレンドボタン（Phase 4.4 フレンド機能）
+              IconButton(
+                icon: const Icon(Icons.people, color: Colors.white),
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => const FriendsListPage()),
+                  );
+                },
+                tooltip: 'フレンド',
+              ),
               // デイリーボーナスボタン
               if (!daily.todayClaimed)
                 IconButton(
@@ -344,6 +375,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             SliverToBoxAdapter(
               child: _RecentBadgesSection(badges: badges),
             ),
+
+          // クロスプロモーション（他アプリ紹介）
+          SliverToBoxAdapter(
+            child: CrossPromoSection(
+              currentAppId: 'com.example.sansu_kore',
+              currentCategory: '小学コレ',
+            ),
+          ),
 
           const SliverToBoxAdapter(child: SizedBox(height: 40)),
               ],

@@ -3,19 +3,22 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:shared_core/models/badge_model.dart';
 import 'package:shared_core/shared_core.dart'
     show
-        characterStateProvider;
+        characterStateProvider,
+        globalRankingProvider,
+        missionProvider;
+
 import '../data/stage_data.dart';
 import '../models/quest_model.dart' as localQuestModel;
 import '../models/ranking_model.dart';
-import 'package:shared_core/models/badge_model.dart';
-import '../providers/progress_provider.dart';
+import '../providers/adaptive_provider.dart';
 import '../providers/badge_provider.dart';
 import '../providers/coin_provider.dart';
-import '../providers/profile_provider.dart';
-import '../providers/adaptive_provider.dart' as localAdaptiveProvider;
 import '../providers/ghost_provider.dart';
+import '../providers/profile_provider.dart';
+import '../providers/progress_provider.dart';
 import '../providers/ranking_provider.dart';
 import '../providers/retention_notifications_provider.dart';
 // Disabled features (see lib/utils/constants.dart DisabledFeatures):

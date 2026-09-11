@@ -2,8 +2,8 @@
 // Features: Sound playback state, audio settings management, preset application
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sansu_kore/models/sound_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// Sound playback state
 class SoundPlaybackNotifier extends StateNotifier<SoundPlaybackState> {

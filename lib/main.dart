@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cross_promo_kit/cross_promo_kit.dart'
+    show CrossPromoService;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
@@ -11,48 +13,61 @@ import 'package:shared_core/shared_core.dart'
     show
         characterStateProvider,
         coinProvider,
-        CrossPromoService,
         feedbackProvider,
         equippedItemsProvider,
         matchmakingHandlersProvider,
         matchHandlersProvider,
-        screenTimeProvider;
+        screenTimeProvider,
+        badgeProvider,
+        unifiedBadges,
+        BadgeNotifier,
+        rankingProvider,
+        globalRankingProvider,
+        missionProvider,
+        friendProvider;
 import 'package:shared_preferences/shared_preferences.dart';
+
 import 'firebase_options.dart';
 import 'models/quest_model.dart';
 import 'providers/character_provider.dart';
 import 'providers/firestore_provider.dart';
+import 'providers/lesson_provider.dart' show LessonNotifier, lessonProvider;
 import 'providers/multiplayer_provider.dart';
 import 'providers/screen_time_provider.dart';
-import 'services/profile_migration_service.dart';
-import 'screens/character_screen.dart';
+import 'screens/add_friend_screen.dart';
+import 'screens/analysis_dashboard_screen.dart';
 import 'screens/badge_collection_screen.dart';
-import 'screens/ranking_filter_screen.dart';
-import 'screens/shop_screen.dart';
+import 'screens/character_screen.dart';
 import 'screens/daily_bonus_screen.dart';
-import 'screens/weekly_challenge_screen.dart';
+import 'screens/friend_requests_screen.dart';
+import 'screens/friends_list_screen.dart';
+import 'screens/grade_upgrade_screen.dart';
 import 'screens/growth_screen.dart';
-import 'screens/invite_screen.dart';
 import 'screens/home_screen.dart';
+import 'screens/infinite_practice_screen.dart';
+import 'screens/invite_screen.dart';
 import 'screens/math_guide_screen.dart';
+import 'screens/mission/mission_screen.dart';
+import 'screens/multiplayer/leaderboard_screen.dart';
+import 'screens/multiplayer/multiplayer_home_screen.dart';
 import 'screens/onboarding_screen.dart';
 import 'screens/org_splash_screen.dart';
 import 'screens/privacy_policy_screen.dart';
 import 'screens/profile_selection_screen.dart';
 import 'screens/quest_screen.dart';
+import 'screens/ranking_filter_screen.dart';
 import 'screens/result_screen.dart';
 import 'screens/settings_screen.dart';
+import 'screens/shop_screen.dart';
 import 'screens/splash_screen.dart';
 import 'screens/stage_select_screen.dart';
-import 'screens/infinite_practice_screen.dart';
 import 'screens/upgrade_screen.dart';
-import 'screens/analysis_dashboard_screen.dart';
-import 'screens/grade_upgrade_screen.dart';
-import 'screens/friends_list_screen.dart';
-import 'screens/add_friend_screen.dart';
-import 'screens/friend_requests_screen.dart';
-import 'screens/multiplayer/multiplayer_home_screen.dart';
-import 'screens/multiplayer/leaderboard_screen.dart';
+import 'screens/weekly_challenge_screen.dart';
+import 'services/firestore_friend_service.dart';
+import 'services/firestore_mission_service.dart';
+import 'services/firestore_ranking_service.dart';
+import 'services/profile_migration_service.dart';
+import 'services/revenue_cat_service.dart';
 import 'theme/app_theme.dart';
 
 Future<void> main() async {
@@ -90,12 +105,23 @@ Future<void> main() async {
     }
   }
 
+  // RevenueCat 初期化（サブスクリプション管理）
+  try {
+    await RevenueCatService().initialize();
+  } catch (e) {
+    if (kDebugMode) {
+      print('❌ RevenueCat init error: $e');
+    }
+  }
+
   final container = ProviderContainer(
     overrides: [
       // 算数コレのキャラクターノティファイアを注入
       characterStateProvider.overrideWith(CharacterNotifier.new),
       // 算数コレのショップアイテム装着状態ノティファイアを注入
       equippedItemsProvider.overrideWith(EquippedItemsNotifier.new),
+      // 統一バッジシステム（Phase 4.1）: 算数コレ用バッジを主題タグで初期化
+      badgeProvider.overrideWith(() => BadgeNotifier()),
       // マルチプレイ対戦（レートマッチング）: Firestore実装をコレクション名
       // 'sansu_' プレフィックス付きで注入。対戦はプロフィール分離の対象外
       // （PR #54/#56 とは独立、userId=Firebase Auth uid 単位でグローバルに管理）。
@@ -108,8 +134,35 @@ Future<void> main() async {
       // 利用時間制限（スクリーンタイム）: 端末・アプリ単位で管理し、
       // プロフィール切り替え・ログアウトを跨いで共通の制限を適用する。
       screenTimeProvider.overrideWith(ScreenTimeNotifier.new),
+      // 算数コレの学習コンテンツ（解説記事）ノティファイアを注入
+      lessonProvider.overrideWith(LessonNotifier.new),
+      // Phase 4.3: マルチアプリランキング・フレンド機能
+      // Firestore ベースのランキング・フレンド機能を統一化（shared_core の型を使用）
     ],
   );
+
+  // Firestore ランキング・フレンド・ミッション サービスの初期化
+  final rankingService = FirestoreRankingService();
+  final friendService = FirestoreFriendService();
+  final missionService = FirestoreMissionService();
+
+  // Handler を shared_core provider に注入
+  container.read(rankingProvider.notifier).setFetchHandler(rankingService.fetchRankings);
+  container.read(globalRankingProvider.notifier).setFetchHandler(rankingService.fetchGlobalRankings);
+  container.read(friendProvider.notifier)
+    ..setFetchHandler(friendService.fetchFriends)
+    ..setAddFriendHandler(friendService.addFriend)
+    ..setRemoveFriendHandler(friendService.removeFriend);
+
+  // Phase 4.5: デイリーミッション統一
+  // ミッション初期化: 現在のユーザー ID で初期化
+  final currentUserId = missionService.getCurrentUserId();
+  if (currentUserId != null) {
+    unawaited(container.read(missionProvider.notifier).initializeMissions(currentUserId));
+  }
+
+  // バッジシステム初期化: 統一バッジを主題タグで初期化
+  container.read(badgeProvider.notifier).setBadgeDefinitions(unifiedBadges, subject: 'sansu');
 
   // バグ報告・改善要望: Firestore の `feedback` コレクションへの書き込みを注入し、
   // オフライン中に溜まった未送信分の再送信を試みる。
@@ -152,6 +205,7 @@ class SansuKoreApp extends ConsumerWidget {
           '/growth': (context) => const GrowthScreen(),
           '/invite': (context) => const InviteScreen(),
           '/math-guide': (context) => const MathGuideScreen(),
+          '/mission': (context) => const MissionScreen(),
           '/analysis': (context) => const AnalysisDashboardScreen(),
           '/friends-list': (context) => const FriendsListScreen(),
           '/add-friend': (context) => const AddFriendScreen(),

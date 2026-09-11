@@ -5,23 +5,6 @@ import 'package:shared_core/shared_core.dart'
 
 import 'firestore_provider.dart';
 import 'profile_provider.dart' show profileProvider;
-
-// 算数コレ！のマルチプレイ対戦（レートマッチング）機能。
-//
-// shared_core の matchmakingProvider / currentMatchProvider は、実データアクセスを
-// [matchmakingHandlersProvider] / [matchHandlersProvider] のオーバーライドとして
-// アプリ側から注入する設計（friend_provider / ranking_provider と同様）。
-//
-// ここでは shared_core.FirestoreMatchmakingService をコレクション名だけ
-// 「sansu_」プレフィックス付きに変えてそのまま使う。
-//
-// 注意: 対戦は他プレイヤーとのグローバルなやりとりであり、PR #54/#56 の
-// プロフィールベースデータ分離（progress/ranking/friends 等）の対象外。
-// マッチメイキングキュー・対戦記録・レーティングは userId（Firebase Auth の uid、
-// main.dart で匿名サインイン済み）単位で管理し、プロフィール切り替えでは
-// クリアしない。
-
-/// sansu-kore 用の Firestore コレクション名（他アプリと衝突しないようプレフィックス付与）。
 final sansuMatchmakingServiceProvider = Provider<FirestoreMatchmakingService>((ref) {
   final firestore = ref.watch(firestoreProvider);
   return FirestoreMatchmakingService(

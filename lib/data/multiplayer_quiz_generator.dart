@@ -2,12 +2,6 @@ import 'dart:math';
 
 import '../models/quest_model.dart';
 import 'stage_data.dart';
-
-/// マルチプレイ対戦用の問題セット生成。
-///
-/// 対戦の学年（マッチング時の絞り込みメタデータと同じ学年）に属する全ステージの
-/// 問題からランダムに [count] 問を抽出し、選択肢もシャッフルする。
-/// 参考: social_quiz_app の QuizGenerator（クイズ生成ロジック）。
 class MultiplayerQuizGenerator {
   const MultiplayerQuizGenerator._();
 

@@ -1,6 +1,6 @@
+import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:confetti/confetti.dart';
 import 'package:sansu_kore/models/game_mode_model.dart';
 import 'package:sansu_kore/models/sound_model.dart';
 import 'package:sansu_kore/models/vfx_model.dart';

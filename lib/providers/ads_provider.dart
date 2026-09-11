@@ -1,8 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../utils/constants.dart';
 
-/// AdMob 広告 ID 設定
+import '../utils/constants.dart';
 class AdUnitIds {
   // Android 広告 ID
   static const String androidBannerId = 'ca-app-pub-xxxxxxxxxxxxxxxx/yyyyyyyyyy';

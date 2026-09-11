@@ -1,8 +1,8 @@
 // Daily Challenge Model - Recurring daily challenges and login bonuses
 // Features: Daily challenge, login streak, bonus rewards
 
-import 'package:uuid/uuid.dart';
 import 'package:sansu_kore/models/quest_model.dart';
+import 'package:uuid/uuid.dart';
 
 /// Daily Challenge Status
 enum DailyChallengeStatus { notStarted, inProgress, completed, expired }

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../providers/friends_provider.dart';
 import '../theme/app_theme.dart';
-
-/// フレンドリスト画面
 class FriendsListScreen extends ConsumerStatefulWidget {
   const FriendsListScreen({super.key});
 
