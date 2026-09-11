@@ -22,6 +22,7 @@ import 'package:shared_core/shared_core.dart'
         unifiedBadges,
         BadgeNotifier,
         rankingProvider,
+        globalRankingProvider,
         friendProvider;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -143,6 +144,7 @@ Future<void> main() async {
 
   // Handler を shared_core provider に注入
   container.read(rankingProvider.notifier).setFetchHandler(rankingService.fetchRankings);
+  container.read(globalRankingProvider.notifier).setFetchHandler(rankingService.fetchGlobalRankings);
   container.read(friendProvider.notifier)
     ..setFetchHandler(friendService.fetchFriends)
     ..setAddFriendHandler(friendService.addFriend)
