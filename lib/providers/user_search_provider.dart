@@ -10,7 +10,7 @@ class UserSearchNotifier extends StateNotifier<UserSearchState> {
   final FirebaseAuth _auth;
 
   UserSearchNotifier(this._firestore, this._auth)
-      : super(const UserSearchState());
+      : super(UserSearchState());
 
   /// ユーザーをID/名前で検索
   Future<void> searchUsers(String query) async {
@@ -133,7 +133,7 @@ class UserSearchNotifier extends StateNotifier<UserSearchState> {
 
   /// 検索をクリア
   void clearSearch() {
-    state = const UserSearchState();
+    state = UserSearchState();
   }
 
   /// 検索結果をフィルタリング（学年別など）
