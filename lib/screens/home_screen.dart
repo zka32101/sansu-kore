@@ -27,7 +27,7 @@ import '../providers/ranking_provider.dart';
 import '../providers/retention_notifications_provider.dart';
 import '../providers/weekly_challenge_provider.dart';
 // import '../providers/ads_provider.dart';  // TODO: Re-enable once google_mobile_ads conflict is resolved
-import '../models/quest_model.dart';
+import '../models/quest_model.dart' as localQuestModel;
 import '../models/math_guide_model.dart';
 import '../screens/daily_bonus_screen.dart';
 import '../screens/math_guide_screen.dart';
@@ -290,12 +290,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ),
 
           // デイリーミッション（Phase 4.5 統合）
+          // TODO: Uncomment when missionProvider is implemented
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 8),
-              child: currentProfile != null
-                  ? _DailyMissionCardWrapper(userId: currentProfile.id)
-                  : const SizedBox.shrink(),
+              child: const SizedBox.shrink(),
+              // child: currentProfile != null
+              //     ? _DailyMissionCardWrapper(userId: currentProfile.id)
+              //     : const SizedBox.shrink(),
             ),
           ),
 
@@ -852,8 +854,8 @@ class _RecentBadgesSection extends StatelessWidget {
 
 // ─── スペシャルモードセクション（無限とっくん + ゴーストバトル）─────
 class _SpecialModeSection extends StatelessWidget {
-  final MathTopicType? weakestTopic;
-  final void Function(MathTopicType?) onInfinite;
+  final localQuestModel.MathTopicType? weakestTopic;
+  final void Function(localQuestModel.MathTopicType?) onInfinite;
   final VoidCallback onGhost;
 
   const _SpecialModeSection({
@@ -1247,6 +1249,8 @@ class _RankingPreviewSection extends ConsumerWidget {
 }
 
 /// デイリーミッションカードラッパー（Phase 4.5 統合）
+// TODO: Implement when missionProvider is available
+/*
 class _DailyMissionCardWrapper extends ConsumerWidget {
   final String userId;
 
@@ -1333,6 +1337,7 @@ class _DailyMissionCardWrapper extends ConsumerWidget {
     );
   }
 }
+*/
 
 /// バナー広告ウィジェット
 // TODO: Re-enable once google_mobile_ads conflict is resolved
