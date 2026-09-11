@@ -23,6 +23,7 @@ import 'package:shared_core/shared_core.dart'
         BadgeNotifier,
         rankingProvider,
         globalRankingProvider,
+        missionProvider,
         friendProvider;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -46,6 +47,7 @@ import 'screens/home_screen.dart';
 import 'screens/infinite_practice_screen.dart';
 import 'screens/invite_screen.dart';
 import 'screens/math_guide_screen.dart';
+import 'screens/mission/mission_screen.dart';
 import 'screens/multiplayer/leaderboard_screen.dart';
 import 'screens/multiplayer/multiplayer_home_screen.dart';
 import 'screens/onboarding_screen.dart';
@@ -194,6 +196,7 @@ class SansuKoreApp extends ConsumerWidget {
           '/growth': (context) => const GrowthScreen(),
           '/invite': (context) => const InviteScreen(),
           '/math-guide': (context) => const MathGuideScreen(),
+          '/mission': (context) => const MissionScreen(),
           '/analysis': (context) => const AnalysisDashboardScreen(),
           '/friends-list': (context) => const FriendsListScreen(),
           '/add-friend': (context) => const AddFriendScreen(),
