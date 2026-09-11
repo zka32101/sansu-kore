@@ -138,7 +138,7 @@ jobs:
     - name: Build iOS (no codesign)
       env:
         FLUTTER_DISABLE_SWIFT_PACKAGE_MANAGER: "true"
-      run: flutter build ios --release --no-codesign
+      run: flutter build ios --release --simulator --no-codesign
 
     - name: Upload build output
       uses: actions/upload-artifact@v4
