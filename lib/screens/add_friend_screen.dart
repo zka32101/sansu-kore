@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/friends_provider.dart';
+import '../providers/user_search_provider.dart';
 import '../theme/app_theme.dart';
+import 'user_search_results_screen.dart';
 
 /// フレンド追加画面
 class AddFriendScreen extends ConsumerStatefulWidget {
@@ -44,6 +46,50 @@ class _AddFriendScreenState extends ConsumerState<AddFriendScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // タブのような選択肢
+            Row(
+              children: [
+                Expanded(
+                  child: ElevatedButton.icon(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const UserSearchResultsScreen(),
+                        ),
+                      );
+                    },
+                    icon: const Icon(Icons.search),
+                    label: const Text('ユーザーを検索'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue.shade600,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 24),
+
+            // または区切り線
+            Row(
+              children: [
+                Expanded(child: Divider(color: Colors.grey.shade300)),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Text(
+                    'または',
+                    style: TextStyle(color: Colors.grey.shade600),
+                  ),
+                ),
+                Expanded(child: Divider(color: Colors.grey.shade300)),
+              ],
+            ),
+
+            const SizedBox(height: 24),
+
             // ユーザーID入力フィールド
             const Text(
               'フレンドのユーザーIDを入力',
