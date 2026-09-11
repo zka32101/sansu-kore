@@ -29,7 +29,10 @@ import 'package:shared_core/shared_core.dart'
         premiumProvider,
         PremiumNotifier,
         PushNotificationService,
-        adaptiveDifficultyNotifierProvider;
+        adaptiveDifficultyNotifierProvider,
+        // Phase 4.22: Push Notifications & Retention
+        pushNotificationProvider,
+        retentionProvider;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'firebase_options.dart';
@@ -70,7 +73,9 @@ import 'screens/upgrade_screen.dart';
 import 'screens/weekly_challenge_screen.dart';
 import 'services/firestore_friend_service.dart';
 import 'services/firestore_mission_service.dart';
+import 'services/firestore_push_notification_service.dart';
 import 'services/firestore_ranking_service.dart';
+import 'services/firestore_retention_service.dart';
 import 'services/profile_migration_service.dart';
 import 'services/revenue_cat_service.dart';
 import 'theme/app_theme.dart';
@@ -202,6 +207,45 @@ Future<void> main() async {
   // ミッション初期化: 現在のユーザー ID で初期化
   if (currentUserId != null) {
     unawaited(container.read(missionProvider.notifier).initializeMissions(currentUserId));
+  }
+
+  // Phase 4.22: プッシュ通知・ユーザーリテンション統合
+  final pushNotificationService = FirestorePushNotificationService();
+  final retentionService = FirestoreRetentionService();
+
+  // プッシュ通知ハンドラーを設定
+  container.read(pushNotificationProvider.notifier).setHandlers(
+    fetchHandler: (userId, limit) => pushNotificationService.fetchNotificationConfig().then((config) => config != null ? [config] : []),
+    fcmTokenHandler: () async => (await pushService.getFCMToken()) ?? '',
+    scheduleHandler: (schedule) async => debugPrint('Notification scheduled: ${schedule.scheduledTime}'),
+    logHandler: (log) => pushNotificationService.logNotification(
+      log.notificationId,
+      log.type.name,
+      log.title,
+      log.body,
+      deepLink: log.deepLink,
+      customData: log.customData,
+    ),
+    markAsReadHandler: (notificationId) => pushNotificationService.markNotificationAsRead(notificationId),
+    updateConfigHandler: (config) => pushNotificationService.updateNotificationConfig(config),
+  );
+
+  // リテンション分析ハンドラーを設定
+  container.read(retentionProvider.notifier).setHandlers(
+    churnHandler: (limit) => retentionService.fetchChurnPredictions(limit: limit),
+    analyticsHandler: (userId) => retentionService.fetchUserRetentionAnalytics(userId),
+    campaignHandler: (campaign) => retentionService.saveReengagementCampaign(campaign),
+    cohortHandler: (cohortId) => retentionService.fetchCohortAnalytics(cohortId),
+    statsHandler: () => retentionService.fetchPopulationStats(),
+    configHandler: () => retentionService.fetchRetentionConfig(),
+  );
+
+  // FCM トークン更新時にFirestoreに保存
+  if (currentUserId != null) {
+    final fcmToken = await pushService.getFCMToken();
+    if (fcmToken != null) {
+      unawaited(pushNotificationService.updateFCMToken(fcmToken));
+    }
   }
 
   // バッジシステム初期化: 統一バッジを主題タグで初期化
