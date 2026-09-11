@@ -64,6 +64,7 @@ import 'screens/stage_select_screen.dart';
 import 'screens/upgrade_screen.dart';
 import 'screens/weekly_challenge_screen.dart';
 import 'services/firestore_friend_service.dart';
+import 'services/firestore_mission_service.dart';
 import 'services/firestore_ranking_service.dart';
 import 'services/profile_migration_service.dart';
 import 'services/revenue_cat_service.dart';
@@ -140,9 +141,10 @@ Future<void> main() async {
     ],
   );
 
-  // Firestore ランキング・フレンド サービスの初期化
+  // Firestore ランキング・フレンド・ミッション サービスの初期化
   final rankingService = FirestoreRankingService();
   final friendService = FirestoreFriendService();
+  final missionService = FirestoreMissionService();
 
   // Handler を shared_core provider に注入
   container.read(rankingProvider.notifier).setFetchHandler(rankingService.fetchRankings);
@@ -151,6 +153,13 @@ Future<void> main() async {
     ..setFetchHandler(friendService.fetchFriends)
     ..setAddFriendHandler(friendService.addFriend)
     ..setRemoveFriendHandler(friendService.removeFriend);
+
+  // Phase 4.5: デイリーミッション統一
+  // ミッション初期化: 現在のユーザー ID で初期化
+  final currentUserId = missionService.getCurrentUserId();
+  if (currentUserId != null) {
+    unawaited(container.read(missionProvider.notifier).initializeMissions(currentUserId));
+  }
 
   // バッジシステム初期化: 統一バッジを主題タグで初期化
   container.read(badgeProvider.notifier).setBadgeDefinitions(unifiedBadges, subject: 'sansu');
