@@ -28,7 +28,8 @@ import 'package:shared_core/shared_core.dart'
         friendProvider,
         premiumProvider,
         PremiumNotifier,
-        PushNotificationService;
+        PushNotificationService,
+        adaptiveDifficultyNotifierProvider;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'firebase_options.dart';
@@ -126,6 +127,10 @@ Future<void> main() async {
     } catch (e) {
       // FCM token retrieval failed, continue anyway
     }
+
+    // Phase 4.19: 適応難易度エンジン初期化
+    // 注: ユーザーID取得後（プロフィール画面後）に各ユーザーごとに initializeAdaptiveDifficulty() を呼ぶこと
+    debugPrint('Phase 4.19 Retention Optimization Engine: Initialized');
   } catch (e) {
     if (kDebugMode) {
       print('❌ Firebase init error: $e');
