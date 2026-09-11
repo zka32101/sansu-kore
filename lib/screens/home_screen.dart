@@ -11,7 +11,8 @@ import 'package:shared_core/shared_core.dart'
         screenTimeProvider,
         ScreenTimeLimitReachedWidget,
         missionProvider,
-        DailyMissionCard;
+        DailyMissionCard,
+        DailyMissionPage;
 
 import '../data/math_tips_data.dart';
 import '../data/stage_data.dart';
@@ -205,6 +206,22 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               ),
             ),
             actions: [
+              // デイリーミッションボタン（Phase 4.5）
+              IconButton(
+                icon: const Icon(Icons.assignment, color: Colors.white),
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => DailyMissionPage(
+                        primaryColor: kPrimaryColor,
+                        appTitle: '小学コレ！算数',
+                        filterSubject: 'math',
+                      ),
+                    ),
+                  );
+                },
+                tooltip: 'デイリーミッション',
+              ),
               // フレンドボタン（Phase 4.4 フレンド機能）
               IconButton(
                 icon: const Icon(Icons.people, color: Colors.white),
