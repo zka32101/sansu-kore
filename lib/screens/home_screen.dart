@@ -38,6 +38,7 @@ import '../theme/app_theme.dart';
 import '../widgets/daily_challenge_widgets.dart';
 import '../widgets/math_guide_widgets.dart';
 import '../widgets/ranking_filter_widget.dart';
+import 'package:shared_core/shared_core.dart' show FriendsListPage;
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -204,6 +205,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               ),
             ),
             actions: [
+              // フレンドボタン（Phase 4.4 フレンド機能）
+              IconButton(
+                icon: const Icon(Icons.people, color: Colors.white),
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => const FriendsListPage()),
+                  );
+                },
+                tooltip: 'フレンド',
+              ),
               // デイリーボーナスボタン
               if (!daily.todayClaimed)
                 IconButton(
