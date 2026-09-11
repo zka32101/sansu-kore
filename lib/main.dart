@@ -5,6 +5,7 @@ import 'package:cross_promo_kit/cross_promo_kit.dart'
     show CrossPromoService;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -91,6 +92,16 @@ Future<void> main() async {
     if (FirebaseAuth.instance.currentUser == null) {
       await FirebaseAuth.instance.signInAnonymously();
     }
+
+    // Phase 4.12: RemoteConfig 初期化（ダイナミック Pricing・リテンション通知など）
+    final remoteConfig = FirebaseRemoteConfig.instance;
+    await remoteConfig.setConfigSettings(
+      RemoteConfigSettings(
+        fetchTimeout: const Duration(seconds: 10),
+        minimumFetchInterval: const Duration(hours: 1),
+      ),
+    );
+    await remoteConfig.fetchAndActivate();
 
     // プロフィール対応のマイグレーション処理
     // アクティブなプロフィールIDが設定されていない場合はダミーIDを使用

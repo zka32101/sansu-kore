@@ -1,8 +1,10 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shared_core/shared_core.dart' show characterStateProvider;
+import 'package:shared_core/shared_core.dart'
+    show characterStateProvider, FirebaseService;
 
 import '../models/quest_model.dart';
 import '../providers/adaptive_provider.dart';
@@ -286,10 +288,31 @@ class _QuestScreenState extends ConsumerState<QuestScreen>
           ));
     }
 
+    // Phase 4.12-4.13: 学習時間・ストリーク記録（Firebase）
+    unawaited(_recordLearningMetrics(elapsed));
+
     Navigator.of(context).pushReplacementNamed(
       '/result',
       arguments: {'result': result, 'stage': widget.stage},
     );
+  }
+
+  /// Phase 4.12-4.13: 学習時間とストリークを Firestore に記録
+  Future<void> _recordLearningMetrics(Duration elapsed) async {
+    try {
+      final userId = await FirebaseService.getUserId();
+      final durationMinutes = (elapsed.inSeconds / 60).ceil();
+
+      // 学習時間記録
+      await FirebaseService.recordLearningSession(userId, durationMinutes);
+
+      // ストリーク更新
+      await FirebaseService.updateStreak(userId);
+    } catch (e) {
+      if (kDebugMode) {
+        print('❌ Error recording learning metrics: $e');
+      }
+    }
   }
 
   @override
