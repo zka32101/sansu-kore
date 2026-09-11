@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/ranking_model.dart';
 import '../providers/ranking_provider.dart';
+import 'user_ranking_detail_screen.dart';
 
 class RankingScreen extends ConsumerStatefulWidget {
   const RankingScreen({Key? key}) : super(key: key);
@@ -17,14 +18,21 @@ class _RankingScreenState extends ConsumerState<RankingScreen>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 1, vsync: this);
+    _tabController = TabController(length: 4, vsync: this);
 
-    // 初期化時にフレンドランキングを取得
+    // 初期化時に全ランキングを取得
     Future.microtask(() async {
       final ranking = ref.read(rankingProvider.notifier);
 
-      // ローカルフレンドランキング
+      // グローバルランキング
+      await ranking.fetchGlobalRanking();
+      // 週間ランキング
+      await ranking.fetchWeeklyRanking();
+      // 月間ランキング
+      await ranking.fetchMonthlyRanking();
+      // フレンドランキング
       await ranking.fetchFriendsRanking();
+      // 現在のユーザー情報
       await ranking.fetchCurrentUserRanking();
     });
   }
@@ -46,7 +54,11 @@ class _RankingScreenState extends ConsumerState<RankingScreen>
         backgroundColor: Colors.blue.shade700,
         bottom: TabBar(
           controller: _tabController,
+          isScrollable: true,
           tabs: const [
+            Tab(text: 'グローバル'),
+            Tab(text: '週間'),
+            Tab(text: '月間'),
             Tab(text: 'フレンド'),
           ],
         ),
@@ -61,6 +73,37 @@ class _RankingScreenState extends ConsumerState<RankingScreen>
             child: TabBarView(
               controller: _tabController,
               children: [
+                // グローバルランキング
+                _RankingListView(
+                  ranking: rankingState.globalRanking,
+                  currentUserRanking: rankingState.currentUserRanking,
+                  isLoading: rankingState.isLoading,
+                  error: rankingState.error,
+                  onRefresh: () async {
+                    await ref.read(rankingProvider.notifier).fetchGlobalRanking();
+                  },
+                ),
+                // 週間ランキング
+                _RankingListView(
+                  ranking: rankingState.weeklyRanking,
+                  currentUserRanking: rankingState.currentUserRanking,
+                  isLoading: rankingState.isLoading,
+                  error: rankingState.error,
+                  onRefresh: () async {
+                    await ref.read(rankingProvider.notifier).fetchWeeklyRanking();
+                  },
+                ),
+                // 月間ランキング
+                _RankingListView(
+                  ranking: rankingState.monthlyRanking,
+                  currentUserRanking: rankingState.currentUserRanking,
+                  isLoading: rankingState.isLoading,
+                  error: rankingState.error,
+                  onRefresh: () async {
+                    await ref.read(rankingProvider.notifier).fetchMonthlyRanking();
+                  },
+                ),
+                // フレンドランキング
                 _RankingListView(
                   ranking: rankingState.friendsRanking,
                   currentUserRanking: rankingState.currentUserRanking,
@@ -415,109 +458,120 @@ class _RankingTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final rankIcon = _getRankIcon();
 
-    return Card(
-      margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 0),
-      elevation: index < 3 ? 2 : 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
-        side: index < 3
-            ? BorderSide(color: rankIcon.color, width: 2)
-            : BorderSide.none,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Row(
-          children: [
-            // ランク番号
-            Container(
-              width: 44,
-              height: 44,
-              decoration: BoxDecoration(
-                color: rankIcon.color.withOpacity(0.2),
-                shape: BoxShape.circle,
-              ),
-              child: Center(
-                child: index < 3
-                    ? Text(
-                        rankIcon.medal,
-                        style: const TextStyle(fontSize: 20),
-                      )
-                    : Text(
-                        '${index + 1}',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                          color: rankIcon.color,
-                        ),
-                      ),
-              ),
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => UserRankingDetailScreen(
+              userRanking: userRanking,
             ),
-            const SizedBox(width: 12),
-            // ユーザー情報
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    userRanking.getDisplayName(),
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
+          ),
+        );
+      },
+      child: Card(
+        margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 0),
+        elevation: index < 3 ? 2 : 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+          side: index < 3
+              ? BorderSide(color: rankIcon.color, width: 2)
+              : BorderSide.none,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Row(
+            children: [
+              // ランク番号
+              Container(
+                width: 44,
+                height: 44,
+                decoration: BoxDecoration(
+                  color: rankIcon.color.withOpacity(0.2),
+                  shape: BoxShape.circle,
+                ),
+                child: Center(
+                  child: index < 3
+                      ? Text(
+                          rankIcon.medal,
+                          style: const TextStyle(fontSize: 20),
+                        )
+                      : Text(
+                          '${index + 1}',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            color: rankIcon.color,
+                          ),
+                        ),
+                ),
+              ),
+              const SizedBox(width: 12),
+              // ユーザー情報
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      userRanking.getDisplayName(),
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const SizedBox(height: 4),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          '正答率: ${(userRanking.correctRate * 100).toStringAsFixed(1)}%',
+                    const SizedBox(height: 4),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            '正答率: ${(userRanking.correctRate * 100).toStringAsFixed(1)}%',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey.shade600,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          '⏱ ${userRanking.averageSpeed.toStringAsFixed(1)}s',
                           style: TextStyle(
                             fontSize: 12,
                             color: Colors.grey.shade600,
                           ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
                         ),
-                      ),
-                      const SizedBox(width: 8),
-                      Text(
-                        '⏱ ${userRanking.averageSpeed.toStringAsFixed(1)}s',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey.shade600,
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 12),
+              // スコア
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    '${userRanking.score}',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      color: Colors.blue,
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  const Text(
+                    'pts',
+                    style: TextStyle(
+                      fontSize: 10,
+                      color: Colors.grey,
+                    ),
                   ),
                 ],
               ),
-            ),
-            const SizedBox(width: 12),
-            // スコア
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Text(
-                  '${userRanking.score}',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                    color: Colors.blue,
-                  ),
-                ),
-                const SizedBox(height: 2),
-                const Text(
-                  'pts',
-                  style: TextStyle(
-                    fontSize: 10,
-                    color: Colors.grey,
-                  ),
-                ),
-              ],
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
