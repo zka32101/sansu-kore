@@ -26,6 +26,7 @@ dependencies:
   firebase_messaging: ^15.1.6
   cloud_firestore: ^5.4.2
   in_app_purchase: ^3.3.0
+  purchases_flutter: ^10.11.0
   google_fonts: ^6.2.1
   uuid: ^4.0.0
   # google_mobile_ads: ^5.2.0  # TODO: Re-enable once SPM/CocoaPods conflict is resolved

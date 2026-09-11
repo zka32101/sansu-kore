@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_core/providers/premium_provider.dart';
+import 'package:shared_core/widgets/premium_gate_widget.dart';
 
 import '../data/infinite_generator.dart';
 import '../models/quest_model.dart';
@@ -138,7 +140,31 @@ class _InfinitePracticeScreenState
   bool get _isCorrect => _selectedAnswer == _current.correctIndex;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final premiumState = ref.watch(premiumProvider);
+
+    // プレミアムゲーティング
+    if (!premiumState.isSubscribed) {
+      return Scaffold(
+        backgroundColor: const Color(0xFFF5F7FF),
+        appBar: AppBar(
+          backgroundColor: kPrimaryColor,
+          title: const Text('∞ 無限とっくん'),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () => Navigator.pop(context),
+          ),
+        ),
+        body: PremiumGateWidget(
+          featureName: '無限とっくん',
+          onPremiumAccess: () {
+            // TODO: RevenueCat 購入フロー
+          },
+          child: Container(),
+        ),
+      );
+    }
+
     return Scaffold(
       backgroundColor: const Color(0xFFF5F7FF),
       appBar: AppBar(
