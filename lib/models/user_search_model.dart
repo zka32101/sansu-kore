@@ -86,7 +86,7 @@ class UserSearchState {
   final String? lastQuery;
   final DateTime lastSearchedAt;
 
-  const UserSearchState({
+  UserSearchState({
     this.searchResults = const [],
     this.isLoading = false,
     this.isSearching = false,
