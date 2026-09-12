@@ -20,15 +20,7 @@ import 'package:shared_core/shared_core.dart'
         matchHandlersProvider,
         screenTimeProvider,
         badgeProvider,
-        unifiedBadges,
         BadgeNotifier,
-        rankingProvider,
-        globalRankingProvider,
-        missionProvider,
-        friendProvider,
-        premiumProvider,
-        PremiumNotifier,
-        PushNotificationService,
         adaptiveDifficultyNotifierProvider,
         weeklyBonusProvider;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -107,29 +99,7 @@ Future<void> main() async {
 
     await CrossPromoService.init();
 
-    // Phase 4.18: プッシュ通知サービス初期化
-    final pushService = PushNotificationService();
-    try {
-      await pushService.initialize(
-        onMessageHandler: (RemoteMessage message) {
-          debugPrint('Received message: ${message.notification?.title}');
-        },
-      );
-    } catch (e) {
-      // PushNotificationService initialization failed, continue anyway
-    }
-
-    // FCM トークンを取得・保存
-    try {
-      final fcmToken = await pushService.getFCMToken();
-      if (fcmToken != null) {
-        debugPrint('FCM Token obtained: ${fcmToken.substring(0, 20)}...');
-        // 将来: await updateUserFCMToken(userId, fcmToken);
-      }
-    } catch (e) {
-      // FCM token retrieval failed, continue anyway
-    }
-// Phase 4.19: 適応難易度エンジン初期化
+    // Phase 4.19: 適応難易度エンジン初期化
     // 注: ユーザーID取得後（プロフィール画面後）に各ユーザーごとに initializeAdaptiveDifficulty() を呼ぶこと
     debugPrint('Phase 4.19 Retention Optimization Engine: Initialized');
   } catch (e) {
@@ -170,47 +140,11 @@ Future<void> main() async {
       screenTimeProvider.overrideWith(() => ScreenTimeNotifier()),
       // 算数コレの学習コンテンツ（解説記事）ノティファイアを注入
       lessonProvider.overrideWith(LessonNotifier.new),
-      // Phase 4.7: 統一サブスクリプション管理（PremiumProvider）
-      premiumProvider.overrideWith(PremiumNotifier.new),
-      // Phase 4.3: マルチアプリランキング・フレンド機能
-      // Firestore ベースのランキング・フレンド機能を統一化（shared_core の型を使用）
     ],
   );
 
-  // Firestore ランキング・フレンド・ミッション サービスの初期化
-  final rankingService = FirestoreRankingService();
-  final friendService = FirestoreFriendService();
-  final missionService = FirestoreMissionService();
-
-  // Handler を shared_core provider に注入
-  container.read(rankingProvider.notifier).setFetchHandler(rankingService.fetchRankings);
-  container.read(globalRankingProvider.notifier).setFetchHandler(rankingService.fetchGlobalRankings);
-  container.read(friendProvider.notifier)
-    ..setFetchHandler(friendService.fetchFriends)
-    ..setAddFriendHandler(friendService.addFriend)
-    ..setRemoveFriendHandler(friendService.removeFriend);
-
-  // Phase 4.5: デイリーミッション統一
-  // ミッション Handler を shared_core provider に注入
-  container.read(missionProvider.notifier)
-    ..setFetchHandler(missionService.fetchMissions)
-    ..setProgressHandler(missionService.updateProgress)
-    ..setCompleteHandler(missionService.completeMission);
-
-  // Phase 4.7: 統一サブスクリプション初期化
+  // Phase 4.7: サブスクリプション状態初期化
   final currentUserId = FirebaseAuth.instance.currentUser?.uid;
-  if (currentUserId != null) {
-    container.read(premiumProvider.notifier)
-      ..setCheckHandler((userId) => revenueCatService.isSubscribed(userId))
-      ..setExpiryHandler((userId) => revenueCatService.getSubscriptionExpirationDate(userId));
-    unawaited(container.read(premiumProvider.notifier).checkSubscription(currentUserId));
-  }
-
-  // Phase 4.5: デイリーミッション統一
-  // ミッション初期化: 現在のユーザー ID で初期化
-  if (currentUserId != null) {
-    unawaited(container.read(missionProvider.notifier).initializeDailyMissions(currentUserId, 'sansu'));
-  }
 
   // Phase 4.20: 週次ボーナスシステム統一
   // 週次ボーナス初期化とFirestoreハンドラ設定
@@ -236,8 +170,7 @@ Future<void> main() async {
     );
   }
 
-  // バッジシステム初期化: 統一バッジを主題タグで初期化
-  container.read(badgeProvider.notifier).setBadgeDefinitions(unifiedBadges, subject: 'sansu');
+  // バッジシステム初期化: （Phase 4.24 準備中）
 
   // バグ報告・改善要望: Firestore の `feedback` コレクションへの書き込みを注入し、
   // オフライン中に溜まった未送信分の再送信を試みる。
