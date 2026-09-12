@@ -94,27 +94,32 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
               child: ScaleTransition(
                 scale: _scaleAnim,
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: [
+                    // 大きなアプリアイコン（真ん中）
                     Container(
-                      width: 100,
-                      height: 100,
+                      width: 240,
+                      height: 240,
                       decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(28),
+                        borderRadius: BorderRadius.circular(60),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withAlpha(40),
+                            color: Colors.black.withOpacity(0.3),
                             blurRadius: 20,
-                            offset: const Offset(0, 8),
+                            offset: const Offset(0, 10),
                           ),
                         ],
                       ),
-                      child: const Center(
-                        child: Text('🔴', style: TextStyle(fontSize: 52)),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(60),
+                        child: Image.asset(
+                          'assets/logos/app_icon_512.jpg',
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 32),
                     const Text(
                       '小学コレ！算数',
                       style: TextStyle(

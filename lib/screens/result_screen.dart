@@ -77,11 +77,12 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
     );
 
     // アダプティブラーニング更新（教育工学機能）
-    await ref.read(localAdaptiveProvider.adaptiveProvider.notifier).recordAnswers(
-      topic: s.topicType,
-      correct: r.correctCount,
-      total: r.totalCount,
-    );
+    // TODO: Enable in Phase 4.5 - adaptive difficulty system
+    // await ref.read(localAdaptiveProvider.adaptiveProvider.notifier).recordAnswers(
+    //   topic: s.topicType,
+    //   correct: r.correctCount,
+    //   total: r.totalCount,
+    // );
 
     // ランキングスコアを更新
     // 各問題のスコア計算（平均応答時間を使用）
@@ -94,8 +95,6 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
     await ref.read(rankingProvider.notifier).updateScoreAfterQuestion(scoreData);
 
     // Phase 4.3-4.6 統合: グローバルランキングを更新
-    // TODO: Uncomment when globalRankingProvider is implemented
-    /*
     try {
       final totalScore = r.isPassed ? (r.correctCount * 10) : 0;
       if (totalScore > 0) {
@@ -106,11 +105,8 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
     } catch (e) {
       if (kDebugMode) print('グローバルランキング更新エラー: $e');
     }
-    */
 
     // Phase 4.5 統合: デイリーミッション進捗を更新
-    // TODO: Uncomment when missionProvider is implemented
-    /*
     try {
       final profile = ref.read(profileProvider).currentProfile;
       if (profile != null) {
@@ -124,7 +120,6 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
     } catch (e) {
       if (kDebugMode) print('ミッション進捗更新エラー: $e');
     }
-    */
 
     final progress = ref.read(progressProvider);
 
@@ -180,17 +175,18 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
     }
 
     // セーフティネット：つまずき検出
-    final adaptiveState = ref.read(localAdaptiveProvider.adaptiveProvider);
-    if (adaptiveState.parentAlertNeeded) {
-      final profile = ref.read(profileProvider).currentProfile;
-      final childName = profile?.name ?? 'お子さん';
-      final topicName = _topicName(s.topicType);
-      await NotificationService.triggerStrugglingAlert(
-        childName: childName,
-        topicName: topicName,
-      );
-      ref.read(localAdaptiveProvider.adaptiveProvider.notifier).clearParentAlert();
-    }
+    // TODO: Enable in Phase 4.5 - adaptive difficulty alerts
+    // final adaptiveState = ref.read(localAdaptiveProvider.adaptiveProvider);
+    // if (adaptiveState.parentAlertNeeded) {
+    //   final profile = ref.read(profileProvider).currentProfile;
+    //   final childName = profile?.name ?? 'お子さん';
+    //   final topicName = _topicName(s.topicType);
+    //   await NotificationService.triggerStrugglingAlert(
+    //     childName: childName,
+    //     topicName: topicName,
+    //   );
+    //   ref.read(localAdaptiveProvider.adaptiveProvider.notifier).clearParentAlert();
+    // }
 
     // キャラクター解放チェック（shared_core）
     final totalStages = ref.read(progressProvider).clearedStageIds.length;

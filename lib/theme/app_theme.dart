@@ -4,6 +4,7 @@
 /// UI デザイン統一 Phase 2: shared_core v3.0.0 AppColors/AppTypography 統合
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_core/shared_core.dart' show buildAppTheme;
 
 // 小学コレ！算数メインカラー（赤系 #E74C3C）
@@ -28,25 +29,42 @@ ThemeData buildSansuTheme() => buildAppTheme(
 // v3.0.0: 将来の Material Design 3 統一テーマ
 // AppColors / AppTypography を使用する拡張テーマ関数
 // 現在は既存の AppTheme と共存：段階的移行予定
-ThemeData buildSansuThemeV3() => ThemeData(
-  useMaterial3: true,
-  colorScheme: ColorScheme.fromSeed(
-    seedColor: kPrimaryColor,
-    primary: kPrimaryColor,
-    secondary: kAccentGreen,
-    surface: Colors.white,
-    brightness: Brightness.light,
-  ),
-  scaffoldBackgroundColor: kBgLight,
-  textTheme: const TextTheme(),  // TODO: Implement custom typography in Phase 4
-  appBarTheme: AppBarTheme(
-    backgroundColor: kPrimaryColor,
-    foregroundColor: Colors.white,
-    elevation: 0,
-    centerTitle: true,
-    titleTextStyle: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),  // TODO: Use AppTypography when available
-  ),
-);
+ThemeData buildSansuThemeV3() {
+  final baseTheme = ThemeData(
+    useMaterial3: true,
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: kPrimaryColor,
+      primary: kPrimaryColor,
+      secondary: kAccentGreen,
+      surface: Colors.white,
+      brightness: Brightness.light,
+    ),
+    scaffoldBackgroundColor: kBgLight,
+  );
+
+  return baseTheme.copyWith(
+    textTheme: GoogleFonts.notoSansJpTextTheme(baseTheme.textTheme).copyWith(
+      displayLarge: GoogleFonts.notoSansJp(fontSize: 32, fontWeight: FontWeight.bold, color: kTextDark),
+      displayMedium: GoogleFonts.notoSansJp(fontSize: 28, fontWeight: FontWeight.bold, color: kTextDark),
+      displaySmall: GoogleFonts.notoSansJp(fontSize: 24, fontWeight: FontWeight.bold, color: kTextDark),
+      headlineMedium: GoogleFonts.notoSansJp(fontSize: 20, fontWeight: FontWeight.bold, color: kTextDark),
+      headlineSmall: GoogleFonts.notoSansJp(fontSize: 18, fontWeight: FontWeight.w600, color: kTextDark),
+      titleLarge: GoogleFonts.notoSansJp(fontSize: 16, fontWeight: FontWeight.w600, color: kTextDark),
+      titleMedium: GoogleFonts.notoSansJp(fontSize: 14, fontWeight: FontWeight.w500, color: kTextDark),
+      bodyLarge: GoogleFonts.notoSansJp(fontSize: 16, fontWeight: FontWeight.w400, color: kTextDark),
+      bodyMedium: GoogleFonts.notoSansJp(fontSize: 14, fontWeight: FontWeight.w400, color: kTextDark),
+      bodySmall: GoogleFonts.notoSansJp(fontSize: 12, fontWeight: FontWeight.w400, color: kTextMuted),
+      labelLarge: GoogleFonts.notoSansJp(fontSize: 12, fontWeight: FontWeight.w500, color: kTextDark),
+    ),
+    appBarTheme: AppBarTheme(
+      backgroundColor: kPrimaryColor,
+      foregroundColor: Colors.white,
+      elevation: 0,
+      centerTitle: true,
+      titleTextStyle: GoogleFonts.notoSansJp(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),
+    ),
+  );
+}
 
 enum GradeGroup { low, mid, high }
 
