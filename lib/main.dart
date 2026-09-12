@@ -29,7 +29,8 @@ import 'package:shared_core/shared_core.dart'
         premiumProvider,
         PremiumNotifier,
         PushNotificationService,
-        adaptiveDifficultyNotifierProvider;
+        adaptiveDifficultyNotifierProvider,
+        weeklyBonusProvider;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'firebase_options.dart';
@@ -208,6 +209,30 @@ Future<void> main() async {
   // ミッション初期化: 現在のユーザー ID で初期化
   if (currentUserId != null) {
     unawaited(container.read(missionProvider.notifier).initializeDailyMissions(currentUserId, 'sansu'));
+  }
+
+  // Phase 4.20: 週次ボーナスシステム統一
+  // 週次ボーナス初期化とFirestoreハンドラ設定
+  if (currentUserId != null) {
+    // Firestore 永続化ハンドラを設定
+    container.read(weeklyBonusProvider.notifier).setPersistHandler(
+      (userId, bonus) async {
+        try {
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc(userId)
+              .collection('bonuses')
+              .doc('weekly')
+              .set(bonus.toJson());
+        } catch (e) {
+          debugPrint('Failed to persist weekly bonus: $e');
+        }
+      },
+    );
+    // 週次ボーナス初期化
+    unawaited(
+      container.read(weeklyBonusProvider.notifier).initializeWeeklyBonus(currentUserId),
+    );
   }
 
   // バッジシステム初期化: 統一バッジを主題タグで初期化
