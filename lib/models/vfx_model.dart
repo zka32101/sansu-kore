@@ -2,6 +2,7 @@
 // Features: Confetti variations, floating text, impact animations
 
 import 'package:flutter/material.dart';
+
 enum ParticleType {
   confetti,      // カラフルな紙吹雪
   stars,         // キラキラする星
