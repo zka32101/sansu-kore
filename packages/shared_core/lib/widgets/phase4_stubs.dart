@@ -53,12 +53,12 @@ class _NotificationNotifier extends StateNotifier<List<AppNotification>> {
 }
 
 // Stub provider for global ranking
-final globalRankingProvider = StateNotifierProvider<_GlobalRankingNotifier, AsyncValue<List<RankingEntry>>>((ref) {
+final globalRankingProvider = StateNotifierProvider<_GlobalRankingNotifier, List<RankingEntry>>((ref) {
   return _GlobalRankingNotifier();
 });
 
-class _GlobalRankingNotifier extends StateNotifier<AsyncValue<List<RankingEntry>>> {
-  _GlobalRankingNotifier() : super(const AsyncValue.data([]));
+class _GlobalRankingNotifier extends StateNotifier<List<RankingEntry>> {
+  _GlobalRankingNotifier() : super([]);
 
   Future<void> updateRanking({
     required String userId,
@@ -66,17 +66,17 @@ class _GlobalRankingNotifier extends StateNotifier<AsyncValue<List<RankingEntry>
   }) async {}
 
   Future<void> fetchGlobalRanking() async {
-    state = const AsyncValue.data([]);
+    state = [];
   }
 }
 
 // Stub provider for weekly bonus
-final weeklyBonusProvider = StateNotifierProvider<_WeeklyBonusNotifier, AsyncValue<int>>((ref) {
+final weeklyBonusProvider = StateNotifierProvider<_WeeklyBonusNotifier, int>((ref) {
   return _WeeklyBonusNotifier();
 });
 
-class _WeeklyBonusNotifier extends StateNotifier<AsyncValue<int>> {
-  _WeeklyBonusNotifier() : super(const AsyncValue.data(0));
+class _WeeklyBonusNotifier extends StateNotifier<int> {
+  _WeeklyBonusNotifier() : super(0);
 
   Future<void> recordDailyCompletion() async {}
 }
