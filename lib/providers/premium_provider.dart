@@ -27,6 +27,9 @@ class PremiumState {
     this.isLoading = true,
   });
 
+  // Compatibility getter for Phase 4.2-4.23 transition
+  bool get isSubscribed => isPremium || isTrialActive;
+
   PremiumState copyWith({bool? isPremium, bool? isTrialActive, int? trialDaysLeft, bool? isLoading}) {
     return PremiumState(
       isPremium: isPremium ?? this.isPremium,

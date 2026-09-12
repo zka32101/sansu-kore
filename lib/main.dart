@@ -70,11 +70,12 @@ import 'screens/splash_screen.dart';
 import 'screens/stage_select_screen.dart';
 import 'screens/upgrade_screen.dart';
 import 'screens/weekly_challenge_screen.dart';
-import 'services/firestore_friend_service.dart';
-import 'services/firestore_mission_service.dart';
-import 'services/firestore_ranking_service.dart';
+// Phase 4.2-4.23: Future features (disabled for v3.2.1 release)
+// import 'services/firestore_friend_service.dart';
+// import 'services/firestore_mission_service.dart';
+// import 'services/firestore_ranking_service.dart';
 import 'services/profile_migration_service.dart';
-import 'services/revenue_cat_service.dart';
+// import 'services/revenue_cat_service.dart';
 import 'theme/app_theme.dart';
 
 Future<void> main() async {
