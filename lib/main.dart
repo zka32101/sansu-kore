@@ -41,6 +41,7 @@ import 'providers/lesson_provider.dart' show LessonNotifier, lessonProvider;
 import 'providers/multiplayer_provider.dart';
 import 'providers/screen_time_provider.dart';
 import 'screens/add_friend_screen.dart';
+import 'screens/ai_coaching_dashboard_screen.dart';
 import 'screens/analysis_dashboard_screen.dart';
 import 'screens/badge_collection_screen.dart';
 import 'screens/character_screen.dart';
@@ -281,6 +282,7 @@ class SansuKoreApp extends ConsumerWidget {
           '/math-guide': (context) => const MathGuideScreen(),
           '/mission': (context) => const MissionScreen(),
           '/analysis': (context) => const AnalysisDashboardScreen(),
+          '/ai-coaching': (context) => const AiCoachingDashboardScreen(),
           '/friends-list': (context) => const FriendsListScreen(),
           '/add-friend': (context) => const AddFriendScreen(),
           '/friend-requests': (context) => const FriendRequestsScreen(),
