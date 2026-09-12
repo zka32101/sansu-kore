@@ -7,22 +7,23 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // ========== Providers ==========
 // Stub provider for missions
-final missionProvider = StateNotifierProvider<_MissionNotifier, AsyncValue<List<Mission>>>((ref) {
+final missionProvider = StateNotifierProvider<_MissionNotifier, MissionState>((ref) {
   return _MissionNotifier();
 });
 
-class _MissionNotifier extends StateNotifier<AsyncValue<List<Mission>>> {
-  _MissionNotifier() : super(const AsyncValue.data([]));
+class _MissionNotifier extends StateNotifier<MissionState> {
+  _MissionNotifier() : super(MissionState(missions: [], totalCoinsToday: 0));
 
   Future<void> initializeMissions(String userId) async {
-    state = const AsyncValue.data([]);
+    state = MissionState(missions: [], totalCoinsToday: 0);
   }
 
-  Future<MissionReward?> awardMissionRewards(int missionId) async {
+  Future<MissionReward?> awardMissionRewards() async {
     return null;
   }
 
   Future<void> detectMissionProgress({
+    required String userId,
     required String topic,
     required int correct,
     required int total,
@@ -59,6 +60,10 @@ class _GlobalRankingNotifier extends StateNotifier<AsyncValue<List<RankingEntry>
     required String userId,
     required int score,
   }) async {}
+
+  Future<void> fetchGlobalRanking() async {
+    state = const AsyncValue.data([]);
+  }
 }
 
 // Stub provider for weekly bonus
@@ -73,6 +78,18 @@ class _WeeklyBonusNotifier extends StateNotifier<AsyncValue<int>> {
 }
 
 // ========== Models ==========
+class MissionState {
+  final List<Mission> missions;
+  final int totalCoinsToday;
+
+  MissionState({
+    required this.missions,
+    required this.totalCoinsToday,
+  });
+
+  bool get isLoading => false;
+}
+
 class Mission {
   final int id;
   final String subject;
