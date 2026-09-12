@@ -73,7 +73,6 @@ import 'services/firestore_mission_service.dart';
 import 'services/firestore_ranking_service.dart';
 import 'services/profile_migration_service.dart';
 import 'services/revenue_cat_service.dart';
-import 'services/cloud_functions_service.dart';
 import 'theme/app_theme.dart';
 
 Future<void> main() async {
@@ -128,12 +127,7 @@ Future<void> main() async {
     } catch (e) {
       // FCM token retrieval failed, continue anyway
     }
-
-    // Phase 4.23: Cloud Functions サービス初期化
-    final cloudFunctionsService = CloudFunctionsService();
-    debugPrint('Cloud Functions Service initialized');
-
-    // Phase 4.19: 適応難易度エンジン初期化
+// Phase 4.19: 適応難易度エンジン初期化
     // 注: ユーザーID取得後（プロフィール画面後）に各ユーザーごとに initializeAdaptiveDifficulty() を呼ぶこと
     debugPrint('Phase 4.19 Retention Optimization Engine: Initialized');
   } catch (e) {
