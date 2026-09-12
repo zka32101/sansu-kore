@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_core/shared_core.dart'
     show
+        AddFriendButton,
+        AddFriendDialog,
         CrossPromoSection,
         FeedbackFormPage,
         NotificationSettingsPage,
@@ -292,6 +294,40 @@ class SettingsScreen extends ConsumerWidget {
                 return RankingPrivacySettings(
                   initialValue: isNamePublic,
                 );
+              },
+            ),
+
+            const SizedBox(height: 16),
+
+            // 👥 ソーシャル・フレンド機能
+            _SectionHeader('👥 ソーシャル'),
+            _SettingCard(
+              emoji: '👫',
+              title: 'フレンドを探す',
+              subtitle: 'ユーザーを検索してフレンド申請する',
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (_) => const AddFriendDialog(),
+                );
+              },
+            ),
+            const SizedBox(height: 8),
+            _SettingCard(
+              emoji: '👥',
+              title: 'フレンド一覧',
+              subtitle: 'あなたのフレンドを確認する',
+              onTap: () {
+                Navigator.of(context).pushNamed('/friends-list');
+              },
+            ),
+            const SizedBox(height: 8),
+            _SettingCard(
+              emoji: '📬',
+              title: 'フレンドリクエスト',
+              subtitle: '申請・受け取り状況を管理する',
+              onTap: () {
+                Navigator.of(context).pushNamed('/friend-requests');
               },
             ),
 
