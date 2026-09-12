@@ -12,17 +12,25 @@ final missionProvider = StateNotifierProvider<_MissionNotifier, MissionState>((r
 });
 
 class _MissionNotifier extends StateNotifier<MissionState> {
-  _MissionNotifier() : super(MissionState(missions: [], totalCoinsToday: 0));
+  _MissionNotifier() : super(MissionState(
+    missions: [],
+    totalCoinsToday: 0,
+    error: null,
+  ));
 
   Future<void> initializeMissions(String userId) async {
-    state = MissionState(missions: [], totalCoinsToday: 0);
+    state = MissionState(
+      missions: [],
+      totalCoinsToday: 0,
+      error: null,
+    );
   }
 
   Future<Map<String, dynamic>> awardMissionRewards({
     required String userId,
     required String missionId,
   }) async {
-    return {'coins': 0};
+    return <String, dynamic>{'coins': 0};
   }
 
   Future<void> detectMissionProgress({
@@ -30,7 +38,9 @@ class _MissionNotifier extends StateNotifier<MissionState> {
     required String subject,
     required int questionsCorrect,
     required bool isPerfectStreak,
-  }) async {}
+  }) async {
+    // No-op stub
+  }
 }
 
 // Stub provider for notifications
