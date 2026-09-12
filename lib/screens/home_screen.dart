@@ -38,6 +38,7 @@ import '../screens/math_guide_detail_screen.dart';
 import '../screens/ranking_filter_screen.dart';
 import '../screens/lesson_screen.dart';
 import '../screens/multiplayer/multiplayer_home_screen.dart';
+import '../screens/ai_coaching_dashboard_screen.dart';
 import '../theme/app_theme.dart';
 import '../widgets/daily_challenge_widgets.dart';
 import '../widgets/math_guide_widgets.dart';
@@ -394,6 +395,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             SliverToBoxAdapter(
               child: _RecentBadgesSection(badges: badges),
             ),
+
+          // AI コーチング機能
+          SliverToBoxAdapter(
+            child: _AiCoachingCard(),
+          ),
 
           // クロスプロモーション（他アプリ紹介）
           SliverToBoxAdapter(
@@ -1262,6 +1268,75 @@ class _RankingPreviewSection extends ConsumerWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+/// AI コーチングダッシュボード ナビゲーションカード（Phase 4.24 統合）
+class _AiCoachingCard extends ConsumerWidget {
+  const _AiCoachingCard();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final currentUser = ref.watch(profileProvider).currentProfile;
+    final userId = currentUser?.userId;
+
+    if (userId == null) {
+      return const SizedBox.shrink();
+    }
+
+    return GestureDetector(
+      onTap: () => Navigator.of(context).pushNamed('/ai-coaching'),
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.blue.shade400, Colors.blue.shade600],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.blue.withAlpha(100),
+              blurRadius: 8,
+              offset: const Offset(0, 3),
+            ),
+          ],
+        ),
+        child: const Row(
+          children: [
+            Text('🤖', style: TextStyle(fontSize: 32)),
+            SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'AI コーチング',
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: Colors.white70,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  SizedBox(height: 4),
+                  Text(
+                    'あなたの学習パターンを分析して、\nアドバイスをくれます',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Icon(Icons.chevron_right, color: Colors.white),
+          ],
+        ),
       ),
     );
   }
