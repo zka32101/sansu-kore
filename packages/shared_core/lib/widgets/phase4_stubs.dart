@@ -18,15 +18,18 @@ class _MissionNotifier extends StateNotifier<MissionState> {
     state = MissionState(missions: [], totalCoinsToday: 0);
   }
 
-  Future<MissionReward?> awardMissionRewards() async {
-    return null;
+  Future<Map<String, dynamic>> awardMissionRewards({
+    required String userId,
+    required String missionId,
+  }) async {
+    return {'coins': 0};
   }
 
   Future<void> detectMissionProgress({
     required String userId,
-    required String topic,
-    required int correct,
-    required int total,
+    required String subject,
+    required int questionsCorrect,
+    required bool isPerfectStreak,
   }) async {}
 }
 
@@ -40,12 +43,22 @@ class _NotificationNotifier extends StateNotifier<List<AppNotification>> {
 }
 
 // Stub provider for premium
-final premiumProvider = StateNotifierProvider<_PremiumNotifier, AsyncValue<bool>>((ref) {
+final premiumProvider = StateNotifierProvider<_PremiumNotifier, PremiumState>((ref) {
   return _PremiumNotifier();
 });
 
-class _PremiumNotifier extends StateNotifier<AsyncValue<bool>> {
-  _PremiumNotifier() : super(const AsyncValue.data(false));
+class PremiumState {
+  final bool isSubscribed;
+  final String? error;
+
+  PremiumState({
+    required this.isSubscribed,
+    this.error,
+  });
+}
+
+class _PremiumNotifier extends StateNotifier<PremiumState> {
+  _PremiumNotifier() : super(PremiumState(isSubscribed: false));
 }
 
 // Stub provider for global ranking
@@ -81,24 +94,62 @@ class _WeeklyBonusNotifier extends StateNotifier<AsyncValue<int>> {
 class MissionState {
   final List<Mission> missions;
   final int totalCoinsToday;
+  final String? error;
 
   MissionState({
     required this.missions,
     required this.totalCoinsToday,
+    this.error,
   });
 
   bool get isLoading => false;
+}
+
+class MissionDetail {
+  final String missionId;
+  final String name;
+  final String title;
+  final String description;
+  final String difficulty;
+  final int targetValue;
+  final List<MissionReward> rewards;
+
+  MissionDetail({
+    required this.missionId,
+    required this.name,
+    required this.title,
+    required this.description,
+    required this.difficulty,
+    required this.targetValue,
+    required this.rewards,
+  });
+}
+
+class MissionProgress {
+  final int currentValue;
+  final bool completed;
+
+  MissionProgress({
+    required this.currentValue,
+    required this.completed,
+  });
 }
 
 class Mission {
   final int id;
   final String subject;
   final bool enabled;
+  final MissionDetail mission;
+  final MissionProgress? progress;
+  final double progressPercentage;
 
   Mission({
     required this.id,
     required this.subject,
     required this.enabled,
+    required this.mission,
+    this.progress,
+    this.progressPercentage = 0.0,
   });
 }
 
