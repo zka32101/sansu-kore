@@ -308,7 +308,7 @@ class SettingsScreen extends ConsumerWidget {
               onTap: () {
                 showDialog(
                   context: context,
-                  builder: (_) => const AddFriendDialog(),
+                  builder: (_) => AddFriendDialog(),
                 );
               },
             ),
@@ -372,7 +372,7 @@ class SettingsScreen extends ConsumerWidget {
               subtitle: 'あなたの活動パターンと継続性を分析',
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (_) => const RetentionDashboard(),
+                  builder: (_) => RetentionDashboard(),
                 ),
               ),
             ),
