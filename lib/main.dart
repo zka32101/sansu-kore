@@ -165,7 +165,7 @@ Future<void> main() async {
       ),
       // 利用時間制限（スクリーンタイム）: 端末・アプリ単位で管理し、
       // プロフィール切り替え・ログアウトを跨いで共通の制限を適用する。
-      screenTimeProvider.overrideWith(ScreenTimeNotifier.new),
+      screenTimeProvider.overrideWith(() => ScreenTimeNotifier()),
       // 算数コレの学習コンテンツ（解説記事）ノティファイアを注入
       lessonProvider.overrideWith(LessonNotifier.new),
       // Phase 4.7: 統一サブスクリプション管理（PremiumProvider）

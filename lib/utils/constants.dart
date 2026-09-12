@@ -197,27 +197,14 @@ class DisabledFeatures {
 }
 
 /// RevenueCat Configuration for Subscription Management
-/// Phase 4.2: Monetization through subscription
+/// Phase 4.2 & Phase 4.7: Monetization through subscription
+/// Phase 4.7: Unified RevenueCat configuration via shared_core SubscriptionConfig
 class AppConstants {
-  /// RevenueCat API Key
-  /// Used for SDK initialization and subscription verification
-  /// Environment: Shared across all 小学コレ apps
-  static const String revenueCatApiKey = String.fromEnvironment(
-    'REVENUE_CAT_API_KEY',
-    defaultValue: 'appl_test_key_sansu',  // Test key for development
-  );
-
-  /// Premium Entitlement ID
-  /// Granted to users with active subscription
-  static const String premiumEntitlementId = 'sansu_premium';
-
-  /// Monthly Subscription Product ID
-  /// ¥120/month subscription package
-  static const String monthlySubscriptionId = 'sansu_premium_monthly';
-
-  /// Annual Subscription Product ID (Future)
-  /// Planned for discounted annual offering
-  static const String annualSubscriptionId = 'sansu_premium_annual';
+  /// RevenueCat Configuration (Phase 4.7: Moved to shared_core SubscriptionConfig)
+  /// - revenueCatApiKey: Use SubscriptionConfig.apiKey
+  /// - premiumEntitlementId: Use SubscriptionConfig.premiumEntitlementId ('premium')
+  /// - monthlySubscriptionId: Use SubscriptionConfig.monthlyProductId
+  /// - annualSubscriptionId: Use SubscriptionConfig.annualProductId
 
   /// Premium Features granted by subscription:
   /// - Ad-free experience (remove banner/interstitial ads)

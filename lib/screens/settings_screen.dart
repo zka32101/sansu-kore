@@ -1,9 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_core/shared_core.dart'
     show
         CrossPromoSection,
         FeedbackFormPage,
+        NotificationSettingsPage,
+        RetentionDashboard,
         requireParentalGate,
         ScreenTimeSettingsWidget;
 
@@ -301,6 +304,41 @@ class SettingsScreen extends ConsumerWidget {
               title: '利用時間を制限する',
               subtitle: '1日の利用時間に上限を設定できます（保護者向け）',
               onTap: () => _goToScreenTimeSettings(context),
+            ),
+
+            const SizedBox(height: 16),
+
+            // 通知設定
+            _SectionHeader('🔔 通知設定'),
+            _SettingCard(
+              emoji: '🔔',
+              title: '詳細な通知設定',
+              subtitle: 'プッシュ・リテンション・リマインダー',
+              onTap: () {
+                final userId = FirebaseAuth.instance.currentUser?.uid ?? '';
+                if (userId.isNotEmpty) {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => NotificationSettingsPage(userId: userId),
+                    ),
+                  );
+                }
+              },
+            ),
+
+            const SizedBox(height: 16),
+
+            // 分析
+            _SectionHeader('📈 分析'),
+            _SettingCard(
+              emoji: '📊',
+              title: 'ユーザーリテンション分析',
+              subtitle: 'あなたの活動パターンと継続性を分析',
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => const RetentionDashboard(),
+                ),
+              ),
             ),
 
             const SizedBox(height: 16),
