@@ -12,7 +12,10 @@ import 'package:shared_core/shared_core.dart'
         ScreenTimeLimitReachedWidget,
         missionProvider,
         DailyMissionCard,
-        DailyMissionPage;
+        DailyMissionPage,
+        weeklyBonusProvider,
+        coinProvider,
+        WeeklyBonusWidget;
 
 import '../data/math_tips_data.dart';
 import '../data/stage_data.dart';
@@ -271,6 +274,22 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 8),
               child: LoginBonusWidget(),
+            ),
+          ),
+
+          // Phase 4.20: 週次ボーナスシステム
+          SliverToBoxAdapter(
+            child: WeeklyBonusWidget(
+              onBonusClaimed: (coins) {
+                ref.read(coinProvider.notifier).addCoins(coins);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('ボーナス $coins コイン獲得しました！🎉'),
+                    backgroundColor: Colors.green,
+                    duration: const Duration(seconds: 2),
+                  ),
+                );
+              },
             ),
           ),
 
