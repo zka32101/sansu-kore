@@ -42,25 +42,6 @@ class _NotificationNotifier extends StateNotifier<List<AppNotification>> {
   _NotificationNotifier() : super([]);
 }
 
-// Stub provider for premium
-final premiumProvider = StateNotifierProvider<_PremiumNotifier, PremiumState>((ref) {
-  return _PremiumNotifier();
-});
-
-class PremiumState {
-  final bool isSubscribed;
-  final String? error;
-
-  PremiumState({
-    required this.isSubscribed,
-    this.error,
-  });
-}
-
-class _PremiumNotifier extends StateNotifier<PremiumState> {
-  _PremiumNotifier() : super(PremiumState(isSubscribed: false));
-}
-
 // Stub provider for global ranking
 final globalRankingProvider = StateNotifierProvider<_GlobalRankingNotifier, AsyncValue<List<RankingEntry>>>((ref) {
   return _GlobalRankingNotifier();
