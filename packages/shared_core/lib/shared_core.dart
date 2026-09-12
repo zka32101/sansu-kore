@@ -66,3 +66,6 @@ export 'theme/app_theme_base.dart';
 // クロスプロモーション（他アプリ紹介）— 実装は cross_promo_kit（ポートフォリオ全体の共通パッケージ）
 // に一本化されている。shared_core はそれを再エクスポートするだけ。
 export 'package:cross_promo_kit/cross_promo_kit.dart';
+
+// Phase 4.2-4.23: Stub implementations for v3.2.1 release
+export 'widgets/phase4_stubs.dart';

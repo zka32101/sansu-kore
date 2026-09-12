@@ -11,6 +11,9 @@ class UserProfile {
     required this.createdAt,
   });
 
+  // Alias for compatibility
+  String get userId => id;
+
   factory UserProfile.fromJson(Map<String, dynamic> json) {
     return UserProfile(
       id: json['id'] as String,
