@@ -15,7 +15,9 @@ import 'package:shared_core/shared_core.dart'
         DailyMissionPage,
         weeklyBonusProvider,
         coinProvider,
-        WeeklyBonusWidget;
+        WeeklyBonusWidget,
+        NotificationBadge,
+        notificationProvider;
 
 import '../data/math_tips_data.dart';
 import '../data/stage_data.dart';
@@ -257,6 +259,23 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     builder: (_) => const DailyBonusScreen(),
                   ),
                 ),
+              // Phase 4.23: ローカル通知・リマインダーシステム
+              Builder(
+                builder: (context) {
+                  final notifications = ref.watch(notificationProvider);
+                  return NotificationBadge(
+                    notificationCount: notifications.length,
+                    onPressed: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('通知: ${notifications.length}件'),
+                          duration: const Duration(seconds: 2),
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
               // ランキング・誤答分析・プロフィール変更は「せってい」タブに移動済み
             ],
           ),
