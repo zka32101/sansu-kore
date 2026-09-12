@@ -235,6 +235,7 @@ class DailyMissionPage extends StatelessWidget {
   }
 }
 
+// NotificationBadge temporarily simplified to reduce Android build complexity
 class NotificationBadge extends StatelessWidget {
   final int notificationCount;
   final VoidCallback? onPressed;
@@ -247,26 +248,9 @@ class NotificationBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        IconButton(
-          icon: const Icon(Icons.notifications, color: Colors.white),
-          onPressed: onPressed,
-        ),
-        if (notificationCount > 0)
-          Positioned(
-            right: 0,
-            top: 0,
-            child: CircleAvatar(
-              radius: 8,
-              backgroundColor: Colors.red,
-              child: Text(
-                notificationCount.toString(),
-                style: const TextStyle(color: Colors.white, fontSize: 10),
-              ),
-            ),
-          ),
-      ],
+    return IconButton(
+      icon: const Icon(Icons.notifications, color: Colors.white),
+      onPressed: onPressed,
     );
   }
 }
