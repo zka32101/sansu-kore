@@ -94,8 +94,6 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
     await ref.read(rankingProvider.notifier).updateScoreAfterQuestion(scoreData);
 
     // Phase 4.3-4.6 統合: グローバルランキングを更新
-    // TODO: Uncomment when globalRankingProvider is implemented
-    /*
     try {
       final totalScore = r.isPassed ? (r.correctCount * 10) : 0;
       if (totalScore > 0) {
@@ -106,11 +104,8 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
     } catch (e) {
       if (kDebugMode) print('グローバルランキング更新エラー: $e');
     }
-    */
 
     // Phase 4.5 統合: デイリーミッション進捗を更新
-    // TODO: Uncomment when missionProvider is implemented
-    /*
     try {
       final profile = ref.read(profileProvider).currentProfile;
       if (profile != null) {
@@ -124,7 +119,6 @@ class _ResultScreenState extends ConsumerState<ResultScreen> {
     } catch (e) {
       if (kDebugMode) print('ミッション進捗更新エラー: $e');
     }
-    */
 
     final progress = ref.read(progressProvider);
 
