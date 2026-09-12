@@ -310,14 +310,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ),
 
           // デイリーミッション（Phase 4.5 統合）
-          // TODO: Uncomment when missionProvider is implemented
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 8),
-              child: const SizedBox.shrink(),
-              // child: currentProfile != null
-              //     ? _DailyMissionCardWrapper(userId: currentProfile.id)
-              //     : const SizedBox.shrink(),
+              child: currentProfile != null
+                  ? _DailyMissionCardWrapper(userId: currentProfile.id)
+                  : const SizedBox.shrink(),
             ),
           ),
 
@@ -1343,8 +1341,6 @@ class _AiCoachingCard extends ConsumerWidget {
 }
 
 /// デイリーミッションカードラッパー（Phase 4.5 統合）
-// TODO: Implement when missionProvider is available
-/*
 class _DailyMissionCardWrapper extends ConsumerWidget {
   final String userId;
 
@@ -1431,7 +1427,6 @@ class _DailyMissionCardWrapper extends ConsumerWidget {
     );
   }
 }
-*/
 
 /// バナー広告ウィジェット
 // TODO: Re-enable once google_mobile_ads conflict is resolved
