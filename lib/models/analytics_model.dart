@@ -3,6 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'analytics_model.freezed.dart';
 part 'analytics_model.g.dart';
 
+@JsonSerializable()
 @freezed
 class DailyStats with _$DailyStats {
   const factory DailyStats({
@@ -19,6 +20,7 @@ class DailyStats with _$DailyStats {
       _$DailyStatsFromJson(json);
 }
 
+@JsonSerializable()
 @freezed
 class WeeklyStats with _$WeeklyStats {
   const factory WeeklyStats({
@@ -33,6 +35,7 @@ class WeeklyStats with _$WeeklyStats {
       _$WeeklyStatsFromJson(json);
 }
 
+@JsonSerializable()
 @freezed
 class MonthlyStats with _$MonthlyStats {
   const factory MonthlyStats({
@@ -53,6 +56,7 @@ class MonthlyStats with _$MonthlyStats {
   double get accuracyPercentage => accuracyRate * 100;
 }
 
+@JsonSerializable()
 @freezed
 class ProgressAnalytics with _$ProgressAnalytics {
   const factory ProgressAnalytics({
@@ -70,6 +74,7 @@ class ProgressAnalytics with _$ProgressAnalytics {
       _$ProgressAnalyticsFromJson(json);
 }
 
+@JsonSerializable()
 @freezed
 class CategoryMastery with _$CategoryMastery {
   const factory CategoryMastery({
@@ -86,6 +91,7 @@ class CategoryMastery with _$CategoryMastery {
       _$CategoryMasteryFromJson(json);
 }
 
+@JsonSerializable()
 @freezed
 class LearningPaceData with _$LearningPaceData {
   const factory LearningPaceData({
