@@ -11,13 +11,9 @@ dependencies:
   flutter:
     sdk: flutter
   shared_core:
-    # H:\マイドライブ\apps\shared_core (兄弟フォルダ) を vendor したコピー。
-    # GitHub Actions は sansu-kore 単独のリポジトリのみを checkout するため、
-    # ../shared_core という相対パスは解決できない。CI・スタンドアロンリポジトリで
-    # ビルド可能にするため packages/ 配下に取り込んでいる。
-    # 本家 shared_core を更新した場合は packages/shared_core, packages/cross_promo_kit
-    # にも反映（再コピー）すること。
-    path: packages/shared_core
+    git:
+      url: https://github.com/zka32101/shared_core.git
+      ref: main
   cupertino_icons: ^1.0.8
   flutter_riverpod: ^2.6.1
   shared_preferences: ^2.3.0
