@@ -25,24 +25,62 @@ import '../services/notification_service.dart';
 import '../theme/app_theme.dart';
 import '../widgets/ranking_privacy_settings.dart';
 
-class SettingsScreen extends ConsumerWidget {
+class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<SettingsScreen> createState() => _SettingsScreenState();
+}
+
+class _SettingsScreenState extends ConsumerState<SettingsScreen> with TickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final profile = ref.watch(profileProvider).currentProfile;
     final premium = ref.watch(premiumProvider);
     final daily = ref.watch(dailyLoginProvider);
     final sansuProfile = ref.watch(sansuProfileProvider);
     final tts = ref.watch(ttsProvider);
+    final progress = ref.watch(progressProvider);
+
+    // AnalyticsDashboard 用のサンプルデータ
+    final totalQuestions = progress.totalQuestionsAttempted;
+    final averageAccuracy = progress.averageAccuracy;
+    final totalTimeSpent = progress.totalTimeSpent;
+    final dailyActivity = _generateDailyActivity(progress);
+    final accuracyTrend = _generateAccuracyTrend(progress);
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('せってい'),
         backgroundColor: kPrimaryColor,
         automaticallyImplyLeading: false,
+        bottom: TabBar(
+          controller: _tabController,
+          tabs: const [
+            Tab(text: '設定'),
+            Tab(text: '学習分析'),
+          ],
+        ),
       ),
-      body: SingleChildScrollView(
+      body: TabBarView(
+        controller: _tabController,
+        children: [
+          // Tab 1: 設定
+          SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -438,6 +476,20 @@ class SettingsScreen extends ConsumerWidget {
             ),
           ],
         ),
+      ),
+          // Tab 2: 学習分析
+          SingleChildScrollView(
+            padding: const EdgeInsets.all(16),
+            child: AnalyticsDashboardWidget(
+              userName: profile?.name ?? 'ユーザー',
+              totalQuestions: totalQuestions,
+              averageAccuracy: averageAccuracy,
+              totalTimeSpent: totalTimeSpent,
+              dailyActivity: dailyActivity,
+              accuracyTrend: accuracyTrend,
+            ),
+          ),
+        ],
       ),
     );
   }
