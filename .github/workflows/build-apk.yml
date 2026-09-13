@@ -2,7 +2,7 @@ name: Flutter CI
 
 on:
   push:
-    branches: [ master, main ]
+    branches: [ master, main, 'claude/**' ]
   pull_request:
     branches: [ master, main ]
   workflow_dispatch:
@@ -18,13 +18,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-      with:
-        submodules: recursive
 
     - uses: subosito/flutter-action@v2
       with:
         flutter-version: '3.44.0'
         channel: 'stable'
+
+    - name: Clean dependencies and cache
+      run: |
+        flutter clean
+        rm -f pubspec.lock
+        rm -rf .dart_tool/
 
     - name: Install dependencies
       run: flutter pub get
@@ -38,8 +42,6 @@ jobs:
     needs: test
     steps:
     - uses: actions/checkout@v4
-      with:
-        submodules: recursive
 
     - uses: subosito/flutter-action@v2
       with:
@@ -88,8 +90,6 @@ jobs:
     if: github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
     steps:
     - uses: actions/checkout@v4
-      with:
-        submodules: recursive
 
     - uses: subosito/flutter-action@v2
       with:
@@ -122,8 +122,6 @@ jobs:
     if: github.event_name == 'workflow_dispatch' && inputs.run_signed_build == true
     steps:
     - uses: actions/checkout@v4
-      with:
-        submodules: recursive
 
     - uses: subosito/flutter-action@v2
       with:
