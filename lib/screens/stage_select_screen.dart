@@ -6,6 +6,9 @@ import '../providers/premium_provider.dart';
 import '../providers/progress_provider.dart';
 import '../theme/app_theme.dart';
 
+/// 無料ユーザーが遊べる最大ステージ番号
+const int kFreeStageLimit = 5;
+
 class StageSelectScreen extends ConsumerStatefulWidget {
   const StageSelectScreen({super.key});
 
@@ -73,7 +76,7 @@ class _StageSelectScreenState extends ConsumerState<StageSelectScreen> {
 // ── 全学年ビュー（学年ごとのセクション） ──────────────────────────
 class _AllGradesView extends StatelessWidget {
   final LearningProgress progress;
-  final PremiumState premium;
+  final PremiumStatus premium;
   final void Function(BuildContext, Stage, bool, bool) onTap;
 
   const _AllGradesView({required this.progress, required this.premium, required this.onTap});
@@ -105,7 +108,7 @@ class _GradeSection extends StatelessWidget {
   final List<Stage> stages;
   final int cleared;
   final LearningProgress progress;
-  final PremiumState premium;
+  final PremiumStatus premium;
   final void Function(BuildContext, Stage, bool, bool) onTap;
 
   const _GradeSection({
@@ -208,7 +211,7 @@ class _SingleGradeGrid extends StatelessWidget {
   final int grade;
   final List<Stage> stages;
   final LearningProgress progress;
-  final PremiumState premium;
+  final PremiumStatus premium;
   final void Function(BuildContext, Stage, bool, bool) onTap;
 
   const _SingleGradeGrid({
