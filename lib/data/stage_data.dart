@@ -1029,7 +1029,7 @@ const _grade2Stages = [
   ),
   Stage(
     stageNumber: 2,
-    title: 'かけ算 4・5の段',
+    title: 'かけ{算|ざん} 4・5の{段|だん}',
     grade: 2,
     topicType: MathTopicType.multiplication,
     questions: [
@@ -1073,7 +1073,7 @@ const _grade2Stages = [
   ),
   Stage(
     stageNumber: 3,
-    title: 'かけ算 6・7の段',
+    title: 'かけ{算|ざん} 6・7の{段|だん}',
     grade: 2,
     topicType: MathTopicType.multiplication,
     questions: [
@@ -1116,7 +1116,7 @@ const _grade2Stages = [
   ),
   Stage(
     stageNumber: 4,
-    title: 'かけ算 8・9の段',
+    title: 'かけ{算|ざん} 8・9の{段|だん}',
     grade: 2,
     topicType: MathTopicType.multiplication,
     questions: [
@@ -1159,7 +1159,7 @@ const _grade2Stages = [
   ),
   Stage(
     stageNumber: 5,
-    title: 'たし算の筆算',
+    title: '{足|た}し{算|ざん}の{筆算|ひっさん}',
     grade: 2,
     topicType: MathTopicType.addition,
     questions: [
@@ -1227,7 +1227,7 @@ const _grade2Stages = [
   ),
   Stage(
     stageNumber: 6,
-    title: 'ひき算の筆算',
+    title: 'ひき{算|ざん}の{筆算|ひっさん}',
     grade: 2,
     topicType: MathTopicType.subtraction,
     questions: [
@@ -1295,7 +1295,7 @@ const _grade2Stages = [
   ),
   Stage(
     stageNumber: 7,
-    title: '長さの単位',
+    title: '{長|なが}さの{単位|たんい}',
     grade: 2,
     topicType: MathTopicType.word,
     questions: [
@@ -1366,7 +1366,7 @@ const _grade2Stages = [
   ),
   Stage(
     stageNumber: 8,
-    title: 'かけ算の文章題',
+    title: 'かけ{算|ざん}の{文章題|ぶんしょうだい}',
     grade: 2,
     topicType: MathTopicType.multiplication,
     questions: [
@@ -1434,7 +1434,7 @@ const _grade2Stages = [
   ),
   Stage(
     stageNumber: 9,
-    title: '1000までの数',
+    title: '1000までの{数|かず}',
     grade: 2,
     topicType: MathTopicType.addition,
     questions: [
@@ -1485,7 +1485,7 @@ const _grade2Stages = [
   ),
   Stage(
     stageNumber: 10,
-    title: '3桁のたし算・ひき算',
+    title: '3{桁|けた}の{足|た}し{算|ざん}・ひき{算|ざん}',
     grade: 2,
     topicType: MathTopicType.addition,
     questions: [
@@ -1536,7 +1536,7 @@ const _grade2Stages = [
   ),
   Stage(
     stageNumber: 11,
-    title: '時刻と時間',
+    title: '{時刻|じこく}と{時間|じかん}',
     grade: 2,
     topicType: MathTopicType.word,
     questions: [
@@ -1588,7 +1588,7 @@ const _grade2Stages = [
   ),
   Stage(
     stageNumber: 12,
-    title: '三角形と四角形',
+    title: '{三角形|さんかくけい}と{四角形|しかくけい}',
     grade: 2,
     topicType: MathTopicType.geometry,
     questions: [
@@ -1646,7 +1646,7 @@ const _grade2Stages = [
   ),
   Stage(
     stageNumber: 13,
-    title: 'かけ算の文章題',
+    title: 'かけ{算|ざん}の{文章題|ぶんしょうだい}',
     grade: 2,
     topicType: MathTopicType.multiplication,
     questions: [
@@ -1696,7 +1696,7 @@ const _grade2Stages = [
   ),
   Stage(
     stageNumber: 14,
-    title: 'かけ算 1の段・0の段',
+    title: 'かけ{算|ざん} 1の{段|だん}・0の{段|だん}',
     grade: 2,
     topicType: MathTopicType.multiplication,
     questions: [
@@ -1748,7 +1748,7 @@ const _grade2Stages = [
   ),
   Stage(
     stageNumber: 15,
-    title: '2年生 まとめ',
+    title: '2{年|ねん}{生|せい} まとめ',
     grade: 2,
     topicType: MathTopicType.multiplication,
     questions: [
@@ -1805,7 +1805,7 @@ const _grade2Stages = [
   ),
   Stage(
     stageNumber: 16,
-    title: 'かさの単位（L・dL・mL）',
+    title: 'かさの{単位|たんい}（L・dL・mL）',
     grade: 2,
     topicType: MathTopicType.word,
     questions: [
@@ -1875,7 +1875,7 @@ const _grade2Stages = [
   ),
   Stage(
     stageNumber: 17,
-    title: 'グラフと表',
+    title: 'グラフと{表|ひょう}',
     grade: 2,
     topicType: MathTopicType.word,
     questions: [
@@ -1905,7 +1905,7 @@ const _grade2Stages = [
   ),
   Stage(
     stageNumber: 18,
-    title: '2年生 チャレンジ',
+    title: '2{年|ねん}{生|せい} チャレンジ',
     grade: 2,
     topicType: MathTopicType.multiplication,
     questions: [
@@ -2076,7 +2076,7 @@ const _grade3Stages = [
   ),
   Stage(
     stageNumber: 4,
-    title: '時刻と時間',
+    title: '{時刻|じこく}と{時間|じかん}',
     grade: 3,
     topicType: MathTopicType.word,
     questions: [
