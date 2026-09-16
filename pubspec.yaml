@@ -2,7 +2,7 @@ name: sansu_kore
 description: "算数コレ！- たし算からかんすうまで"
 publish_to: 'none'
 
-version: 3.1.0+13
+version: 3.2.0+14
 
 # Build trigger for shared_core APK integration - 2026-09-13
 environment:
