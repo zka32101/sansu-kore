@@ -1,4 +1,4 @@
-import 'package:shared_core/shared_core.dart';
+import 'package:shared_core/shared_core.dart' show BadgeModel, BadgeCategory;
 
 // 算数コレ！のバッジ定義
 // content1 = 算数正解数, content2 = 未使用（sansu-koreでは全問primary）

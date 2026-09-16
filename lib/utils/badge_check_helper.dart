@@ -1,4 +1,4 @@
-import 'package:shared_core/shared_core.dart';
+import 'package:shared_core/shared_core.dart' show BadgeModel, BadgeCategory;
 import '../data/badge_data.dart';
 
 /// 算数コレ専用のバッジ判定ロジックを集約したHelper

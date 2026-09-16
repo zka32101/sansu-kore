@@ -1,4 +1,5 @@
-import 'package:shared_core/shared_core.dart';
+import 'package:shared_core/shared_core.dart'
+    show BaseCharacterNotifier, BaseCharacter, BaseEquippedItemsNotifier;
 import '../data/sansu_characters.dart';
 
 /// 算数コレ固有のキャラクターノティファイア。
