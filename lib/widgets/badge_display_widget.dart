@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shared_core/shared_core.dart';
+import 'package:shared_core/shared_core.dart'
+    show BadgeModel, BadgeCategory, EarnedBadge;
 
 /// バッジ表示用の再利用可能ウィジェット集
 

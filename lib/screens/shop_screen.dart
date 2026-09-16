@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shared_core/shared_core.dart';
+import 'package:shared_core/shared_core.dart' show CoinShopPage, AppShopItem;
 import '../data/sansu_characters.dart';
 
 // ── 算数コレ 交換所アイテム ──────────────────────────────────────────────

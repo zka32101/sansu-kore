@@ -1,4 +1,4 @@
-import 'package:shared_core/shared_core.dart';
+import 'package:shared_core/shared_core.dart' show BaseCharacter, Subject;
 
 // 算数コレ 10体のキャラクター（設計書「小学コレシリーズ_キャラクター図鑑＋LINEスタンプ化」準拠）
 // unlockAt: clearedStageIds.length の閾値（最大92ステージ）
