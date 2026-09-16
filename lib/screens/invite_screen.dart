@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
 import '../providers/profile_provider.dart';
+import '../providers/referral_provider.dart';
 import '../theme/app_theme.dart';
 
 class InviteScreen extends ConsumerStatefulWidget {
@@ -233,14 +234,7 @@ class _InviteScreenState extends ConsumerState<InviteScreen> {
     setState(() => _isGenerating = true);
 
     try {
-      final profile = ref.read(profileProvider);
-      final userId = profile.currentProfile?.id ?? 'unknown';
-      final childName = profile.currentProfile?.name ?? 'お友達';
-
-      // 新しいコードを生成・保存
-      // （実装簡略化のため、ここではダミーコードを生成）
-      final newCode = 'SANSU${DateTime.now().toString().substring(0, 8)}${_randomString(5)}';
-
+      final newCode = await ref.read(generateReferralKeyProvider.future);
       setState(() => _referralCode = newCode);
 
       if (mounted) {
