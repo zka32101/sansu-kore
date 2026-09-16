@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../theme/app_theme.dart';
+import '../widgets/furigana_text.dart';
 
 class MathGuideScreen extends StatelessWidget {
   const MathGuideScreen({super.key});
@@ -23,22 +24,22 @@ class MathGuideScreen extends StatelessWidget {
               emoji: '🔢',
               guides: [
                 _GuideItem(
-                  title: 'たし算（足し算）のやり方',
-                  description: '2つの数をあわせる計算です',
+                  title: '{足|た}し{算|ざん}（{足|た}し{算|ざん}）のやり{方|かた}',
+                  description: '2つの{数|かず}をあわせる{計算|けいさん}です',
                   example: '2 + 3 = 5\n（2と3をあわせると5になります）',
-                  tips: ['指を使って数えてみよう', '「いち、に、さん...」と声に出そう'],
+                  tips: ['{指|ゆび}を使って{数|かず}えてみよう', '「いち、に、さん...」と{声|こえ}に出そう'],
                 ),
                 _GuideItem(
-                  title: 'ひき算（引き算）のやり方',
-                  description: 'ある数から別の数を取り除く計算です',
-                  example: '5 - 2 = 3\n（5から2を取ると3が残ります）',
-                  tips: ['指で5を出して、2本折ってみよう'],
+                  title: 'ひき{算|ざん}（{引|ひ}き{算|ざん}）のやり{方|かた}',
+                  description: 'ある{数|かず}から{別|べつ}の{数|かず}を取り{除|のぞ}く{計算|けいさん}です',
+                  example: '5 - 2 = 3\n（5から2を取ると3が{残|のこ}ります）',
+                  tips: ['{指|ゆび}で5を出して、2{本|ほん}{折|お}ってみよう'],
                 ),
                 _GuideItem(
-                  title: '数字の読み方・書き方',
-                  description: '1～10の数字を正しく読み書きしよう',
-                  example: '「1」は「いち」、「5」は「ご」と読みます',
-                  tips: ['毎日書いて練習しよう', 'ブロックで数を作ってみよう'],
+                  title: '{数|かず}{字|じ}の{読|よ}み{方|かた}・{書|か}き{方|かた}',
+                  description: '1～10の{数|かず}{字|じ}を{正|ただ}しく{読|よ}み{書|か}きしよう',
+                  example: '「1」は「いち」、「5」は「ご」と{読|よ}みます',
+                  tips: ['{毎日|まいにち}{書|か}いて{練習|れんしゅう}しよう', 'ブロックで{数|かず}を作ってみよう'],
                 ),
               ],
             ),
@@ -211,13 +212,11 @@ class _GuideItemWidgetState extends State<_GuideItemWidget> {
             Row(
               children: [
                 Expanded(
-                  child: Text(
+                  child: FuriganaText(
                     widget.item.title,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
-                    ),
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
                   ),
                 ),
                 Icon(
@@ -228,12 +227,10 @@ class _GuideItemWidgetState extends State<_GuideItemWidget> {
             ),
             const SizedBox(height: 8),
             // 説明
-            Text(
+            FuriganaText(
               widget.item.description,
-              style: const TextStyle(
-                fontSize: 14,
-                color: Colors.grey,
-              ),
+              fontSize: 14,
+              color: Colors.grey,
             ),
             // 展開時の詳細
             if (_isExpanded) ...[
@@ -286,12 +283,10 @@ class _GuideItemWidgetState extends State<_GuideItemWidget> {
                     children: [
                       const Text('• ', style: TextStyle(fontSize: 14)),
                       Expanded(
-                        child: Text(
+                        child: FuriganaText(
                           tip,
-                          style: const TextStyle(
-                            fontSize: 13,
-                            color: Colors.black87,
-                          ),
+                          fontSize: 13,
+                          color: Colors.black87,
                         ),
                       ),
                     ],
