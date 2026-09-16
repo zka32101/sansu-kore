@@ -27,11 +27,18 @@ dependencies:
   in_app_purchase: ^3.3.0
   google_fonts: ^6.2.1
   uuid: ^4.0.0
-  google_mobile_ads: ^5.2.0
+  # google_mobile_ads: ^5.2.0  # TODO: Re-enable once SPM/CocoaPods conflict is resolved
   share_plus: ^11.0.0
   flutter_tts: ^4.2.5
   http: ^1.2.0
   flutter_dotenv: ^5.1.0
+  # Note: google_mobile_ads dependency disabled (2026-09-16, re-disabled — see 2026-09-09 history)
+  # Reason: iOS SPM/CocoaPods conflict with webview_flutter_wkwebview
+  # (`Unable to find a specification for webview_flutter_wkwebview depended
+  #  upon by google_mobile_ads` during `pod install`). No file under lib/
+  # currently imports package:google_mobile_ads, so this is dead weight
+  # that was breaking every iOS CI build for zero functional benefit.
+  # Will be re-enabled once the dependency ecosystem resolves the conflict.
 
 dev_dependencies:
   flutter_test:

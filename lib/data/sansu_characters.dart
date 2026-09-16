@@ -6,6 +6,7 @@ const List<BaseCharacter> kSansuCharacters = [
 
   // ── Tier 1（はじめての算数）4体 ──────────────────────────────────
   BaseCharacter(
+    appSubject: Subject.sansu,
     id: 'ichiko', name: 'イチコ', emoji: '🔢', tier: 1, unlockAt: 0,
     imageAsset: 'assets/characters/tier1/ichiko/ichiko_lv1_normal.png',
     subject: 'たし算',
@@ -20,6 +21,7 @@ const List<BaseCharacter> kSansuCharacters = [
   ),
 
   BaseCharacter(
+    appSubject: Subject.sansu,
     id: 'niniko', name: 'ニニコ', emoji: '✌️', tier: 1, unlockAt: 3,
     imageAsset: 'assets/characters/tier1/niniko/niniko_lv1_normal.png',
     subject: 'ひき算',
@@ -34,6 +36,7 @@ const List<BaseCharacter> kSansuCharacters = [
   ),
 
   BaseCharacter(
+    appSubject: Subject.sansu,
     id: 'trai', name: 'トライ', emoji: '🔺', tier: 1, unlockAt: 5,
     imageAsset: 'assets/characters/tier1/trai/trai_lv1_normal.png',
     subject: 'かけ算',
@@ -48,6 +51,7 @@ const List<BaseCharacter> kSansuCharacters = [
   ),
 
   BaseCharacter(
+    appSubject: Subject.sansu,
     id: 'fouku', name: 'フォーク', emoji: '🍴', tier: 1, unlockAt: 8,
     imageAsset: 'assets/characters/tier1/fouku/fouku_lv1_normal.png',
     subject: 'わり算',
@@ -63,6 +67,7 @@ const List<BaseCharacter> kSansuCharacters = [
 
   // ── Tier 2（計算の達人）3体 ──────────────────────────────────────
   BaseCharacter(
+    appSubject: Subject.sansu,
     id: 'gogo', name: 'ゴーゴ', emoji: '✋', tier: 2, unlockAt: 12,
     imageAsset: 'assets/characters/tier2/gogo/gogo_lv1_normal.png',
     subject: '分数・小数',
@@ -77,6 +82,7 @@ const List<BaseCharacter> kSansuCharacters = [
   ),
 
   BaseCharacter(
+    appSubject: Subject.sansu,
     id: 'multiko', name: 'マルティプル', emoji: '✖️', tier: 2, unlockAt: 18,
     imageAsset: 'assets/characters/tier2/multiko/multiko_lv1_normal.png',
     subject: '大きい数のかけ算',
@@ -91,6 +97,7 @@ const List<BaseCharacter> kSansuCharacters = [
   ),
 
   BaseCharacter(
+    appSubject: Subject.sansu,
     id: 'divido', name: 'ディバイド', emoji: '➗', tier: 2, unlockAt: 24,
     imageAsset: 'assets/characters/tier2/divido/divido_lv1_normal.png',
     subject: 'わり算の筆算',
@@ -106,6 +113,7 @@ const List<BaseCharacter> kSansuCharacters = [
 
   // ── Tier 3（図形と量の世界）2体 ──────────────────────────────────
   BaseCharacter(
+    appSubject: Subject.sansu,
     id: 'geome', name: 'ジオメ', emoji: '📐', tier: 3, unlockAt: 32,
     imageAsset: 'assets/characters/tier3/geome/geome_lv1_normal.png',
     subject: '図形',
@@ -120,6 +128,7 @@ const List<BaseCharacter> kSansuCharacters = [
   ),
 
   BaseCharacter(
+    appSubject: Subject.sansu,
     id: 'calcuku', name: 'カルキュ', emoji: '🧮', tier: 3, unlockAt: 40,
     imageAsset: 'assets/characters/tier3/calcuku/calcuku_lv1_normal.png',
     subject: '算数総合',
@@ -135,6 +144,7 @@ const List<BaseCharacter> kSansuCharacters = [
 
   // ── Tier 4（伝説の存在）1体 ──────────────────────────────────────
   BaseCharacter(
+    appSubject: Subject.sansu,
     id: 'plus_minus', name: 'プラスマイナス', emoji: '⚡', tier: 4, unlockAt: 48,
     imageAsset: 'assets/characters/tier4/plus_minus/plus_minus_lv1_normal.png',
     subject: '算数マスター',

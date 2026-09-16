@@ -51,7 +51,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> with TickerProv
         controller: _tabController,
         children: [
           _SettingsTabContent(ref: ref),
-          const _AnalyticsTabContent(),
+          _AnalyticsTabContent(userId: ref.watch(profileProvider).currentProfile?.id ?? ''),
         ],
       ),
     );
@@ -120,7 +120,22 @@ class _SettingsTabContent extends StatelessWidget {
           _SettingCard(
             emoji: '❓',
             title: 'ヘルプ',
-            onTap: () => Navigator.of(context).pushNamed('/help'),
+            onTap: () => showDialog(
+              context: context,
+              builder: (_) => AlertDialog(
+                title: const Text('ヘルプ'),
+                content: const Text(
+                  'アプリの使い方でお困りの場合は、\n'
+                  'サポート窓口までお問い合わせください。',
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: const Text('閉じる'),
+                  ),
+                ],
+              ),
+            ),
           ),
           const SizedBox(height: 8),
           _SettingCard(
@@ -129,9 +144,8 @@ class _SettingsTabContent extends StatelessWidget {
             onTap: () => Navigator.of(context).pushNamed('/privacy'),
           ),
           const SizedBox(height: 16),
-          CrossPromoSection(
-            appKey: 'sansu-kore',
-            onAppSelected: (appName) {},
+          const CrossPromoSection(
+            currentAppId: 'sansu-kore',
           ),
           const SizedBox(height: 24),
           Center(
@@ -242,7 +256,8 @@ class _InfoRow extends StatelessWidget {
 }
 
 class _AnalyticsTabContent extends StatelessWidget {
-  const _AnalyticsTabContent();
+  final String userId;
+  const _AnalyticsTabContent({required this.userId});
 
   @override
   Widget build(BuildContext context) {
@@ -251,7 +266,7 @@ class _AnalyticsTabContent extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const AnalyticsDashboard(),
+          AnalyticsDashboard(userId: userId),
           const SizedBox(height: 16),
         ],
       ),

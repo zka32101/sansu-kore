@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_core/shared_core.dart'
-    show characterStateProvider, coinProvider, CrossPromoService;
+    show characterStateProvider, equippedItemsProvider, coinProvider, CrossPromoService;
 import 'firebase_options.dart';
 import 'models/quest_model.dart';
 import 'providers/character_provider.dart';
@@ -62,6 +62,11 @@ Future<void> main() async {
     overrides: [
       // 算数コレのキャラクターノティファイアを注入
       characterStateProvider.overrideWith(CharacterNotifier.new),
+      // 算数コレのショップアイテム装着状態ノティファイアを注入
+      // （未上書きだと equippedItemsProvider は UnimplementedError を投げ、
+      //   CoinShopPage/ShopScreen のビルドが失敗してホーム画面全体が
+      //   真っ白のまま止まる原因になる）
+      equippedItemsProvider.overrideWith(EquippedItemsNotifier.new),
     ],
     child: const SansuKoreApp(),
   ));
