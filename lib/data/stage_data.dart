@@ -985,7 +985,7 @@ const _grade1Stages = [
 const _grade2Stages = [
   Stage(
     stageNumber: 1,
-    title: 'かけ算 2・3の段',
+    title: 'かけ{算|ざん} 2・3の{段|だん}',
     grade: 2,
     topicType: MathTopicType.multiplication,
     questions: [
@@ -994,8 +994,8 @@ const _grade2Stages = [
         question: '2 × 3 = ?',
         choices: ['4', '5', '6', '7'],
         correctIndex: 2,
-        explanation: '2 × 3 = 6 だよ！2こずつのグループが3つあるということ。2＋2＋2＝6でも同じだね！りんごを2こずつ3さらに置くと全部で6こになるよ！できたね！',
-        hint: '2+2+2を計算してみよう',
+        explanation: '2 × 3 = 6 だよ！2こずつのグループが3つあるということ。2＋2＋2＝6でも同じだね！りんごを2こずつ3{皿|さら}に置くと{全部|ぜんぶ}で6こになるよ！できたね！',
+        hint: '2+2+2を{計算|けいさん}してみよう',
       ),
       QuizQuestion(
         id: 'g2s1q2', type: MathTopicType.multiplication, grade: 2,
@@ -1023,7 +1023,7 @@ const _grade2Stages = [
         question: '2 × 9 = ?',
         choices: ['16', '17', '18', '19'],
         correctIndex: 2,
-        explanation: '2 × 9 = 18 だよ！2の段の9番目だね。2、4、6、8、10、12、14、16、18と2ずつ数えていくと18になるよ！にく じゅうはち！',
+        explanation: '2 × 9 = 18 だよ！2の{段|だん}の9{番目|ばんめ}だね。2、4、6、8、10、12、14、16、18と2ずつ{数|かず}えていくと18になるよ！にく じゅうはち！',
       ),
     ],
   ),
@@ -1045,8 +1045,8 @@ const _grade2Stages = [
         question: '5 × 6 = ?',
         choices: ['28', '30', '32', '35'],
         correctIndex: 1,
-        explanation: '5 × 6 = 30 だよ！5の段はかならず0か5で終わるのが特ちょうだよ。5、10、15、20、25、30と5ずつ数えても30になるね！ごろく さんじゅう！',
-        hint: '5の段は5, 10, 15, 20, 25, 30...',
+        explanation: '5 × 6 = 30 だよ！5の{段|だん}はかならず0か5で{終|お}わるのが{特徴|とくちょう}だよ。5、10、15、20、25、30と5ずつ{数|かず}えても30になるね！ごろく さんじゅう！',
+        hint: '5の{段|だん}は5, 10, 15, 20, 25, 30...',
       ),
       QuizQuestion(
         id: 'g2s2q3', type: MathTopicType.multiplication, grade: 2,
