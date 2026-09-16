@@ -1990,7 +1990,7 @@ const _grade3Stages = [
   ),
   Stage(
     stageNumber: 2,
-    title: '大きい数のたし算',
+    title: '{大|おお}きい{数|かず}の{足|た}し{算|ざん}',
     grade: 3,
     topicType: MathTopicType.addition,
     questions: [
@@ -2033,7 +2033,7 @@ const _grade3Stages = [
   ),
   Stage(
     stageNumber: 3,
-    title: 'わり算の応用',
+    title: '{割|わ}り{算|ざん}の{応用|おうよう}',
     grade: 3,
     topicType: MathTopicType.division,
     questions: [
@@ -2119,7 +2119,7 @@ const _grade3Stages = [
   ),
   Stage(
     stageNumber: 5,
-    title: 'あまりのあるわり算',
+    title: 'あまりのある{割|わ}り{算|ざん}',
     grade: 3,
     topicType: MathTopicType.division,
     questions: [
@@ -2188,7 +2188,7 @@ const _grade3Stages = [
   ),
   Stage(
     stageNumber: 6,
-    title: '小数の基礎',
+    title: '{小数|しょうすう}の{基礎|きそ}',
     grade: 3,
     topicType: MathTopicType.decimal,
     questions: [
@@ -2258,7 +2258,7 @@ const _grade3Stages = [
   ),
   Stage(
     stageNumber: 7,
-    title: '分数の基礎',
+    title: '{分数|ぶんすう}の{基礎|きそ}',
     grade: 3,
     topicType: MathTopicType.fraction,
     questions: [
@@ -2327,7 +2327,7 @@ const _grade3Stages = [
   ),
   Stage(
     stageNumber: 8,
-    title: '円と球',
+    title: '{円|えん}と{球|きゅう}',
     grade: 3,
     topicType: MathTopicType.geometry,
     questions: [
@@ -2400,7 +2400,7 @@ const _grade3Stages = [
   ),
   Stage(
     stageNumber: 9,
-    title: '二等辺・正三角形',
+    title: '{二等辺|にとうへん}・{正三角形|せいさんかくけい}',
     grade: 3,
     topicType: MathTopicType.geometry,
     questions: [
@@ -2470,7 +2470,7 @@ const _grade3Stages = [
   ),
   Stage(
     stageNumber: 10,
-    title: '大きな数（万・億）',
+    title: '{大|おお}きな{数|かず}（{万|まん}・{億|おく}）',
     grade: 3,
     topicType: MathTopicType.addition,
     questions: [
@@ -2521,7 +2521,7 @@ const _grade3Stages = [
   ),
   Stage(
     stageNumber: 11,
-    title: 'かけ算の筆算',
+    title: 'かけ{算|ざん}の{筆算|ひっさん}',
     grade: 3,
     topicType: MathTopicType.multiplication,
     questions: [
@@ -2573,7 +2573,7 @@ const _grade3Stages = [
   ),
   Stage(
     stageNumber: 12,
-    title: '重さ（g・kg）',
+    title: '{重|おも}さ（g・kg）',
     grade: 3,
     topicType: MathTopicType.word,
     questions: [
@@ -2624,7 +2624,7 @@ const _grade3Stages = [
   ),
   Stage(
     stageNumber: 13,
-    title: '小数の計算',
+    title: '{小数|しょうすう}の{計算|けいさん}',
     grade: 3,
     topicType: MathTopicType.decimal,
     questions: [
@@ -2676,7 +2676,7 @@ const _grade3Stages = [
   ),
   Stage(
     stageNumber: 14,
-    title: '分数の計算',
+    title: '{分数|ぶんすう}の{計算|けいさん}',
     grade: 3,
     topicType: MathTopicType.fraction,
     questions: [
@@ -2785,7 +2785,7 @@ const _grade3Stages = [
   ),
   Stage(
     stageNumber: 16,
-    title: '棒グラフと表の読み方',
+    title: '{棒|ぼう}グラフと{表|ひょう}の{読|よ}み{方|かた}',
     grade: 3,
     topicType: MathTopicType.word,
     questions: [
@@ -2854,7 +2854,7 @@ const _grade3Stages = [
   ),
   Stage(
     stageNumber: 17,
-    title: '三角形と角',
+    title: '{三角形|さんかくけい}と{角|かく}',
     grade: 3,
     topicType: MathTopicType.geometry,
     questions: [
@@ -2967,7 +2967,7 @@ const _grade4Stages = [
   ),
   Stage(
     stageNumber: 2,
-    title: '小数の基本',
+    title: '{小数|しょうすう}の{基本|きほん}',
     grade: 4,
     topicType: MathTopicType.decimal,
     questions: [
@@ -3011,7 +3011,7 @@ const _grade4Stages = [
   ),
   Stage(
     stageNumber: 3,
-    title: '大きい数のかけ算',
+    title: '{大|おお}きい{数|かず}のかけ{算|ざん}',
     grade: 4,
     topicType: MathTopicType.multiplication,
     questions: [
@@ -3055,7 +3055,7 @@ const _grade4Stages = [
   ),
   Stage(
     stageNumber: 4,
-    title: '面積',
+    title: '{面積|めんせき}',
     grade: 4,
     topicType: MathTopicType.geometry,
     questions: [
@@ -3101,7 +3101,7 @@ const _grade4Stages = [
   ),
   Stage(
     stageNumber: 5,
-    title: 'わり算の筆算',
+    title: '{割|わ}り{算|ざん}の{筆算|ひっさん}',
     grade: 4,
     topicType: MathTopicType.division,
     questions: [
@@ -3169,7 +3169,7 @@ const _grade4Stages = [
   ),
   Stage(
     stageNumber: 6,
-    title: '角度',
+    title: '{角度|かくど}',
     grade: 4,
     topicType: MathTopicType.geometry,
     questions: [
@@ -3243,7 +3243,7 @@ const _grade4Stages = [
   ),
   Stage(
     stageNumber: 7,
-    title: '概数と四捨五入',
+    title: '{概数|がいすう}と{四捨五入|ししゃごにゅう}',
     grade: 4,
     topicType: MathTopicType.addition,
     questions: [
@@ -3314,7 +3314,7 @@ const _grade4Stages = [
   ),
   Stage(
     stageNumber: 8,
-    title: '億・兆の数',
+    title: '{億|おく}・{兆|ちょう}の{数|かず}',
     grade: 4,
     topicType: MathTopicType.addition,
     questions: [
@@ -3365,7 +3365,7 @@ const _grade4Stages = [
   ),
   Stage(
     stageNumber: 9,
-    title: '小数のかけ算・わり算',
+    title: '{小数|しょうすう}のかけ{算|ざん}・{割|わ}り{算|ざん}',
     grade: 4,
     topicType: MathTopicType.decimal,
     questions: [
@@ -3418,7 +3418,7 @@ const _grade4Stages = [
   ),
   Stage(
     stageNumber: 10,
-    title: '平行と垂直',
+    title: '{平行|へいこう}と{垂直|すいちょく}',
     grade: 4,
     topicType: MathTopicType.geometry,
     questions: [
@@ -3469,7 +3469,7 @@ const _grade4Stages = [
   ),
   Stage(
     stageNumber: 11,
-    title: '折れ線グラフ',
+    title: '{折|お}れ{線|せん}グラフ',
     grade: 4,
     topicType: MathTopicType.word,
     questions: [
@@ -3519,7 +3519,7 @@ const _grade4Stages = [
   ),
   Stage(
     stageNumber: 12,
-    title: '面積の応用',
+    title: '{面積|めんせき}の{応用|おうよう}',
     grade: 4,
     topicType: MathTopicType.geometry,
     questions: [
@@ -3572,7 +3572,7 @@ const _grade4Stages = [
   ),
   Stage(
     stageNumber: 13,
-    title: '式の計算（計算の順序）',
+    title: '{式|しき}の{計算|けいさん}（{計算|けいさん}の{順序|じゅんじょ}）',
     grade: 4,
     topicType: MathTopicType.addition,
     questions: [
@@ -3681,7 +3681,7 @@ const _grade4Stages = [
   ),
   Stage(
     stageNumber: 15,
-    title: '分数のたし算・ひき算',
+    title: '{分数|ぶんすう}の{足|た}し{算|ざん}・{引|ひ}き{算|ざん}',
     grade: 4,
     topicType: MathTopicType.fraction,
     questions: [
@@ -3719,7 +3719,7 @@ const _grade4Stages = [
   ),
   Stage(
     stageNumber: 16,
-    title: '直方体と立方体',
+    title: '{直方体|ちょくほうたい}と{立方体|りっぽうたい}',
     grade: 4,
     topicType: MathTopicType.geometry,
     questions: [
@@ -3755,7 +3755,7 @@ const _grade4Stages = [
   ),
   Stage(
     stageNumber: 17,
-    title: '単位換算まとめ（長さ・重さ・面積）',
+    title: '{単位|たんい}{換算|かんさん}まとめ（{長|なが}さ・{重|おも}さ・{面積|めんせき}）',
     grade: 4,
     topicType: MathTopicType.word,
     questions: [
@@ -3907,7 +3907,7 @@ const _grade5Stages = [
   ),
   Stage(
     stageNumber: 2,
-    title: '小数のかけ算・わり算',
+    title: '{小数|しょうすう}のかけ{算|ざん}・{割|わ}り{算|ざん}',
     grade: 5,
     topicType: MathTopicType.decimal,
     questions: [
@@ -3951,7 +3951,7 @@ const _grade5Stages = [
   ),
   Stage(
     stageNumber: 3,
-    title: '速さ・時間・距離',
+    title: '{速|はや}さ・{時間|じかん}・{距離|きょり}',
     grade: 5,
     topicType: MathTopicType.word,
     questions: [
@@ -3995,7 +3995,7 @@ const _grade5Stages = [
   ),
   Stage(
     stageNumber: 4,
-    title: '割合とパーセント',
+    title: '{割合|わりあい}とパーセント',
     grade: 5,
     topicType: MathTopicType.fraction,
     questions: [
@@ -4039,7 +4039,7 @@ const _grade5Stages = [
   ),
   Stage(
     stageNumber: 5,
-    title: '通分・異分母のたし引き',
+    title: '{通分|つうぶん}・{異分母|いぶんぼ}の{足|た}し{引|ひ}き',
     grade: 5,
     topicType: MathTopicType.fraction,
     questions: [
@@ -4110,7 +4110,7 @@ const _grade5Stages = [
   ),
   Stage(
     stageNumber: 6,
-    title: '三角形・四角形の面積',
+    title: '{三角形|さんかくけい}・{四角形|しかくけい}の{面積|めんせき}',
     grade: 5,
     topicType: MathTopicType.geometry,
     questions: [
@@ -4179,7 +4179,7 @@ const _grade5Stages = [
   ),
   Stage(
     stageNumber: 7,
-    title: '倍数と約数',
+    title: '{倍数|ばいすう}と{約数|やくすう}',
     grade: 5,
     topicType: MathTopicType.division,
     questions: [
@@ -4250,7 +4250,7 @@ const _grade5Stages = [
   ),
   Stage(
     stageNumber: 8,
-    title: '体積',
+    title: '{体積|たいせき}',
     grade: 5,
     topicType: MathTopicType.geometry,
     questions: [
@@ -4320,7 +4320,7 @@ const _grade5Stages = [
   ),
   Stage(
     stageNumber: 9,
-    title: '整数と小数の関係',
+    title: '{整数|せいすう}と{小数|しょうすう}の{関係|かんけい}',
     grade: 5,
     topicType: MathTopicType.decimal,
     questions: [
@@ -4372,7 +4372,7 @@ const _grade5Stages = [
   ),
   Stage(
     stageNumber: 10,
-    title: '百分率と歩合',
+    title: '{百分率|ひゃくぶんりつ}と{歩合|ぶあい}',
     grade: 5,
     topicType: MathTopicType.fraction,
     questions: [
@@ -4425,7 +4425,7 @@ const _grade5Stages = [
   ),
   Stage(
     stageNumber: 11,
-    title: '単位量あたり・平均',
+    title: '{単位量|たんいりょう}あたり・{平均|へいきん}',
     grade: 5,
     topicType: MathTopicType.word,
     questions: [
@@ -4477,7 +4477,7 @@ const _grade5Stages = [
   ),
   Stage(
     stageNumber: 12,
-    title: '三角形と四角形の面積',
+    title: '{三角形|さんかくけい}と{四角形|しかくけい}の{面積|めんせき}',
     grade: 5,
     topicType: MathTopicType.geometry,
     questions: [
@@ -4531,7 +4531,7 @@ const _grade5Stages = [
   ),
   Stage(
     stageNumber: 13,
-    title: '正多角形と円',
+    title: '{正多角形|せいたかくけい}と{円|えん}',
     grade: 5,
     topicType: MathTopicType.geometry,
     questions: [
@@ -4643,7 +4643,7 @@ const _grade5Stages = [
   ),
   Stage(
     stageNumber: 15,
-    title: '分数のわり算',
+    title: '{分数|ぶんすう}の{割|わ}り{算|ざん}',
     grade: 5,
     topicType: MathTopicType.fraction,
     questions: [
@@ -4680,7 +4680,7 @@ const _grade5Stages = [
   ),
   Stage(
     stageNumber: 16,
-    title: '三角形・平行四辺形の面積',
+    title: '{三角形|さんかくけい}・{平行四辺形|へいこうしへんけい}の{面積|めんせき}',
     grade: 5,
     topicType: MathTopicType.geometry,
     questions: [
@@ -4758,7 +4758,7 @@ const _grade5Stages = [
   ),
   Stage(
     stageNumber: 17,
-    title: '帯グラフと円グラフ',
+    title: '{帯|おび}グラフと{円|えん}グラフ',
     grade: 5,
     topicType: MathTopicType.word,
     questions: [
@@ -4828,7 +4828,7 @@ const _grade5Stages = [
 const _grade6Stages = [
   Stage(
     stageNumber: 1,
-    title: '文字と式',
+    title: '{文字|もじ}と{式|しき}',
     grade: 6,
     topicType: MathTopicType.word,
     questions: [
@@ -4872,7 +4872,7 @@ const _grade6Stages = [
   ),
   Stage(
     stageNumber: 2,
-    title: '比と比の値',
+    title: '{比|ひ}と{比|ひ}の{値|あたい}',
     grade: 6,
     topicType: MathTopicType.fraction,
     questions: [
@@ -4916,7 +4916,7 @@ const _grade6Stages = [
   ),
   Stage(
     stageNumber: 3,
-    title: '円の面積',
+    title: '{円|えん}の{面積|めんせき}',
     grade: 6,
     topicType: MathTopicType.geometry,
     questions: [
@@ -4960,7 +4960,7 @@ const _grade6Stages = [
   ),
   Stage(
     stageNumber: 4,
-    title: '総合問題（6年生）',
+    title: '{総合問題|そうごうもんだい}（6{年生|ねんせい}）',
     grade: 6,
     topicType: MathTopicType.word,
     questions: [
@@ -5004,7 +5004,7 @@ const _grade6Stages = [
   ),
   Stage(
     stageNumber: 5,
-    title: '分数のわり算',
+    title: '{分数|ぶんすう}の{割|わ}り{算|ざん}',
     grade: 6,
     topicType: MathTopicType.fraction,
     questions: [
@@ -5073,7 +5073,7 @@ const _grade6Stages = [
   ),
   Stage(
     stageNumber: 6,
-    title: '比例と反比例',
+    title: '{比例|ひれい}と{反比例|はんひれい}',
     grade: 6,
     topicType: MathTopicType.word,
     questions: [
@@ -5145,7 +5145,7 @@ const _grade6Stages = [
   ),
   Stage(
     stageNumber: 7,
-    title: '線対称と点対称',
+    title: '{線対称|せんたいしょう}と{点対称|てんたいしょう}',
     grade: 6,
     topicType: MathTopicType.geometry,
     questions: [
@@ -5213,7 +5213,7 @@ const _grade6Stages = [
   ),
   Stage(
     stageNumber: 8,
-    title: '場合の数',
+    title: '{場合|ばあい}の{数|かず}',
     grade: 6,
     topicType: MathTopicType.word,
     questions: [
@@ -5285,7 +5285,7 @@ const _grade6Stages = [
   ),
   Stage(
     stageNumber: 9,
-    title: '拡大図と縮図',
+    title: '{拡大図|かくだいず}と{縮図|しゅくず}',
     grade: 6,
     topicType: MathTopicType.geometry,
     questions: [
@@ -5338,7 +5338,7 @@ const _grade6Stages = [
   ),
   Stage(
     stageNumber: 10,
-    title: '速さの応用',
+    title: '{速|はや}さの{応用|おうよう}',
     grade: 6,
     topicType: MathTopicType.word,
     questions: [
@@ -5390,7 +5390,7 @@ const _grade6Stages = [
   ),
   Stage(
     stageNumber: 11,
-    title: '角柱と円柱',
+    title: '{角柱|かくちゅう}と{円柱|えんちゅう}',
     grade: 6,
     topicType: MathTopicType.geometry,
     questions: [
@@ -5441,7 +5441,7 @@ const _grade6Stages = [
   ),
   Stage(
     stageNumber: 12,
-    title: '比例と反比例',
+    title: '{比例|ひれい}と{反比例|はんひれい}',
     grade: 6,
     topicType: MathTopicType.word,
     questions: [
@@ -5492,7 +5492,7 @@ const _grade6Stages = [
   ),
   Stage(
     stageNumber: 13,
-    title: '資料の整理と活用',
+    title: '{資料|しりょう}の{整理|せいり}と{活用|かつよう}',
     grade: 6,
     topicType: MathTopicType.word,
     questions: [
@@ -5604,7 +5604,7 @@ const _grade6Stages = [
 
   Stage(
     stageNumber: 15,
-    title: 'データの活用（平均・最頻値・中央値）',
+    title: 'データの{活用|かつよう}（{平均|へいきん}・{最頻値|さいひんち}・{中央値|ちゅうおうち}）',
     grade: 6,
     topicType: MathTopicType.word,
     questions: [
@@ -5674,7 +5674,7 @@ const _grade6Stages = [
   ),
   Stage(
     stageNumber: 16,
-    title: '角柱と円柱の体積',
+    title: '{角柱|かくちゅう}と{円柱|えんちゅう}の{体積|たいせき}',
     grade: 6,
     topicType: MathTopicType.geometry,
     questions: [
@@ -5705,7 +5705,7 @@ const _grade6Stages = [
   ),
   Stage(
     stageNumber: 17,
-    title: '速さと比の文章題',
+    title: '{速|はや}さと{比|ひ}の{文章題|ぶんしょうだい}',
     grade: 6,
     topicType: MathTopicType.word,
     questions: [
