@@ -11,6 +11,7 @@ import '../providers/weekly_challenge_provider.dart';
 import '../models/quest_model.dart';
 import '../screens/daily_bonus_screen.dart';
 import '../screens/math_guide_screen.dart';
+import '../widgets/furigana_text.dart';
 import '../theme/app_theme.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
@@ -665,12 +666,10 @@ class _MathGuideSection extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 4),
-                  const Text(
-                    'たし算のやり方、かけ算の仕組みなど',
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: Colors.grey,
-                    ),
+                  const FuriganaText(
+                    '{足|た}し{算|ざん}のやり{方|かた}、かけ{算|ざん}の{仕組|しくみ}みなど',
+                    fontSize: 13,
+                    color: Colors.grey,
                   ),
                 ],
               ),
