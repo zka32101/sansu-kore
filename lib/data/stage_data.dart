@@ -200,7 +200,7 @@ const _grade1Stages = [
         question: '7 + 6 = ?',
         choices: ['12', '13', '14', '15'],
         correctIndex: 1,
-        explanation: '7 + 6 = 13 だよ！7に3をたして10にしよう。6から3をかりると3のこるね。10 + 3 = 13！まず10をつくるのがコツだよ。7、8、9、10、11、12、13と'{数|かず}'えてもいいね！',
+        explanation: '7 + 6 = 13 だよ！7に3をたして10にしよう。6から3をかりると3のこるね。10 + 3 = 13！まず10をつくるのがコツだよ。7、8、9、10、11、12、13と{数|かず}えてもいいね！',
       ),
       QuizQuestion(
         id: 'g1s4q4', type: MathTopicType.addition, grade: 1,
@@ -275,7 +275,7 @@ const _grade1Stages = [
         choices: ['3こ', '4こ', '5こ', '6こ'],
         correctIndex: 2,
         explanation: '13 - 8 = 5こ だよ！13は10と3にわけよう。10 - 8 = 2、のこりの3をたして 2 + 3 = 5こ！りんごを5このこして食べるよ。5 + 8 = 13でたしかめよう！',
-        hint: '13 - 8 を{{計算|けいさん}|けいさん}しよう',
+        hint: '13 - 8 を{計算|けいさん}しよう',
       ),
       QuizQuestion(
         id: 'g1s5q8', type: MathTopicType.subtraction, grade: 1,
@@ -306,7 +306,7 @@ const _grade1Stages = [
         choices: ['40と6', '40と7', '40と8', '50と7'],
         correctIndex: 1,
         explanation: '47は40と7をあわせた数だよ！47の十の{位|くらい}は「4」で40のこと、一の{位|くらい}は「7」のこと。40 + 7 = 47！数をわけて考えると大きな数も分かりやすくなるよ！',
-        hint: '{十|じゅう}の{{位|くらい}|くらい}と{一|いち}の{{位|くらい}|くらい}に{分|わ}けよう',
+        hint: '{十|じゅう}の{位|くらい}と{一|いち}の{位|くらい}に{分|わ}けよう',
       ),
       QuizQuestion(
         id: 'g1s6q3', type: MathTopicType.addition, grade: 1,
@@ -328,7 +328,7 @@ const _grade1Stages = [
         choices: ['58', '63', '57', '60'],
         correctIndex: 1,
         explanation: '63がいちばん大きいよ！数をくらべるときは十の{位|くらい}からみよう。63と60は十の{位|くらい}が6、57と58は十の{位|くらい}が5。6 > 5だから63と60が大きい。63 > 60 なので63がいちばん！',
-        hint: '{十|じゅう}の{{位|くらい}|くらい}の{数|かず}を{比|くら}べよう',
+        hint: '{十|じゅう}の{位|くらい}の{数|かず}を{比|くら}べよう',
       ),
       QuizQuestion(
         id: 'g1s6q6', type: MathTopicType.addition, grade: 1,
@@ -995,7 +995,7 @@ const _grade2Stages = [
         choices: ['4', '5', '6', '7'],
         correctIndex: 2,
         explanation: '2 × 3 = 6 だよ！2こずつのグループが3つあるということ。2＋2＋2＝6でも{同|おな}じだね！りんごを2こずつ3{皿|さら}に置くと{全部|ぜんぶ}で6こになるよ！できたね！',
-        hint: '2+2+2を{{計算|けいさん}|けいさん}してみよう',
+        hint: '2+2+2を{計算|けいさん}してみよう',
       ),
       QuizQuestion(
         id: 'g2s1q2', type: MathTopicType.multiplication, grade: 2,
@@ -1009,14 +1009,14 @@ const _grade2Stages = [
         question: '2 × 7 = ?',
         choices: ['12', '13', '14', '15'],
         correctIndex: 2,
-        explanation: '2 × 7 = 14 だよ！2の段は2ずつ増えるよ。2、4、6、8、10、12、14と'{数|かず}'えても14になるね！にしち じゅうし、ってリズムで覚えよう！',
+        explanation: '2 × 7 = 14 だよ！2の段は2ずつ増えるよ。2、4、6、8、10、12、14と{数|かず}えても14になるね！にしち じゅうし、ってリズムで覚えよう！',
       ),
       QuizQuestion(
         id: 'g2s1q4', type: MathTopicType.multiplication, grade: 2,
         question: '3 × 6 = ?',
         choices: ['16', '17', '18', '19'],
         correctIndex: 2,
-        explanation: '3 × 6 = 18 だよ！3の段は3ずつ増えるよ。3、6、9、12、15、18と'{数|かず}'えても18になるね！さんろく じゅうはち、って声に出して覚えよう！',
+        explanation: '3 × 6 = 18 だよ！3の段は3ずつ増えるよ。3、6、9、12、15、18と{数|かず}えても18になるね！さんろく じゅうはち、って声に出して覚えよう！',
       ),
       QuizQuestion(
         id: 'g2s1q5', type: MathTopicType.multiplication, grade: 2,
@@ -1295,7 +1295,7 @@ const _grade2Stages = [
   ),
   Stage(
     stageNumber: 7,
-    title: '{長|なが}さの{単{位|くらい}|たんい}',
+    title: '{長|なが}さの{単位|たんい}',
     grade: 2,
     topicType: MathTopicType.word,
     questions: [
@@ -1413,7 +1413,7 @@ const _grade2Stages = [
         question: '1週間は7日。3週間は何日？',
         choices: ['10日', '14日', '21日', '28日'],
         correctIndex: 2,
-        explanation: '7×3＝21日 だよ！1週間は7日だから、3週間は7×3＝21日。しちさん にじゅういち！カレンダーを3週間分'{数|かず}'えても21日になるよ。生活の中でかけ算が使えるね！',
+        explanation: '7×3＝21日 だよ！1週間は7日だから、3週間は7×3＝21日。しちさん にじゅういち！カレンダーを3週間分{数|かず}えても21日になるよ。生活の中でかけ算が使えるね！',
         hint: '7日×3週間',
       ),
       QuizQuestion(
@@ -1536,7 +1536,7 @@ const _grade2Stages = [
   ),
   Stage(
     stageNumber: 11,
-    title: '{時刻|じこく}と{{時間|じかん}|じかん}',
+    title: '{時刻|じこく}と{時間|じかん}',
     grade: 2,
     topicType: MathTopicType.word,
     questions: [
@@ -1588,7 +1588,7 @@ const _grade2Stages = [
   ),
   Stage(
     stageNumber: 12,
-    title: '{{三角形|さんかくけい}|さんかくけい}と{{四角形|しかくけい}|しかくけい}',
+    title: '{三角形|さんかくけい}と{四角形|しかくけい}',
     grade: 2,
     topicType: MathTopicType.geometry,
     questions: [
@@ -1690,7 +1690,7 @@ const _grade2Stages = [
         question: '1週間は7日。3週間は何日？',
         choices: ['14日', '18日', '21日', '28日'],
         correctIndex: 2,
-        explanation: '7×3＝21日 だよ！1週間は7日だから3週間分はかけ算で求められるよ。しちさん にじゅういち！カレンダーで3週間分を'{数|かず}'えても21日になるね。生活でも使えるよ！',
+        explanation: '7×3＝21日 だよ！1週間は7日だから3週間分はかけ算で求められるよ。しちさん にじゅういち！カレンダーで3週間分を{数|かず}えても21日になるね。生活でも使えるよ！',
       ),
     ],
   ),
@@ -1805,7 +1805,7 @@ const _grade2Stages = [
   ),
   Stage(
     stageNumber: 16,
-    title: 'かさの{単{位|くらい}|たんい}（L・dL・mL）',
+    title: 'かさの{単位|たんい}（L・dL・mL）',
     grade: 2,
     topicType: MathTopicType.word,
     questions: [
@@ -1875,7 +1875,7 @@ const _grade2Stages = [
   ),
   Stage(
     stageNumber: 17,
-    title: 'グラフと{{表|ひょう}|ひょう}',
+    title: 'グラフと{表|ひょう}',
     grade: 2,
     topicType: MathTopicType.word,
     questions: [
@@ -1970,7 +1970,7 @@ const _grade3Stages = [
         question: '35 ÷ 7 = ?',
         choices: ['4', '5', '6', '7'],
         correctIndex: 1,
-        explanation: '35 ÷ 7 = 5 だよ！7の段を思い出そう。7 × 5 = 35 だからわり算にすると 35 ÷ 7 = 5！7、14、21、28、35と7ずつ'{数|かず}'えても5回で35になるよ！',
+        explanation: '35 ÷ 7 = 5 だよ！7の段を思い出そう。7 × 5 = 35 だからわり算にすると 35 ÷ 7 = 5！7、14、21、28、35と7ずつ{数|かず}えても5回で35になるよ！',
       ),
       QuizQuestion(
         id: 'g3s1q4', type: MathTopicType.division, grade: 3,
@@ -2076,7 +2076,7 @@ const _grade3Stages = [
   ),
   Stage(
     stageNumber: 4,
-    title: '{時刻|じこく}と{{時間|じかん}|じかん}',
+    title: '{時刻|じこく}と{時間|じかん}',
     grade: 3,
     topicType: MathTopicType.word,
     questions: [
@@ -2188,7 +2188,7 @@ const _grade3Stages = [
   ),
   Stage(
     stageNumber: 6,
-    title: '{{小数|しょうすう}|しょうすう}の{基礎|きそ}',
+    title: '{小数|しょうすう}の{基礎|きそ}',
     grade: 3,
     topicType: MathTopicType.decimal,
     questions: [
@@ -2400,7 +2400,7 @@ const _grade3Stages = [
   ),
   Stage(
     stageNumber: 9,
-    title: '{二等辺|にとうへん}・{正{三角形|さんかくけい}|せいさんかくけい}',
+    title: '{二等辺|にとうへん}・{正三角形|せいさんかくけい}',
     grade: 3,
     topicType: MathTopicType.geometry,
     questions: [
@@ -2624,7 +2624,7 @@ const _grade3Stages = [
   ),
   Stage(
     stageNumber: 13,
-    title: '{{小数|しょうすう}|しょうすう}の{{計算|けいさん}|けいさん}',
+    title: '{小数|しょうすう}の{計算|けいさん}',
     grade: 3,
     topicType: MathTopicType.decimal,
     questions: [
@@ -2676,7 +2676,7 @@ const _grade3Stages = [
   ),
   Stage(
     stageNumber: 14,
-    title: '{分数|ぶんすう}の{{計算|けいさん}|けいさん}',
+    title: '{分数|ぶんすう}の{計算|けいさん}',
     grade: 3,
     topicType: MathTopicType.fraction,
     questions: [
@@ -2785,7 +2785,7 @@ const _grade3Stages = [
   ),
   Stage(
     stageNumber: 16,
-    title: '{棒|ぼう}グラフと{{表|ひょう}|ひょう}の{読|よ}み{方|かた}',
+    title: '{棒|ぼう}グラフと{表|ひょう}の{読|よ}み{方|かた}',
     grade: 3,
     topicType: MathTopicType.word,
     questions: [
@@ -2854,7 +2854,7 @@ const _grade3Stages = [
   ),
   Stage(
     stageNumber: 17,
-    title: '{{三角形|さんかくけい}|さんかくけい}と{角|かく}',
+    title: '{三角形|さんかくけい}と{角|かく}',
     grade: 3,
     topicType: MathTopicType.geometry,
     questions: [
@@ -2967,7 +2967,7 @@ const _grade4Stages = [
   ),
   Stage(
     stageNumber: 2,
-    title: '{{小数|しょうすう}|しょうすう}の{基本|きほん}',
+    title: '{小数|しょうすう}の{基本|きほん}',
     grade: 4,
     topicType: MathTopicType.decimal,
     questions: [
@@ -3021,7 +3021,7 @@ const _grade4Stages = [
         choices: ['82', '92', '102', '112'],
         correctIndex: 1,
         explanation: '23 × 4 = 92 だよ！十の{位|くらい}と一の{位|くらい}に分けて{計算|けいさん}しよう。20 × 4 = 80、3 × 4 = 12、80 + 12 = 92 ！大きな数も「分けてたす」と解けるね。1袋23個のお菓子が4袋で92個、できたね！',
-        hint: '20×4と3×4を別に'{{計算|けいさん}|けいさん}'してみよう',
+        hint: '20×4と3×4を別に{計算|けいさん}してみよう',
       ),
       QuizQuestion(
         id: 'g4s3q2', type: MathTopicType.multiplication, grade: 4,
@@ -3042,7 +3042,7 @@ const _grade4Stages = [
         question: '12 × 12 = ?',
         choices: ['124', '134', '144', '154'],
         correctIndex: 2,
-        explanation: '12 × 12 = 144 だよ！12 × 10 = 120、12 × 2 = 24、120 + 24 = 144 ！12個入りの卵パックが12箱で144個。縦12・横12のマス目を'{数|かず}'えても144になるよ。くふうして{計算|けいさん}できたね！',
+        explanation: '12 × 12 = 144 だよ！12 × 10 = 120、12 × 2 = 24、120 + 24 = 144 ！12個入りの卵パックが12箱で144個。縦12・横12のマス目を{数|かず}えても144になるよ。くふうして{計算|けいさん}できたね！',
       ),
       QuizQuestion(
         id: 'g4s3q5', type: MathTopicType.multiplication, grade: 4,
@@ -3055,7 +3055,7 @@ const _grade4Stages = [
   ),
   Stage(
     stageNumber: 4,
-    title: '{{面積|めんせき}|めんせき}',
+    title: '{面積|めんせき}',
     grade: 4,
     topicType: MathTopicType.geometry,
     questions: [
@@ -3169,7 +3169,7 @@ const _grade4Stages = [
   ),
   Stage(
     stageNumber: 6,
-    title: '{{角度|かくど}|かくど}',
+    title: '{角度|かくど}',
     grade: 4,
     topicType: MathTopicType.geometry,
     questions: [
@@ -3365,7 +3365,7 @@ const _grade4Stages = [
   ),
   Stage(
     stageNumber: 9,
-    title: '{{小数|しょうすう}|しょうすう}のかけ{算|ざん}・{割|わ}り{算|ざん}',
+    title: '{小数|しょうすう}のかけ{算|ざん}・{割|わ}り{算|ざん}',
     grade: 4,
     topicType: MathTopicType.decimal,
     questions: [
@@ -3418,7 +3418,7 @@ const _grade4Stages = [
   ),
   Stage(
     stageNumber: 10,
-    title: '{{平行|へいこう}|へいこう}と{{垂直|すいちょく}|すいちょく}',
+    title: '{平行|へいこう}と{垂直|すいちょく}',
     grade: 4,
     topicType: MathTopicType.geometry,
     questions: [
@@ -3519,7 +3519,7 @@ const _grade4Stages = [
   ),
   Stage(
     stageNumber: 12,
-    title: '{{面積|めんせき}|めんせき}の{応用|おうよう}',
+    title: '{面積|めんせき}の{応用|おうよう}',
     grade: 4,
     topicType: MathTopicType.geometry,
     questions: [
@@ -3572,7 +3572,7 @@ const _grade4Stages = [
   ),
   Stage(
     stageNumber: 13,
-    title: '{式|しき}の{{計算|けいさん}|けいさん}（{{計算|けいさん}|けいさん}の{順序|じゅんじょ}）',
+    title: '{式|しき}の{計算|けいさん}（{計算|けいさん}の{順序|じゅんじょ}）',
     grade: 4,
     topicType: MathTopicType.addition,
     questions: [
@@ -3719,7 +3719,7 @@ const _grade4Stages = [
   ),
   Stage(
     stageNumber: 16,
-    title: '{{直方体|ちょくほうたい}|ちょくほうたい}と{{立方体|りっぽうたい}|りっぽうたい}',
+    title: '{直方体|ちょくほうたい}と{立方体|りっぽうたい}',
     grade: 4,
     topicType: MathTopicType.geometry,
     questions: [
@@ -3755,7 +3755,7 @@ const _grade4Stages = [
   ),
   Stage(
     stageNumber: 17,
-    title: '{単{位|くらい}|たんい}{{換算|かんさん}|かんさん}まとめ（{長|なが}さ・{重|おも}さ・{{面積|めんせき}|めんせき}）',
+    title: '{単位|たんい}{換算|かんさん}まとめ（{長|なが}さ・{重|おも}さ・{面積|めんせき}）',
     grade: 4,
     topicType: MathTopicType.word,
     questions: [
@@ -3907,7 +3907,7 @@ const _grade5Stages = [
   ),
   Stage(
     stageNumber: 2,
-    title: '{{小数|しょうすう}|しょうすう}のかけ{算|ざん}・{割|わ}り{算|ざん}',
+    title: '{小数|しょうすう}のかけ{算|ざん}・{割|わ}り{算|ざん}',
     grade: 5,
     topicType: MathTopicType.decimal,
     questions: [
@@ -3951,7 +3951,7 @@ const _grade5Stages = [
   ),
   Stage(
     stageNumber: 3,
-    title: '{速|はや}さ・{{時間|じかん}|じかん}・{{距離|きょり}|きょり}',
+    title: '{速|はや}さ・{時間|じかん}・{距離|きょり}',
     grade: 5,
     topicType: MathTopicType.word,
     questions: [
@@ -3995,7 +3995,7 @@ const _grade5Stages = [
   ),
   Stage(
     stageNumber: 4,
-    title: '{{割合|わりあい}|わりあい}とパーセント',
+    title: '{割合|わりあい}とパーセント',
     grade: 5,
     topicType: MathTopicType.fraction,
     questions: [
@@ -4039,7 +4039,7 @@ const _grade5Stages = [
   ),
   Stage(
     stageNumber: 5,
-    title: '{{通分|つうぶん}|つうぶん}・{異{分母|ぶんぼ}|いぶんぼ}の{足|た}し{引|ひ}き',
+    title: '{通分|つうぶん}・{異分母|いぶんぼ}の{足|た}し{引|ひ}き',
     grade: 5,
     topicType: MathTopicType.fraction,
     questions: [
@@ -4110,7 +4110,7 @@ const _grade5Stages = [
   ),
   Stage(
     stageNumber: 6,
-    title: '{{三角形|さんかくけい}|さんかくけい}・{{四角形|しかくけい}|しかくけい}の{{面積|めんせき}|めんせき}',
+    title: '{三角形|さんかくけい}・{四角形|しかくけい}の{面積|めんせき}',
     grade: 5,
     topicType: MathTopicType.geometry,
     questions: [
@@ -4179,7 +4179,7 @@ const _grade5Stages = [
   ),
   Stage(
     stageNumber: 7,
-    title: '{{倍数|ばいすう}|ばいすう}と{{約数|やくすう}|やくすう}',
+    title: '{倍数|ばいすう}と{約数|やくすう}',
     grade: 5,
     topicType: MathTopicType.division,
     questions: [
@@ -4250,7 +4250,7 @@ const _grade5Stages = [
   ),
   Stage(
     stageNumber: 8,
-    title: '{{体積|たいせき}|たいせき}',
+    title: '{体積|たいせき}',
     grade: 5,
     topicType: MathTopicType.geometry,
     questions: [
@@ -4320,7 +4320,7 @@ const _grade5Stages = [
   ),
   Stage(
     stageNumber: 9,
-    title: '{整数|せいすう}と{{小数|しょうすう}|しょうすう}の{関係|かんけい}',
+    title: '{整数|せいすう}と{小数|しょうすう}の{関係|かんけい}',
     grade: 5,
     topicType: MathTopicType.decimal,
     questions: [
@@ -4372,7 +4372,7 @@ const _grade5Stages = [
   ),
   Stage(
     stageNumber: 10,
-    title: '{{百分率|ひゃくぶんりつ}|ひゃくぶんりつ}と{{歩合|ぶあい}|ぶあい}',
+    title: '{百分率|ひゃくぶんりつ}と{歩合|ぶあい}',
     grade: 5,
     topicType: MathTopicType.fraction,
     questions: [
@@ -4425,7 +4425,7 @@ const _grade5Stages = [
   ),
   Stage(
     stageNumber: 11,
-    title: '{単{位|くらい}量|たんいりょう}あたり・{{平均|へいきん}|へいきん}',
+    title: '{単位量|たんいりょう}あたり・{平均|へいきん}',
     grade: 5,
     topicType: MathTopicType.word,
     questions: [
@@ -4477,7 +4477,7 @@ const _grade5Stages = [
   ),
   Stage(
     stageNumber: 12,
-    title: '{{三角形|さんかくけい}|さんかくけい}と{{四角形|しかくけい}|しかくけい}の{{面積|めんせき}|めんせき}',
+    title: '{三角形|さんかくけい}と{四角形|しかくけい}の{面積|めんせき}',
     grade: 5,
     topicType: MathTopicType.geometry,
     questions: [
@@ -4680,7 +4680,7 @@ const _grade5Stages = [
   ),
   Stage(
     stageNumber: 16,
-    title: '{{三角形|さんかくけい}|さんかくけい}・{{平行|へいこう}四辺形|へいこうしへんけい}の{{面積|めんせき}|めんせき}',
+    title: '{三角形|さんかくけい}・{平行四辺形|へいこうしへんけい}の{面積|めんせき}',
     grade: 5,
     topicType: MathTopicType.geometry,
     questions: [
@@ -4852,14 +4852,14 @@ const _grade6Stages = [
         question: 'x - 8 = 15 のとき、x = ?',
         choices: ['21', '22', '23', '24'],
         correctIndex: 2,
-        explanation: 'x - 8 = 15 の式で x を求めるよ！両辺に8をたすと x = 15 + 8 = 23！「引いてあるなら足して戻す」が逆算の考え方だよ。確かめに23-8=15を'{{計算|けいさん}|けいさん}'してみよう！',
+        explanation: 'x - 8 = 15 の式で x を求めるよ！両辺に8をたすと x = 15 + 8 = 23！「引いてあるなら足して戻す」が逆算の考え方だよ。確かめに23-8=15を{計算|けいさん}してみよう！',
       ),
       QuizQuestion(
         id: 'g6s1q4', type: MathTopicType.word, grade: 6,
         question: 'x ÷ 4 = 9 のとき、x = ?',
         choices: ['32', '34', '36', '38'],
         correctIndex: 2,
-        explanation: 'x ÷ 4 = 9 の式で x を求めるよ！両辺に4をかけると x = 9 × 4 = 36！「割ってあるならかけて戻す」が逆算のコツ。確かめに36÷4=9を'{{計算|けいさん}|けいさん}'してみよう！できたね！',
+        explanation: 'x ÷ 4 = 9 の式で x を求めるよ！両辺に4をかけると x = 9 × 4 = 36！「割ってあるならかけて戻す」が逆算のコツ。確かめに36÷4=9を{計算|けいさん}してみよう！できたね！',
       ),
       QuizQuestion(
         id: 'g6s1q5', type: MathTopicType.word, grade: 6,
@@ -4916,7 +4916,7 @@ const _grade6Stages = [
   ),
   Stage(
     stageNumber: 3,
-    title: '{円|えん}の{{面積|めんせき}|めんせき}',
+    title: '{円|えん}の{面積|めんせき}',
     grade: 6,
     topicType: MathTopicType.geometry,
     questions: [
@@ -5073,7 +5073,7 @@ const _grade6Stages = [
   ),
   Stage(
     stageNumber: 6,
-    title: '{{比例|ひれい}|ひれい}と{反{比例|ひれい}|はんひれい}',
+    title: '{比例|ひれい}と{反比例|はんひれい}',
     grade: 6,
     topicType: MathTopicType.word,
     questions: [
@@ -5145,40 +5145,40 @@ const _grade6Stages = [
   ),
   Stage(
     stageNumber: 7,
-    title: '{{線{対称|たいしょう}|せんたいしょう}|せんたいしょう}と{{点{対称|たいしょう}|てんたいしょう}|てんたいしょう}',
+    title: '{線対称|せんたいしょう}と{点対称|てんたいしょう}',
     grade: 6,
     topicType: MathTopicType.geometry,
     questions: [
       QuizQuestion(
         id: 'g6s7q1', type: MathTopicType.geometry, grade: 6,
         question: '折ったときにぴったり重なる{図形|ずけい}を何という？',
-        choices: ['{点{対称|たいしょう}|てんたいしょう}', '{線{対称|たいしょう}|せんたいしょう}', '回転{対称|たいしょう}', '{平行|へいこう}'],
+        choices: ['{点対称|てんたいしょう}', '{線対称|せんたいしょう}', '回転{対称|たいしょう}', '{平行|へいこう}'],
         correctIndex: 1,
-        explanation: '折ったときにぴったり重なる{図形|ずけい}が「{線{対称|たいしょう}|せんたいしょう}」だよ！折り目の線を「{対称|たいしょう}の軸」というよ。ちょうちょや葉っぱを思い浮かべてみて！{左|ひだり}{右|みぎ}がそっくりだよね。対応する点は軸から{同|おな}じ{距離|きょり}にあって、軸と{垂直|すいちょく}に結ばれるよ！',
+        explanation: '折ったときにぴったり重なる{図形|ずけい}が「{線対称|せんたいしょう}」だよ！折り目の線を「{対称|たいしょう}の軸」というよ。ちょうちょや葉っぱを思い浮かべてみて！{左|ひだり}{右|みぎ}がそっくりだよね。対応する点は軸から{同|おな}じ{距離|きょり}にあって、軸と{垂直|すいちょく}に結ばれるよ！',
         hint: '折り目（軸）で折って重なる',
       ),
       QuizQuestion(
         id: 'g6s7q2', type: MathTopicType.geometry, grade: 6,
-        question: '{線{対称|たいしょう}|せんたいしょう}な{図形|ずけい}はどれ？',
+        question: '{線対称|せんたいしょう}な{図形|ずけい}はどれ？',
         choices: ['不規則な{図形|ずけい}', '正{三角形|さんかくけい}', 'Z', 'N'],
         correctIndex: 1,
-        explanation: '正{三角形|さんかくけい}は3本の{対称|たいしょう}の軸をもつ{線{対称|たいしょう}|せんたいしょう}な{図形|ずけい}だよ！各頂点から向かい合う辺の真ん中に引いた線が軸になるよ。3つの頂点それぞれから1本ずつ、合わせて3本！正{三角形|さんかくけい}は3辺・3角が全部{等|ひと}しいから、どこで折ってもぴったり重なるね！',
+        explanation: '正{三角形|さんかくけい}は3本の{対称|たいしょう}の軸をもつ{線対称|せんたいしょう}な{図形|ずけい}だよ！各頂点から向かい合う辺の真ん中に引いた線が軸になるよ。3つの頂点それぞれから1本ずつ、合わせて3本！正{三角形|さんかくけい}は3辺・3角が全部{等|ひと}しいから、どこで折ってもぴったり重なるね！',
         hint: '折ってぴったり重なるか考えよう',
       ),
       QuizQuestion(
         id: 'g6s7q3', type: MathTopicType.geometry, grade: 6,
         question: '180度回転させると元と重なる{図形|ずけい}を何という？',
-        choices: ['{線{対称|たいしょう}|せんたいしょう}', '{点{対称|たいしょう}|てんたいしょう}', '合同', '相似'],
+        choices: ['{線対称|せんたいしょう}', '{点対称|てんたいしょう}', '合同', '相似'],
         correctIndex: 1,
-        explanation: '180度（半回転）させると元とぴったり重なる{図形|ずけい}を「{点{対称|たいしょう}|てんたいしょう}」というよ！回転の中心を「{対称|たいしょう}の中心」と呼ぶよ。トランプの{数字|すうじ}カードを思い浮かべて！上下逆にしても{同|おな}じ形だよね。それが{点{対称|たいしょう}|てんたいしょう}の特ちょうだよ！',
+        explanation: '180度（半回転）させると元とぴったり重なる{図形|ずけい}を「{点対称|てんたいしょう}」というよ！回転の中心を「{対称|たいしょう}の中心」と呼ぶよ。トランプの{数字|すうじ}カードを思い浮かべて！上下逆にしても{同|おな}じ形だよね。それが{点対称|てんたいしょう}の特ちょうだよ！',
         hint: '180度回すと重なる',
       ),
       QuizQuestion(
         id: 'g6s7q4', type: MathTopicType.geometry, grade: 6,
-        question: '{点{対称|たいしょう}|てんたいしょう}な{図形|ずけい}はどれ？',
+        question: '{点対称|てんたいしょう}な{図形|ずけい}はどれ？',
         choices: ['正{三角形|さんかくけい}', 'A', '{平行|へいこう}四辺形', 'T'],
         correctIndex: 2,
-        explanation: '{平行|へいこう}四辺形は180度回転させると元に重なる「{点{対称|たいしょう}|てんたいしょう}」な{図形|ずけい}だよ！対角線の交わる点が{対称|たいしょう}の中心だよ。2本の対角線をそれぞれ2等分することが特ちょうで、この交点を中心に半回転するとぴったり重なるよ！確かめてみてね！',
+        explanation: '{平行|へいこう}四辺形は180度回転させると元に重なる「{点対称|てんたいしょう}」な{図形|ずけい}だよ！対角線の交わる点が{対称|たいしょう}の中心だよ。2本の対角線をそれぞれ2等分することが特ちょうで、この交点を中心に半回転するとぴったり重なるよ！確かめてみてね！',
       ),
       QuizQuestion(
         id: 'g6s7q5', type: MathTopicType.geometry, grade: 6,
@@ -5190,24 +5190,24 @@ const _grade6Stages = [
       ),
       QuizQuestion(
         id: 'g6s7q6', type: MathTopicType.geometry, grade: 6,
-        question: '{線{対称|たいしょう}|せんたいしょう}でも{点{対称|たいしょう}|てんたいしょう}でもある{図形|ずけい}はどれ？',
+        question: '{線対称|せんたいしょう}でも{点対称|てんたいしょう}でもある{図形|ずけい}はどれ？',
         choices: ['正{三角形|さんかくけい}のみ', '正方形のみ', '正方形と正六角形', 'どれもない'],
         correctIndex: 2,
-        explanation: '正方形は4本の軸で「{線{対称|たいしょう}|せんたいしょう}」かつ「{点{対称|たいしょう}|てんたいしょう}」の両方だよ！縦・横・斜め2本の計4本が{対称|たいしょう}の軸で、対角線の交点が{対称|たいしょう}の中心だよ。正六角形も{同|おな}じように{線{対称|たいしょう}|せんたいしょう}（6本）かつ{点{対称|たいしょう}|てんたいしょう}！正多角形は両方の{対称|たいしょう}をもつことが多いよ！',
+        explanation: '正方形は4本の軸で「{線対称|せんたいしょう}」かつ「{点対称|てんたいしょう}」の両方だよ！縦・横・斜め2本の計4本が{対称|たいしょう}の軸で、対角線の交点が{対称|たいしょう}の中心だよ。正六角形も{同|おな}じように{線対称|せんたいしょう}（6本）かつ{点対称|てんたいしょう}！正多角形は両方の{対称|たいしょう}をもつことが多いよ！',
       ),
       QuizQuestion(
         id: 'g6s7q7', type: MathTopicType.geometry, grade: 6,
-        question: '{線{対称|たいしょう}|せんたいしょう}な{図形|ずけい}で、対応する2点を結ぶ線は{対称|たいしょう}の軸と？',
+        question: '{線対称|せんたいしょう}な{図形|ずけい}で、対応する2点を結ぶ線は{対称|たいしょう}の軸と？',
         choices: ['{平行|へいこう}', '{垂直|すいちょく}に交わる', '斜めに交わる', '交わらない'],
         correctIndex: 1,
-        explanation: '{線{対称|たいしょう}|せんたいしょう}の{図形|ずけい}で、対応する2点（たとえばAとA）を結ぶ線は、{対称|たいしょう}の軸とぴったり{垂直|すいちょく}（90度）に交わるよ！しかもその交点で2等分されるんだ。折り紙を折ると確かめられるよ。対応する点は軸から{同|おな}じ{距離|きょり}にあるね！',
+        explanation: '{線対称|せんたいしょう}の{図形|ずけい}で、対応する2点（たとえばAとA）を結ぶ線は、{対称|たいしょう}の軸とぴったり{垂直|すいちょく}（90度）に交わるよ！しかもその交点で2等分されるんだ。折り紙を折ると確かめられるよ。対応する点は軸から{同|おな}じ{距離|きょり}にあるね！',
       ),
       QuizQuestion(
         id: 'g6s7q8', type: MathTopicType.geometry, grade: 6,
-        question: 'アルファベットのHは{線{対称|たいしょう}|せんたいしょう}？{点{対称|たいしょう}|てんたいしょう}？',
-        choices: ['{線{対称|たいしょう}|せんたいしょう}のみ', '{点{対称|たいしょう}|てんたいしょう}のみ', '両方', 'どちらでもない'],
+        question: 'アルファベットのHは{線対称|せんたいしょう}？{点対称|てんたいしょう}？',
+        choices: ['{線対称|せんたいしょう}のみ', '{点対称|てんたいしょう}のみ', '両方', 'どちらでもない'],
         correctIndex: 2,
-        explanation: 'アルファベットの「H」は{線{対称|たいしょう}|せんたいしょう}かつ{点{対称|たいしょう}|てんたいしょう}だよ！横に折っても縦に折ってもぴったり重なるから{対称|たいしょう}の軸が2本あるよ。さらに180度回転させてもHのまま！だから{点{対称|たいしょう}|てんたいしょう}でもあるんだ。身の回りの文字で{対称|たいしょう}を探すのも楽しいね！',
+        explanation: 'アルファベットの「H」は{線対称|せんたいしょう}かつ{点対称|てんたいしょう}だよ！横に折っても縦に折ってもぴったり重なるから{対称|たいしょう}の軸が2本あるよ。さらに180度回転させてもHのまま！だから{点対称|てんたいしょう}でもあるんだ。身の回りの文字で{対称|たいしょう}を探すのも楽しいね！',
       ),
     ],
   ),
@@ -5285,7 +5285,7 @@ const _grade6Stages = [
   ),
   Stage(
     stageNumber: 9,
-    title: '{{拡大|かくだい}図|かくだいず}と{縮図|しゅくず}',
+    title: '{拡大図|かくだいず}と{縮図|しゅくず}',
     grade: 6,
     topicType: MathTopicType.geometry,
     questions: [
@@ -5441,7 +5441,7 @@ const _grade6Stages = [
   ),
   Stage(
     stageNumber: 12,
-    title: '{{比例|ひれい}|ひれい}と{反{比例|ひれい}|はんひれい}',
+    title: '{比例|ひれい}と{反比例|はんひれい}',
     grade: 6,
     topicType: MathTopicType.word,
     questions: [
@@ -5492,7 +5492,7 @@ const _grade6Stages = [
   ),
   Stage(
     stageNumber: 13,
-    title: '{{資料|しりょう}|しりょう}の{{整理|せいり}|せいり}と{{活用|かつよう}|かつよう}',
+    title: '{資料|しりょう}の{整理|せいり}と{活用|かつよう}',
     grade: 6,
     topicType: MathTopicType.word,
     questions: [
@@ -5604,7 +5604,7 @@ const _grade6Stages = [
 
   Stage(
     stageNumber: 15,
-    title: 'データの{{活用|かつよう}|かつよう}（{{平均|へいきん}|へいきん}・{{最頻値|さいひんち}|さいひんち}・{{中央値|ちゅうおうち}|ちゅうおうち}）',
+    title: 'データの{活用|かつよう}（{平均|へいきん}・{最頻値|さいひんち}・{中央値|ちゅうおうち}）',
     grade: 6,
     topicType: MathTopicType.word,
     questions: [
@@ -5674,7 +5674,7 @@ const _grade6Stages = [
   ),
   Stage(
     stageNumber: 16,
-    title: '{角柱|かくちゅう}と{円柱|えんちゅう}の{{体積|たいせき}|たいせき}',
+    title: '{角柱|かくちゅう}と{円柱|えんちゅう}の{体積|たいせき}',
     grade: 6,
     topicType: MathTopicType.geometry,
     questions: [
