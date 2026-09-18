@@ -150,12 +150,14 @@ class _SettingsTabContent extends StatelessWidget {
           const SizedBox(height: 24),
           Center(
             child: ElevatedButton.icon(
-              onPressed: () {
-                ref.read(logoutProvider.notifier).state;
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                  '/login',
-                  (route) => false,
-                );
+              onPressed: () async {
+                final success = await ref.read(logoutWithUIProvider.notifier).logout();
+                if (success && context.mounted) {
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                    '/login',
+                    (route) => false,
+                  );
+                }
               },
               icon: const Icon(Icons.logout),
               label: const Text('ログアウト'),
