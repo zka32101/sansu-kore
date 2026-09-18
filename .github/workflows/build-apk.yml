@@ -48,6 +48,12 @@ jobs:
         flutter-version: '3.44.0'
         channel: 'stable'
 
+    - name: Clean dependencies and cache
+      run: |
+        flutter clean
+        rm -f pubspec.lock
+        rm -rf .dart_tool/
+
     - name: Install dependencies
       run: flutter pub get
 
@@ -99,6 +105,12 @@ jobs:
         flutter-version: '3.44.0'
         channel: 'stable'
 
+    - name: Clean dependencies and cache
+      run: |
+        flutter clean
+        rm -f pubspec.lock
+        rm -rf .dart_tool/
+
     - name: Install dependencies
       run: flutter pub get
 
@@ -130,6 +142,12 @@ jobs:
       with:
         flutter-version: '3.44.0'
         channel: 'stable'
+
+    - name: Clean dependencies and cache
+      run: |
+        flutter clean
+        rm -f pubspec.lock
+        rm -rf .dart_tool/
 
     - name: Install dependencies
       run: flutter pub get
