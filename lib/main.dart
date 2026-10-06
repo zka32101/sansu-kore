@@ -19,7 +19,6 @@ import 'screens/invite_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/math_guide_screen.dart';
 import 'screens/onboarding_screen.dart';
-import 'screens/org_splash_screen.dart';
 import 'screens/privacy_policy_screen.dart';
 import 'screens/profile_selection_screen.dart';
 import 'screens/quest_screen.dart';
@@ -31,9 +30,14 @@ import 'screens/infinite_practice_screen.dart';
 import 'screens/upgrade_screen.dart';
 import 'screens/analysis_dashboard_screen.dart';
 import 'theme/app_theme.dart';
+import 'widgets/startup_splash.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // 初期化が終わるまで組織ロゴ付きの起動画面を出す。
+  // 初期化後に下の本来の runApp で差し替わる。
+  runApp(const MaterialApp(debugShowCheckedModeBanner: false, home: StartupSplash()));
 
   // 環境変数読み込み
   await dotenv.load();
@@ -83,7 +87,7 @@ class SansuKoreApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => const OrgSplashScreen(),
+        '/': (context) => const SplashScreen(),
         '/app-splash': (context) => const SplashScreen(),
         '/onboarding': (context) => const OnboardingScreen(),
         '/profile-selection': (context) => const ProfileSelectionScreen(),

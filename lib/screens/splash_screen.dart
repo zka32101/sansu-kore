@@ -11,6 +11,7 @@ import '../providers/profile_provider.dart';
 import '../providers/progress_provider.dart';
 import '../services/firebase_service.dart';
 import '../theme/app_theme.dart';
+import '../widgets/startup_splash.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
@@ -86,7 +87,8 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
             end: Alignment.bottomRight,
           ),
         ),
-        child: Center(
+        child: Stack(children: [
+        Center(
           child: AnimatedBuilder(
             animation: _ctrl,
             builder: (_, __) => FadeTransition(
@@ -135,6 +137,12 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
             ),
           ),
         ),
+        // 下部に組織ロゴ
+        const Align(
+          alignment: Alignment.bottomCenter,
+          child: OrgLogoFooter(),
+        ),
+        ]),
       ),
     );
   }
