@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shared_core/shared_core.dart' show CrossPromoSection, AnalyticsDashboard;
+import 'package:shared_core/shared_core.dart' show CrossPromoSection, AnalyticsDashboard, requireParentalGate;
 import '../providers/profile_provider.dart';
 import '../providers/progress_provider.dart';
 import '../providers/premium_provider.dart';
@@ -144,8 +144,10 @@ class _SettingsTabContent extends StatelessWidget {
             onTap: () => Navigator.of(context).pushNamed('/privacy'),
           ),
           const SizedBox(height: 16),
-          const CrossPromoSection(
-            currentAppId: 'sansu-kore',
+          CrossPromoSection(
+            currentAppId: 'com.petitworksapps.shougakukore.sansu',
+            currentCategory: '小学コレ',
+            beforeOpenStore: (context) => requireParentalGate(context),
           ),
           const SizedBox(height: 24),
           Center(
