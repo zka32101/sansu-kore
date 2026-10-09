@@ -65,7 +65,16 @@ flutter:
     - assets/app_icon/
     - assets/avatars/
     - assets/legal/
-    - assets/characters/tier1/
-    - assets/characters/tier2/
-    - assets/characters/tier3/
-    - assets/characters/tier4/
+    - assets/characters/tier1/fouku/
+    - assets/characters/tier1/ichiko/
+    - assets/characters/tier1/niniko/
+    - assets/characters/tier1/trai/
+    - assets/characters/tier2/divido/
+    - assets/characters/tier2/foxmy/
+    - assets/characters/tier2/gogo/
+    - assets/characters/tier2/multiko/
+    - assets/characters/tier2/plaruga/
+    - assets/characters/tier3/calcuku/
+    - assets/characters/tier3/fukuju/
+    - assets/characters/tier3/geome/
+    - assets/characters/tier4/plus_minus/
