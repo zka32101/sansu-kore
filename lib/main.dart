@@ -1,3 +1,4 @@
+import 'dart:async' show unawaited;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -53,14 +54,17 @@ Future<void> main() async {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
-    // TODO: CrossPromoService がクラッシュループの原因の可能性
-    // 一時的にコメントアウトして起動テスト
-    // await CrossPromoService.init();
   } catch (e) {
     if (kDebugMode) {
       print('❌ Firebase init error: $e');
     }
   }
+
+  // クロスプロモ（他アプリ紹介）の掲載リストを取得する。
+  // 起動をブロックしないよう待たない。init() は内部で例外を握りつぶし、
+  // 失敗時は空リスト扱い（紹介カード非表示）になる。
+  // 以前のクラッシュループの真因は equippedItemsProvider の override 漏れだった（53b1c6c）。
+  unawaited(CrossPromoService.init());
 
   runApp(ProviderScope(
     overrides: [
