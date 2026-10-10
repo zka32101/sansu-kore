@@ -147,6 +147,7 @@ class _SettingsTabContent extends StatelessWidget {
           CrossPromoSection(
             currentAppId: 'com.petitworksapps.shougakukore.sansu',
             currentCategory: '小学コレ',
+            isChildDirected: true,
             beforeOpenStore: (context) => requireParentalGate(context),
           ),
           const SizedBox(height: 24),
