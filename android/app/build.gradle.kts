@@ -1,9 +1,18 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
     id("dev.flutter.flutter-gradle-plugin")
     id("com.google.gms.google-services")
 }
+
+// 署名情報は android/key.properties（CI では Secrets から生成）から読む。リポジトリに鍵・パスワードを置かない。
+val keystoreProperties = Properties().apply {
+    val f = rootProject.file("key.properties")
+    if (f.exists()) f.inputStream().use { load(it) }
+}
+val hasReleaseSigning = keystoreProperties.containsKey("storeFile")
 
 android {
     namespace = "com.petitworksapps.shougakukore.sansu"
@@ -21,11 +30,13 @@ android {
     }
 
     signingConfigs {
-        create("release") {
-            storeFile = file("key.jks")
-            storePassword = "petitworks2026!"
-            keyAlias = "key"
-            keyPassword = "petitworks2026!"
+        if (hasReleaseSigning) {
+            create("release") {
+                keyAlias = keystoreProperties["keyAlias"] as String
+                keyPassword = keystoreProperties["keyPassword"] as String
+                storeFile = file(keystoreProperties["storeFile"] as String)
+                storePassword = keystoreProperties["storePassword"] as String
+            }
         }
     }
 
@@ -50,7 +61,12 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            signingConfig = signingConfigs.getByName("release")
+            // key.properties が無いローカル環境では debug 署名でビルドを通す（配信不可）。
+            signingConfig = if (hasReleaseSigning) {
+                signingConfigs.getByName("release")
+            } else {
+                signingConfigs.getByName("debug")
+            }
         }
     }
 }
