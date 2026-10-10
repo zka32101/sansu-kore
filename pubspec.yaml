@@ -57,14 +57,6 @@ flutter_launcher_icons:
   adaptive_icon_background: "#FFFFFF"
   adaptive_icon_foreground: "assets/app_icon/app_icon.png"
 
-# shared_core 経由で入る cross_promo_kit を v0.3.0（isChildDirected・自動再描画対応）に固定する。
-# shared_core 側が v0.3.0 以降を参照するようになったら削除してよい。
-dependency_overrides:
-  cross_promo_kit:
-    git:
-      url: https://github.com/zka32101/cross_promo_kit.git
-      ref: v0.3.0
-
 flutter:
   uses-material-design: true
 
