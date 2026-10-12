@@ -7,17 +7,11 @@
 -keep class io.flutter.plugins.** { *; }
 -keep class io.flutter.embedding.** { *; }
 
-# App MainActivity (keep all classes in the app package)
--keep class com.petitworksapps.shougakukore.sansu.** { *; }
-
-# Firebase
--keep class com.google.firebase.** { *; }
--keep class com.google.android.gms.** { *; }
+# Firebase / Google Play services / Kotlin は consumer-rules 同梱のため丸ごと保持しない（難読化率向上）
 -dontwarn com.google.firebase.**
 -dontwarn com.google.android.gms.**
 
 # Kotlin
--keep class kotlin.** { *; }
 -keepclassmembers class kotlin.Metadata { *; }
 -dontwarn kotlin.**
 
