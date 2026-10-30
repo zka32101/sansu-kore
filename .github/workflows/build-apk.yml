@@ -43,6 +43,12 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    # ubuntu-latest の既定 JDK が 25 になり、Gradle/Kotlin が 25.0.5 を解釈できず失敗するため、JDK を固定する。
+    - uses: actions/setup-java@v4
+      with:
+        distribution: temurin
+        java-version: '17'
+
     - uses: subosito/flutter-action@v2
       with:
         flutter-version: '3.44.0'
