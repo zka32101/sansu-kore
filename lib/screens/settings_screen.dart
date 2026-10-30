@@ -9,6 +9,8 @@ import '../providers/adaptive_provider.dart';
 import '../providers/logout_provider.dart';
 import '../providers/sansu_profile_provider.dart';
 import '../theme/app_theme.dart';
+import '../widgets/retention/reminder_switch.dart';
+import '../widgets/retention/study_window_tile.dart';
 
 class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({super.key});
@@ -107,6 +109,11 @@ class _SettingsTabContent extends StatelessWidget {
               ),
             ),
           ),
+          const SizedBox(height: 16),
+          _SectionHeader('学習のおしらせ'),
+          const ReminderSwitchTile(),
+          const SizedBox(height: 8),
+          const StudyWindowTile(),
           const SizedBox(height: 16),
           _SectionHeader('プラン'),
           _SettingCard(

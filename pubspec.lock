@@ -424,7 +424,7 @@ packages:
     source: hosted
     version: "6.0.0"
   flutter_local_notifications:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: flutter_local_notifications
       sha256: ef41ae901e7529e52934feba19ed82827b11baa67336829564aeab3129460610
@@ -902,7 +902,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: "3d7cd30a1fbd8709af17d63b03497ffe33342b35"
+      resolved-ref: b2c1df6222f657713dd2f23cfe561f656eb36345
       url: "https://github.com/zka32101/shared_core.git"
     source: git
     version: "0.1.1"

@@ -12,6 +12,7 @@ import '../models/quest_model.dart';
 import '../screens/daily_bonus_screen.dart';
 import '../screens/math_guide_screen.dart';
 import '../widgets/furigana_text.dart';
+import '../widgets/retention/retention_section.dart';
 import '../theme/app_theme.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
@@ -140,6 +141,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               coinCount: coins.totalCoins,
             ),
           ),
+
+          // 定着率施策（初回7日間のごほうび・今週の目標）
+          const SliverToBoxAdapter(child: RetentionSection()),
 
           // ウィークリーチャレンジカード
           SliverToBoxAdapter(
