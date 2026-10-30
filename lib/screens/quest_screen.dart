@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/quest_model.dart';
 import '../providers/adaptive_provider.dart';
+import '../services/retention_hooks.dart';
 import '../providers/ghost_provider.dart';
 import '../providers/profile_provider.dart';
 import '../providers/sansu_profile_provider.dart';
@@ -248,6 +249,10 @@ class _QuestScreenState extends ConsumerState<QuestScreen>
           correct: _isCorrect ? 1 : 0,
           total: 1,
         );
+
+    // 定着率施策（連続正解ボーナス・週次目標・復習キュー・おしらせ予約）
+    onQuizAnswered(ref,
+        quizId: _current.id, correct: _isCorrect, context: context);
   }
 
   void _onNext() {

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../data/infinite_generator.dart';
 import '../models/quest_model.dart';
 import '../providers/adaptive_provider.dart';
+import '../services/retention_hooks.dart';
 import '../providers/profile_provider.dart';
 import '../theme/app_theme.dart';
 import '../widgets/furigana_text.dart';
@@ -118,6 +119,13 @@ class _InfinitePracticeScreenState
           correct: isCorrect ? 1 : 0,
           total: 1,
         );
+
+    // 定着率施策（連続正解ボーナス・週次目標・復習キュー・おしらせ予約）
+    onQuizAnswered(ref,
+        quizId: _current.id,
+        correct: isCorrect,
+        context: context,
+        recordReview: false);
 
     setState(() {
       _selectedAnswer = index;

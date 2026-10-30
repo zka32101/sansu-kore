@@ -31,6 +31,7 @@ import 'screens/infinite_practice_screen.dart';
 import 'screens/upgrade_screen.dart';
 import 'screens/analysis_dashboard_screen.dart';
 import 'theme/app_theme.dart';
+import 'services/retention_hooks.dart';
 import 'widgets/startup_splash.dart';
 
 Future<void> main() async {
@@ -66,7 +67,7 @@ Future<void> main() async {
   // 以前のクラッシュループの真因は equippedItemsProvider の override 漏れだった（53b1c6c）。
   unawaited(CrossPromoService.init());
 
-  runApp(ProviderScope(
+  final container = ProviderContainer(
     overrides: [
       // 算数コレのキャラクターノティファイアを注入
       characterStateProvider.overrideWith(CharacterNotifier.new),
@@ -76,6 +77,13 @@ Future<void> main() async {
       //   真っ白のまま止まる原因になる）
       equippedItemsProvider.overrideWith(EquippedItemsNotifier.new),
     ],
+  );
+
+  // 定着率施策（shared_core の retention）の保存データを読み込む
+  await initRetention(container);
+
+  runApp(UncontrolledProviderScope(
+    container: container,
     child: const SansuKoreApp(),
   ));
 }
